@@ -149,6 +149,9 @@ flowchart TD
     class Events highlight;
 ```
 
+### System Architecture Infographic
+![NeuroTutor AI System Architecture](designs/architecture_diagram.png)
+
 ### 1. Session Initialization
 When a learning session begins:
 1. Student selects a subject and topic.
