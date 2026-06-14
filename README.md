@@ -107,40 +107,46 @@ Below is the directory tree of the `Neurolearn_aitutor` codebase:
 
 ```mermaid
 flowchart TD
+    Start([Student Starts Session]) --> Init[1. Initialize Focus & Confusion Engine]
+    Init --> Explain[2. AI Tutor Explains Topic]
+    
+    subgraph Monitoring [Real-Time Monitoring Layer]
+        Camera[Camera Activity Tracking]
+        Tab[Tab-Switching & Inactivity]
+    end
+    Explain --> Monitoring
+    
+    Monitoring --> Events{3. Event Generator}
+    Events -->|Spikes Generated| ConfEngine[4. Confusion Score Engine]
+    
+    subgraph AdaptEngine [5. Adaptive Pedagogy Engine]
+        ConfEngine -->|0 - 30| Mode1[Standard Explanations]
+        ConfEngine -->|31 - 50| Mode2[Simplified Explanations]
+        ConfEngine -->|51 - 70| Mode3[Example/Analogy Mode]
+        ConfEngine -->|71 - 90| Mode4[Visual Learning Mode]
+        ConfEngine -->|91+| Mode5[Prerequisite Rescue Mode]
+    end
+    
+    AdaptEngine --> Quiz[6. Quick Quiz Validation]
+    Quiz -->|Correct Answer| Success[Reduce Confusion Score]
+    Quiz -->|Wrong Answer| Fail[Increase Confusion Score]
+    
+    Success --> DNA[7. Update Learning DNA Profile]
+    Fail --> ConfEngine
+    
+    DNA --> End([8. Dashboard Analytics & Summary])
+
     %% Define Styles
     classDef startEnd fill:#fff9e6,stroke:#165413,stroke-width:2px,color:#165413;
     classDef process fill:#f4eed6,stroke:#717a6c,stroke-width:1.5px,color:#1e1c0e;
     classDef engine fill:#b0f49f,stroke:#165413,stroke-width:2px,color:#002201;
     classDef highlight fill:#eae4b4,stroke:#63603a,stroke-width:2px,color:#1f1c01;
 
-    Start([Student Starts Session]):::startEnd --> Init[1. Initialize Focus & Confusion Engine]:::process
-    Init --> Explain[2. AI Tutor Explains Topic]:::process
-    
-    subgraph Monitoring [Real-Time Monitoring Layer]
-        Camera[Camera Activity Tracking]:::process
-        Tab[Tab-Switching & Inactivity]:::process
-    end
-    Explain --> Monitoring
-    
-    Monitoring --> Events{3. Event Generator}:::highlight
-    Events -->|Spikes Generated| ConfEngine[4. Confusion Score Engine]:::engine
-    
-    subgraph AdaptEngine [5. Adaptive Pedagogy Engine]
-        ConfEngine -->|0 - 30| Mode1[Standard Explanations]:::process
-        ConfEngine -->|31 - 50| Mode2[Simplified Explanations]:::process
-        ConfEngine -->|51 - 70| Mode3[Example/Analogy Mode]:::process
-        ConfEngine -->|71 - 90| Mode4[Visual Learning Mode]:::process
-        ConfEngine -->|91+| Mode5[Prerequisite Rescue Mode]:::process
-    end
-    
-    AdaptEngine --> Quiz[6. Quick Quiz Validation]:::process
-    Quiz -->|Correct Answer| Success[Reduce Confusion Score]:::process
-    Quiz -->|Wrong Answer| Fail[Increase Confusion Score]:::process
-    
-    Success --> DNA[7. Update Learning DNA Profile]:::engine
-    Fail --> ConfEngine
-    
-    DNA --> End([8. Dashboard Analytics & Summary]):::startEnd
+    %% Assign Styles to Nodes
+    class Start,End startEnd;
+    class Init,Explain,Camera,Tab,Mode1,Mode2,Mode3,Mode4,Mode5,Quiz,Success,Fail process;
+    class ConfEngine,DNA engine;
+    class Events highlight;
 ```
 
 ### 1. Session Initialization
