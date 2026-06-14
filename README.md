@@ -1,6 +1,6 @@
 # NeuroTutor AI — Emotion-Aware Virtual Learning Assistant
 
-Created with ❤️ by **Team Synapse**
+Created with ❤️ by **Team Rookie**
 
 ---
 
@@ -12,9 +12,9 @@ The platform follows a neuromorphic-inspired event-driven architecture where mea
 
 ---
 
-## Team Name: **Team Synapse**
+## Team Name: **Team Rookie**
 
-*Inspired by the neural junctions in the human brain, Team Synapse designs event-driven, adaptive learning systems that emulate human cognitive feedback loops.*
+*Committed to building adaptive, event-driven cognitive systems that respond to user emotional states and learning progress in real time.*
 
 ---
 
@@ -102,29 +102,44 @@ Below is the directory tree of the `Neurolearn_aitutor` codebase:
 
 ---
 
-## Logical Model & System Flow
+## System Flow & Architecture
 
-```text
-Student Starts Session
-          ↓
-AI Tutor Explains Topic
-          ↓
-Engagement Monitoring
-(Camera + Learning Activity)
-          ↓
-Event Generation
-          ↓
-Confusion Score Engine
-          ↓
-Adaptive Teaching Engine
-          ↓
-Personalized Explanation
-          ↓
-Quiz & Feedback
-          ↓
-Learning DNA Update
-          ↓
-Dashboard Analytics
+```mermaid
+flowchart TD
+    %% Define Styles
+    classDef startEnd fill:#fff9e6,stroke:#165413,stroke-width:2px,color:#165413;
+    classDef process fill:#f4eed6,stroke:#717a6c,stroke-width:1.5px,color:#1e1c0e;
+    classDef engine fill:#b0f49f,stroke:#165413,stroke-width:2px,color:#002201;
+    classDef highlight fill:#eae4b4,stroke:#63603a,stroke-width:2px,color:#1f1c01;
+
+    Start([Student Starts Session]):::startEnd --> Init[1. Initialize Focus & Confusion Engine]:::process
+    Init --> Explain[2. AI Tutor Explains Topic]:::process
+    
+    subgraph Monitoring [Real-Time Monitoring Layer]
+        Camera[Camera Activity Tracking]:::process
+        Tab[Tab-Switching & Inactivity]:::process
+    end
+    Explain --> Monitoring
+    
+    Monitoring --> Events{3. Event Generator}:::highlight
+    Events -->|Spikes Generated| ConfEngine[4. Confusion Score Engine]:::engine
+    
+    subgraph AdaptEngine [5. Adaptive Pedagogy Engine]
+        ConfEngine -->|0 - 30| Mode1[Standard Explanations]:::process
+        ConfEngine -->|31 - 50| Mode2[Simplified Explanations]:::process
+        ConfEngine -->|51 - 70| Mode3[Example/Analogy Mode]:::process
+        ConfEngine -->|71 - 90| Mode4[Visual Learning Mode]:::process
+        ConfEngine -->|91+| Mode5[Prerequisite Rescue Mode]:::process
+    end
+    
+    AdaptEngine --> Quiz[6. Quick Quiz Validation]:::process
+    Quiz -->|Correct Answer| Success[Reduce Confusion Score]:::process
+    Quiz -->|Wrong Answer| Fail[Increase Confusion Score]:::process
+    
+    Success --> DNA[7. Update Learning DNA Profile]:::engine
+    Fail --> ConfEngine
+    
+    DNA --> End([8. Dashboard Analytics & Summary]):::startEnd
 ```
 
 ### 1. Session Initialization
