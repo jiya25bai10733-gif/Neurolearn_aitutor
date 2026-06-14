@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>NeuroTutor AI | Learn Smarter, Not Harder</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,600;7..72,700&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+    <!-- Material Symbols -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-error": "#ffffff",
+                        "surface-container-low": "#faf4dc",
+                        "primary-container": "#306d29",
+                        "on-background": "#1e1c0e",
+                        "on-tertiary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "on-primary-container": "#a9ed99",
+                        "error": "#ba1a1a",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-container": "#a6ee97",
+                        "primary-fixed-dim": "#94d786",
+                        "surface-container-highest": "#e8e3cb",
+                        "surface-variant": "#e8e3cb",
+                        "primary": "#165413",
+                        "on-primary-fixed": "#002201",
+                        "surface-bright": "#fff9e6",
+                        "on-surface-variant": "#41493d",
+                        "surface-container": "#f4eed6",
+                        "surface": "#fff9e6",
+                        "surface-dim": "#e0dac3",
+                        "on-tertiary-fixed-variant": "#0c530e",
+                        "inverse-on-surface": "#f7f1d9",
+                        "on-secondary-fixed-variant": "#4b4824",
+                        "on-secondary": "#ffffff",
+                        "secondary": "#63603a",
+                        "surface-container-lowest": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "inverse-primary": "#94d786",
+                        "secondary-fixed": "#eae4b4",
+                        "on-secondary-fixed": "#1f1c01",
+                        "on-tertiary-fixed": "#002201",
+                        "inverse-surface": "#333121",
+                        "primary-fixed": "#b0f49f",
+                        "tertiary-container": "#2c6e27",
+                        "on-primary-fixed-variant": "#135211",
+                        "on-secondary-container": "#67643d",
+                        "tertiary-fixed": "#acf59d",
+                        "background": "#fff9e6",
+                        "surface-tint": "#2e6b27",
+                        "on-surface": "#1e1c0e",
+                        "tertiary": "#105510",
+                        "tertiary-fixed-dim": "#91d883",
+                        "outline-variant": "#c1c9ba",
+                        "secondary-container": "#e7e1b1",
+                        "surface-container-high": "#eee8d1",
+                        "secondary-fixed-dim": "#cec89a",
+                        "outline": "#717a6c"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-desktop": "64px",
+                        "section-gap": "80px",
+                        "unit": "8px",
+                        "stack-lg": "32px",
+                        "margin-mobile": "20px",
+                        "container-max": "1280px",
+                        "gutter": "24px",
+                        "stack-md": "16px",
+                        "stack-sm": "8px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Literata", "serif"],
+                        "headline-lg": ["Literata", "serif"],
+                        "label-lg": ["Plus Jakarta Sans", "sans-serif"],
+                        "body-lg": ["Plus Jakarta Sans", "sans-serif"],
+                        "body-md": ["Plus Jakarta Sans", "sans-serif"],
+                        "display-lg": ["Literata", "serif"],
+                        "label-sm": ["Plus Jakarta Sans", "sans-serif"],
+                        "headline-lg-mobile": ["Literata", "serif"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", { "lineHeight": "1.4", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "1.3", "fontWeight": "600" }],
+                        "label-lg": ["14px", { "lineHeight": "1.2", "letterSpacing": "0.02em", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "display-lg": ["48px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "label-sm": ["12px", { "lineHeight": "1.2", "fontWeight": "500" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "1.3", "fontWeight": "600" }]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #fff9e6; /* surface */
+            color: #1e1c0e; /* on-surface */
+            scroll-behavior: smooth;
+        }
+        .hero-gradient {
+            background: linear-gradient(180deg, #fff9e6 0%, #f4eed6 100%);
+        }
+        .bento-card {
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .bento-card:hover {
+            transform: translateY(-8px);
+        }
+    </style>
+</head>
+<body class="overflow-x-hidden">
+    
+    <!-- TopNavBar -->
+    <nav class="sticky top-0 w-full z-50 flex justify-between items-center px-margin-desktop py-4 max-w-container-max mx-auto bg-surface/80 backdrop-blur-md shadow-[0_4px_20px_rgba(22,84,19,0.05)]">
+        <div class="flex items-center gap-8">
+            <span class="font-headline-md text-headline-md font-bold text-primary flex items-center gap-2">
+                <span class="material-symbols-outlined text-3xl">psychology</span>
+                NeuroTutor AI
+            </span>
+            <div class="hidden md:flex gap-6 items-center">
+                <a class="text-primary border-b-2 border-primary font-bold pb-1 font-label-lg text-label-lg transition-colors duration-200" href="index.html">Home</a>
+                <a class="text-on-surface-variant font-label-lg text-label-lg hover:text-primary transition-colors duration-200" href="ai_tutor_neurotutor_ai/code.html">Learning Space</a>
+                <a class="text-on-surface-variant font-label-lg text-label-lg hover:text-primary transition-colors duration-200" href="dashboard_neurotutor_ai/code.html">Dashboard</a>
+                <a class="text-on-surface-variant font-label-lg text-label-lg hover:text-primary transition-colors duration-200" href="analytics_learning_dna_neurotutor_ai/code.html">Analytics</a>
+            </div>
+        </div>
+        <div class="flex items-center gap-4">
+            <div class="hidden md:flex items-center bg-surface-container-high rounded-full px-4 py-2">
+                <span class="material-symbols-outlined text-outline text-[20px] mr-2" data-icon="search">search</span>
+                <input class="bg-transparent border-none focus:ring-0 text-label-lg font-label-lg placeholder-outline" placeholder="Search topics..." type="text"/>
+            </div>
+            <button class="material-symbols-outlined p-2 text-on-surface-variant hover:text-primary transition-colors" data-icon="notifications">notifications</button>
+            <div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center overflow-hidden border-2 border-primary/10">
+                <img alt="Profile" class="w-full h-full object-cover" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHJlY3Qgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0IiBmaWxsPSIjRjNGNEY2IiByeD0iNCIvPjxjaXJjbGUgY3g9IjEyIiBjeT0iOCIgcj0iNCIgZmlsbD0iIzVGNjM2OCIvPjxwYXRoIGQ9Ik0xMiAxNGMtNCAwLTcgMi41LTcgNS41VjIxaDE0di0xLjVjMC0zLTMtNS41LTctNS41eiIgZmlsbD0iIzVGNjM2OCIvPjwvc3ZnPg=="/>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative pt-20 pb-32 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto hero-gradient">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+            <div class="space-y-stack-lg">
+                <h1 class="font-display-lg text-display-lg md:text-[64px] text-primary leading-tight font-bold">
+                    Learn Smarter,<br/>Not Harder.
+                </h1>
+                <p class="font-body-lg text-body-lg text-on-surface-variant max-w-xl">
+                    An AI tutor that understands when you're confused and automatically changes how it teaches. Experience a sanctuary for focus designed to evolve with your mind.
+                </p>
+                <div class="flex flex-wrap gap-4 pt-4">
+                    <a href="ai_tutor_neurotutor_ai/code.html" class="px-8 py-4 bg-primary text-on-primary rounded-full font-label-lg text-label-lg shadow-lg hover:scale-105 transition-transform inline-block">
+                        Start Learning Space
+                    </a>
+                    <a href="dashboard_neurotutor_ai/code.html" class="px-8 py-4 bg-secondary-container text-primary rounded-full font-label-lg text-label-lg hover:bg-surface-container-highest transition-colors flex items-center gap-2 inline-block">
+                        <span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+                        Student Dashboard
+                    </a>
+                </div>
+            </div>
+            <div class="relative">
+                <div class="absolute -inset-4 bg-primary/5 blur-3xl rounded-full"></div>
+                <div class="relative rounded-lg overflow-hidden shadow-2xl border-4 border-surface">
+                    <img class="w-full aspect-[4/3] object-cover" data-alt="A focused student sitting in a bright, modern library with high-key lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuARLBZz65aWHjZD1wqJaJkJw6U3yPXpfoFYYg9icZTdFbnzyNChOqdSyYwuZdsKMuusVejltZq9oSFRpXIVYPmadgguoKa1TRnxwkDSPn8UciIbyXqgixaNGwj9Ei0HWtXrPs6sngyMK7YHjVLNRKoMVcPlB4V7kgtmVCFJwOn-s2ILHjS_8AlSpDv-msGymBzCqvyFpnlwP2WTeP8QJvQH4gWpMuukcByTJe3n6UXd_FDrk3vpvf_AIz34trcpDgQZji7Sv1wW0mg"/>
+                </div>
+                <!-- Floating Card Micro-interaction -->
+                <div class="absolute -bottom-8 -left-8 bg-white p-6 rounded-lg shadow-xl max-w-[240px]">
+                    <div class="flex items-center gap-3 mb-2">
+                        <div class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+                            <span class="material-symbols-outlined text-[20px]" data-icon="psychology">psychology</span>
+                        </div>
+                        <span class="font-label-lg text-label-lg text-primary">Confusion Detected</span>
+                    </div>
+                    <p class="text-label-sm font-label-sm text-on-surface-variant">Switching to Visual Analogy Mode...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Bento Grid -->
+    <section class="py-section-gap px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+        <div class="text-center mb-16 space-y-4">
+            <h2 class="font-headline-lg text-headline-lg text-primary">Intelligent Features for Deep Focus</h2>
+            <p class="font-body-md text-body-md text-on-surface-variant max-w-2xl mx-auto">Our features are designed to minimize friction and maximize cognitive retention.</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+            <!-- Card 1 -->
+            <div class="bento-card md:col-span-2 bg-surface p-stack-lg rounded-lg shadow-[0_4px_20px_rgba(22,84,19,0.1)] flex flex-col md:flex-row gap-8 items-center border border-outline-variant/10">
+                <div class="flex-1 space-y-4">
+                    <span class="material-symbols-outlined text-[48px] text-primary" data-icon="visibility">visibility</span>
+                    <h3 class="font-headline-md text-headline-md text-primary">Confusion Detection</h3>
+                    <p class="font-body-md text-body-md text-on-surface-variant">Using real-time eye-tracking and interaction patterns, our AI identifies the exact millisecond you start struggling with a concept.</p>
+                </div>
+                <div class="flex-1 rounded-lg overflow-hidden bg-surface-container h-48 w-full md:w-auto">
+                    <img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC3NZkYKrqHYA5TFFjW62I4OTgSsqrq-Ut6GqzbQoAJsH53T731YH03iWiLleWC0zBcqqLaYnGT0TeL2NGmiqLnoq9LXwtT_M1sLpTV1z1E3pUxZYy623-KeB409Ec9XlLxvYIN6ir82QQXVrtraJQO3nWGs1YrGIKl5nUIJwvYbGcvfO3Ma_hu63uVIEZTeQl-KVjWEcdMaIYfgTw53xJi3bEMFJJQ8FCmjva0-nhCjlaLH3rMI_1hCmJVFBtlc-IMrVAtqRIWXU0"/>
+                </div>
+            </div>
+            <!-- Card 2 -->
+            <div class="bento-card bg-surface p-stack-lg rounded-lg shadow-[0_4px_20px_rgba(22,84,19,0.1)] space-y-4 border border-outline-variant/10">
+                <span class="material-symbols-outlined text-[40px] text-primary" data-icon="timer">timer</span>
+                <h3 class="font-headline-md text-headline-md text-primary">Focus Tracking</h3>
+                <p class="font-body-md text-body-md text-on-surface-variant">Measure your deep work sessions and get nudges when your attention begins to drift during difficult subjects.</p>
+            </div>
+            <!-- Card 3 -->
+            <div class="bento-card bg-surface p-stack-lg rounded-lg shadow-[0_4px_20px_rgba(22,84,19,0.1)] space-y-4 border border-outline-variant/10">
+                <span class="material-symbols-outlined text-[40px] text-primary" data-icon="transform">transform</span>
+                <h3 class="font-headline-md text-headline-md text-primary">Adaptive Teaching</h3>
+                <p class="font-body-md text-body-md text-on-surface-variant">If text isn't working, the AI instantly generates a visual diagram or an audio explanation tailored to your current mental model.</p>
+            </div>
+            <!-- Card 4 -->
+            <div class="bento-card md:col-span-2 bg-surface-container p-stack-lg rounded-lg flex flex-col md:flex-row gap-8 items-center border border-primary/5">
+                <div class="flex-1 rounded-lg overflow-hidden bg-surface h-48 w-full md:w-auto">
+                    <img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDbINfFfSQZqZ6waKjncllHkLkI_EMncFSLbRgIY87LLU-6XkG_7GUIWMDYVELiI0Cib0luNE5Dvh7npHGlzhLaHn1BDhtItpFSbVGN52wuKl8f-DBovhycbXDdgKoGHjkonDqSRLGiAKUbJfeGG47S5PPR61tMtB-dz7m0_ZmYTk21OfOrLGvgvhSqi64nVN7sQGQ4rWbc8tlr7t7l3AvIdCOEPKTiQ8FVd9RysQN_KyqU_qlmo8SSL60r7ZI8lSaiUdjvieAhDNY"/>
+                </div>
+                <div class="flex-1 space-y-4">
+                    <span class="material-symbols-outlined text-[48px] text-primary" data-icon="fingerprint">fingerprint</span>
+                    <h3 class="font-headline-md text-headline-md text-primary">Learning DNA</h3>
+                    <p class="font-body-md text-body-md text-on-surface-variant">Build a unique profile of how you learn best. Whether it's Socratic questioning or rote memorization, NeuroTutor learns your brain's language.</p>
+                </div>
+            </div>
+            <!-- Card 5 -->
+            <div class="bento-card bg-surface p-stack-lg rounded-lg shadow-[0_4px_20px_rgba(22,84,19,0.1)] space-y-4 border border-outline-variant/10">
+                <span class="material-symbols-outlined text-[40px] text-primary" data-icon="insights">insights</span>
+                <h3 class="font-headline-md text-headline-md text-primary">Progress Analytics</h3>
+                <p class="font-body-md text-body-md text-on-surface-variant">Beautifully visualized heatmaps of your knowledge. Watch your understanding of complex subjects grow over time.</p>
+            </div>
+            <!-- Card 6 -->
+            <div class="bento-card bg-surface p-stack-lg rounded-lg shadow-[0_4px_20px_rgba(22,84,19,0.1)] space-y-4 border border-outline-variant/10">
+                <span class="material-symbols-outlined text-[40px] text-primary" data-icon="devices_fold">devices_fold</span>
+                <h3 class="font-headline-md text-headline-md text-primary">Smart Website Control</h3>
+                <p class="font-body-md text-body-md text-on-surface-variant">The AI can modify the websites you visit, simplifying complex articles or highlighting key points as you browse.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="py-section-gap bg-surface-container-low overflow-hidden">
+        <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+            <div class="text-center mb-20">
+                <h2 class="font-headline-lg text-headline-lg text-primary">The Path to Mastery</h2>
+                <p class="font-body-md text-body-md text-on-surface-variant mt-4">A seamless loop designed for cognitive optimization.</p>
+            </div>
+            <div class="relative">
+                <!-- Timeline Line (Desktop) -->
+                <div class="hidden md:block absolute top-1/2 left-0 w-full h-1 bg-primary/10 -translate-y-1/2"></div>
+                <div class="grid grid-cols-1 md:grid-cols-5 gap-stack-lg relative z-10">
+                    <!-- Step 1 -->
+                    <div class="flex flex-col items-center text-center space-y-4">
+                        <div class="w-16 h-16 rounded-full bg-primary text-on-primary flex items-center justify-center font-headline-md text-headline-md shadow-lg border-4 border-surface">1</div>
+                        <div class="pt-4">
+                            <h4 class="font-label-lg text-label-lg text-primary mb-2">Choose Subject</h4>
+                            <p class="font-body-md text-label-sm text-on-surface-variant">Select from thousands of curated academic topics.</p>
+                        </div>
+                    </div>
+                    <!-- Step 2 -->
+                    <div class="flex flex-col items-center text-center space-y-4">
+                        <div class="w-16 h-16 rounded-full bg-primary text-on-primary flex items-center justify-center font-headline-md text-headline-md shadow-lg border-4 border-surface">2</div>
+                        <div class="pt-4">
+                            <h4 class="font-label-lg text-label-lg text-primary mb-2">Start Learning</h4>
+                            <p class="font-body-md text-label-sm text-on-surface-variant">Dive into personalized content with AI guidance.</p>
+                        </div>
+                    </div>
+                    <!-- Step 3 -->
+                    <div class="flex flex-col items-center text-center space-y-4">
+                        <div class="w-16 h-16 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-headline-md text-headline-md shadow-lg border-4 border-surface">
+                            <span class="material-symbols-outlined" data-icon="search_insights">search_insights</span>
+                        </div>
+                        <div class="pt-4">
+                            <h4 class="font-label-lg text-label-lg text-primary mb-2">AI Detects Confusion</h4>
+                            <p class="font-body-md text-label-sm text-on-surface-variant">Our sensors catch cognitive load before you burn out.</p>
+                        </div>
+                    </div>
+                    <!-- Step 4 -->
+                    <div class="flex flex-col items-center text-center space-y-4">
+                        <div class="w-16 h-16 rounded-full bg-primary text-on-primary flex items-center justify-center font-headline-md text-headline-md shadow-lg border-4 border-surface">4</div>
+                        <div class="pt-4">
+                            <h4 class="font-label-lg text-label-lg text-primary mb-2">Teaching Style Adapts</h4>
+                            <p class="font-body-md text-label-sm text-on-surface-variant">Content shifts to visuals, metaphors, or audio.</p>
+                        </div>
+                    </div>
+                    <!-- Step 5 -->
+                    <div class="flex flex-col items-center text-center space-y-4">
+                        <div class="w-16 h-16 rounded-full bg-primary text-on-primary flex items-center justify-center font-headline-md text-headline-md shadow-lg border-4 border-surface">
+                            <span class="material-symbols-outlined" data-icon="auto_awesome">auto_awesome</span>
+                        </div>
+                        <div class="pt-4">
+                            <h4 class="font-label-lg text-label-lg text-primary mb-2">Learning Improves</h4>
+                            <p class="font-body-md text-label-sm text-on-surface-variant">Retention spikes by up to 300% through adaptive loops.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-section-gap px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+        <div class="bg-primary p-12 md:p-24 rounded-lg relative overflow-hidden text-center text-on-primary">
+            <!-- Background Decoration -->
+            <div class="absolute top-0 right-0 w-64 h-64 bg-primary-container/20 rounded-full blur-3xl -mr-32 -mt-32"></div>
+            <div class="absolute bottom-0 left-0 w-64 h-64 bg-primary-container/20 rounded-full blur-3xl -ml-32 -mb-32"></div>
+            <div class="relative z-10 max-w-3xl mx-auto space-y-stack-lg">
+                <h2 class="font-headline-lg text-[40px] leading-tight font-bold">Ready to learn with an AI that understands you?</h2>
+                <p class="font-body-lg text-body-lg text-on-primary-container/90">Join 50,000+ students who have found their sanctuary for focus.</p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <a href="ai_tutor_neurotutor_ai/code.html" class="px-12 py-5 bg-surface text-primary rounded-full font-bold text-label-lg shadow-xl hover:scale-105 transition-transform inline-block">
+                        Start Learning Space
+                    </a>
+                    <a href="dashboard_neurotutor_ai/code.html" class="px-12 py-5 border-2 border-on-primary/20 text-on-primary rounded-full font-bold text-label-lg hover:bg-on-primary/10 transition-colors inline-block">
+                        View Student Dashboard
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-16 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto border-t border-outline-variant/20">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-gutter mb-12">
+            <div class="space-y-4">
+                <span class="font-headline-md text-headline-md font-bold text-primary">NeuroTutor AI</span>
+                <p class="font-body-md text-label-sm text-on-surface-variant">Revolutionizing education through real-time cognitive awareness and adaptive AI tutoring.</p>
+            </div>
+            <div class="space-y-4">
+                <h4 class="font-label-lg text-label-lg text-primary uppercase tracking-widest">Platform</h4>
+                <ul class="space-y-2 text-label-sm text-on-surface-variant">
+                    <li><a class="hover:text-primary transition-colors" href="ai_tutor_neurotutor_ai/code.html">Learning Space</a></li>
+                    <li><a class="hover:text-primary transition-colors" href="dashboard_neurotutor_ai/code.html">Student Dashboard</a></li>
+                    <li><a class="hover:text-primary transition-colors" href="analytics_learning_dna_neurotutor_ai/code.html">Analytics DNA</a></li>
+                </ul>
+            </div>
+            <div class="space-y-4">
+                <h4 class="font-label-lg text-label-lg text-primary uppercase tracking-widest">Company</h4>
+                <ul class="space-y-2 text-label-sm text-on-surface-variant">
+                    <li><a class="hover:text-primary transition-colors" href="#">Research</a></li>
+                    <li><a class="hover:text-primary transition-colors" href="#">Privacy</a></li>
+                    <li><a class="hover:text-primary transition-colors" href="#">Contact</a></li>
+                </ul>
+            </div>
+            <div class="space-y-4">
+                <h4 class="font-label-lg text-label-lg text-primary uppercase tracking-widest">Newsletter</h4>
+                <div class="flex">
+                    <input class="bg-surface-container border-none rounded-l-full px-4 py-2 w-full focus:ring-primary text-xs" placeholder="Email address" type="email"/>
+                    <button class="bg-primary text-on-primary px-4 py-2 rounded-r-full flex items-center justify-center">
+                        <span class="material-symbols-outlined text-[20px]" data-icon="send">send</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-outline-variant/10 text-label-sm text-on-surface-variant">
+            <p>© 2024 NeuroTutor AI. All rights reserved.</p>
+            <div class="flex gap-6 mt-4 md:mt-0">
+                <a class="hover:text-primary" href="#">Twitter</a>
+                <a class="hover:text-primary" href="#">LinkedIn</a>
+                <a class="hover:text-primary" href="#">Instagram</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- BottomNavBar (Mobile Only) -->
+    <nav class="fixed bottom-0 left-0 w-full z-50 flex md:hidden justify-around items-center px-4 pb-safe pt-2 bg-surface shadow-[0_-4px_20px_rgba(22,84,19,0.1)] rounded-t-lg">
+        <a href="dashboard_neurotutor_ai/code.html" class="flex flex-col items-center justify-center text-on-surface-variant">
+            <span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+            <span class="font-label-sm text-label-sm">Dashboard</span>
+        </a>
+        <a href="ai_tutor_neurotutor_ai/code.html" class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-4 py-1 scale-90">
+            <span class="material-symbols-outlined" data-icon="school">school</span>
+            <span class="font-label-sm text-label-sm">Learn</span>
+        </a>
+        <a href="analytics_learning_dna_neurotutor_ai/code.html" class="flex flex-col items-center justify-center text-on-surface-variant">
+            <span class="material-symbols-outlined" data-icon="bar_chart">bar_chart</span>
+            <span class="font-label-sm text-label-sm">Stats</span>
+        </a>
+    </nav>
+
+    <script>
+        // Simple scroll reveal interaction
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('opacity-100', 'translate-y-0');
+                    entry.target.classList.remove('opacity-0', 'translate-y-10');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.bento-card').forEach(card => {
+            card.classList.add('opacity-0', 'translate-y-10', 'transition-all', 'duration-700');
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>NeuroTutor AI | Student Dashboard</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Literata:wght@400;600;700&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Icons -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-error": "#ffffff",
+                    "surface-container-low": "#faf4dc",
+                    "primary-container": "#306d29",
+                    "on-background": "#1e1c0e",
+                    "on-tertiary": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "on-primary-container": "#a9ed99",
+                    "error": "#ba1a1a",
+                    "on-primary": "#ffffff",
+                    "on-tertiary-container": "#a6ee97",
+                    "primary-fixed-dim": "#94d786",
+                    "surface-container-highest": "#e8e3cb",
+                    "surface-variant": "#e8e3cb",
+                    "primary": "#165413",
+                    "on-primary-fixed": "#002201",
+                    "surface-bright": "#fff9e6",
+                    "on-surface-variant": "#41493d",
+                    "surface-container": "#f4eed6",
+                    "surface": "#fff9e6",
+                    "surface-dim": "#e0dac3",
+                    "on-tertiary-fixed-variant": "#0c530e",
+                    "inverse-on-surface": "#f7f1d9",
+                    "on-secondary-fixed-variant": "#4b4824",
+                    "on-secondary": "#ffffff",
+                    "secondary": "#63603a",
+                    "surface-container-lowest": "#ffffff",
+                    "on-error-container": "#93000a",
+                    "inverse-primary": "#94d786",
+                    "secondary-fixed": "#eae4b4",
+                    "on-secondary-fixed": "#1f1c01",
+                    "on-tertiary-fixed": "#002201",
+                    "inverse-surface": "#333121",
+                    "primary-fixed": "#b0f49f",
+                    "tertiary-container": "#2c6e27",
+                    "on-primary-fixed-variant": "#135211",
+                    "on-secondary-container": "#67643d",
+                    "tertiary-fixed": "#acf59d",
+                    "background": "#fff9e6",
+                    "surface-tint": "#2e6b27",
+                    "on-surface": "#1e1c0e",
+                    "tertiary": "#105510",
+                    "tertiary-fixed-dim": "#91d883",
+                    "outline-variant": "#c1c9ba",
+                    "secondary-container": "#e7e1b1",
+                    "surface-container-high": "#eee8d1",
+                    "secondary-fixed-dim": "#cec89a",
+                    "outline": "#717a6c"
+            },
+            "borderRadius": {
+                    "DEFAULT": "1rem",
+                    "lg": "2rem",
+                    "xl": "3rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin-desktop": "64px",
+                    "section-gap": "80px",
+                    "unit": "8px",
+                    "stack-lg": "32px",
+                    "margin-mobile": "20px",
+                    "container-max": "1280px",
+                    "gutter": "24px",
+                    "stack-md": "16px",
+                    "stack-sm": "8px"
+            },
+            "fontFamily": {
+                    "headline-md": ["Literata"],
+                    "headline-lg": ["Literata"],
+                    "label-lg": ["Plus Jakarta Sans"],
+                    "body-lg": ["Plus Jakarta Sans"],
+                    "body-md": ["Plus Jakarta Sans"],
+                    "display-lg": ["Literata"],
+                    "label-sm": ["Plus Jakarta Sans"],
+                    "headline-lg-mobile": ["Literata"]
+            },
+            "fontSize": {
+                    "headline-md": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                    "label-lg": ["14px", {"lineHeight": "1.2", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "display-lg": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-sm": ["12px", {"lineHeight": "1.2", "fontWeight": "500"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "1.3", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #fff9e6;
+            color: #1e1c0e;
+            -webkit-font-smoothing: antialiased;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f4eed6;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #306d29;
+            border-radius: 10px;
+        }
+        .card-shadow {
+            box-shadow: 0 4px 20px rgba(22, 84, 19, 0.08);
+        }
+        .progress-ring-circle {
+            transition: stroke-dashoffset 0.35s;
+            transform: rotate(-90deg);
+            transform-origin: 50% 50%;
+        }
+    </style>
+</head>
+<body class="min-h-screen font-body-md text-body-md overflow-x-hidden">
+<!-- TopNavBar (Shell) -->
+<header class="sticky top-0 w-full z-50 flex justify-between items-center px-margin-mobile md:px-margin-desktop py-4 max-w-container-max mx-auto bg-surface dark:bg-surface-dim shadow-[0_4px_20px_rgba(22,84,19,0.15)]">
+<div class="flex items-center gap-4">
+<span class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed-dim">NeuroTutor AI</span>
+</div>
+<div class="hidden md:flex flex-1 max-w-md mx-8">
+<div class="relative w-full">
+<input class="w-full bg-secondary-container rounded-full py-2 pl-10 pr-4 focus:ring-2 focus:ring-primary outline-none text-on-surface border-none" placeholder="Search topics..." type="text"/>
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+</div>
+</div>
+<div class="flex items-center gap-stack-md">
+<button class="material-symbols-outlined text-primary p-2 hover:bg-surface-variant rounded-full transition-colors">notifications</button>
+<button class="material-symbols-outlined text-primary p-2 hover:bg-surface-variant rounded-full transition-colors">help</button>
+<div class="h-10 w-10 rounded-full overflow-hidden border-2 border-primary-container">
+<img alt="Profile" class="h-full w-full object-cover" data-alt="A generic profile avatar placeholder." src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHJlY3Qgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0IiBmaWxsPSIjRjNGNEY2IiByeD0iNCIvPjxjaXJjbGUgY3g9IjEyIiBjeT0iOCIgcj0iNCIgZmlsbD0iIzVGNjM2OCIvPjxwYXRoIGQ9Ik0xMiAxNGMtNCAwLTcgMi41LTcgNS41VjIxaDE0di0xLjVjMC0zLTMtNS41LTctNS41eiIgZmlsbD0iIzVGNjM2OCIvPjwvc3ZnPg=="/>
+</div>
+</div>
+</header>
+<div class="flex max-w-container-max mx-auto px-0 md:px-margin-desktop min-h-[calc(100vh-80px)]">
+<!-- SideNavBar (Shell) -->
+<aside class="hidden md:flex flex-col h-[calc(100vh-80px)] p-stack-md sticky top-20 w-64 border-r border-outline-variant/20 bg-surface-container dark:bg-surface-container-low">
+<div class="flex flex-col gap-2 flex-grow mt-4">
+<a class="flex items-center gap-3 px-4 py-3 bg-primary-container dark:bg-primary text-on-primary-container dark:text-on-primary rounded-lg font-bold active:scale-[0.98] transition-all duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span class="font-label-lg text-label-lg">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-outline-variant hover:bg-surface-variant dark:hover:bg-surface-container-highest rounded-lg transition-all duration-200" href="../ai_tutor_neurotutor_ai/code.html">
+<span class="material-symbols-outlined">school</span>
+<span class="font-label-lg text-label-lg">Learning</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-outline-variant hover:bg-surface-variant dark:hover:bg-surface-container-highest rounded-lg transition-all duration-200" href="../analytics_learning_dna_neurotutor_ai/code.html">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-label-lg text-label-lg">Analytics</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-outline-variant hover:bg-surface-variant dark:hover:bg-surface-container-highest rounded-lg transition-all duration-200" href="../analytics_learning_dna_neurotutor_ai/code.html">
+<span class="material-symbols-outlined">grid_view</span>
+<span class="font-label-lg text-label-lg">Heatmap</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-outline-variant hover:bg-surface-variant dark:hover:bg-surface-container-highest rounded-lg transition-all duration-200 mt-auto" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-lg text-label-lg">Settings</span>
+</a>
+</div>
+<div class="mt-stack-lg p-4 bg-primary rounded-xl text-on-primary">
+<p class="font-label-sm text-label-sm opacity-80 mb-1">Continue Learning</p>
+<h4 id="sidebar-resume-topic" class="font-headline-md text-headline-md text-[18px] mb-4">Newton's Laws</h4>
+<button onclick="window.location.href='../ai_tutor_neurotutor_ai/code.html'" class="w-full bg-primary-fixed text-on-primary-fixed py-2 rounded-lg font-bold text-label-lg active:scale-95 transition-transform">Resume Session</button>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 p-margin-mobile md:p-stack-lg pb-32 md:pb-8 max-w-5xl mx-auto space-y-8">
+    
+    <!-- Top Section – Welcome Card -->
+    <div class="bg-gradient-to-r from-primary to-primary-container text-on-primary p-6 md:p-8 rounded-lg shadow-lg flex flex-col md:flex-row justify-between items-start md:items-center gap-6 relative overflow-hidden">
+        <!-- Decorative subtle background shape -->
+        <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-white/5 rounded-full blur-xl"></div>
+        <div class="space-y-4 z-10">
+            <div>
+                <h1 class="text-3xl font-bold font-headline-lg">Good Evening, Jiya</h1>
+                <p class="opacity-90 mt-1">Ready to resume your learning journey?</p>
+            </div>
+            <div class="flex items-center gap-2 bg-black/10 px-4 py-2 rounded-full w-fit">
+                <span class="material-symbols-outlined text-sm">target</span>
+                <span class="text-sm font-semibold">Today's Goal: <span id="today-goal-text" class="underline">Complete Newton's Laws</span></span>
+            </div>
+            <button onclick="window.location.href='../ai_tutor_neurotutor_ai/code.html'" class="px-6 py-3 bg-white text-primary rounded-full font-bold flex items-center gap-2 hover:bg-surface-bright active:scale-95 transition-all shadow-md">
+                <span>▶ Continue Learning</span>
+            </button>
+        </div>
+        <div class="flex flex-col items-end justify-between h-full z-10">
+            <div class="flex items-center gap-2 bg-white/20 px-4 py-3 rounded-xl border border-white/10 backdrop-blur-sm shadow-inner">
+                <span class="material-symbols-outlined text-yellow-400 fill-current animate-pulse text-3xl">local_fire_department</span>
+                <div class="text-left">
+                    <p class="text-xs opacity-75 uppercase tracking-wider font-semibold">Study Streak</p>
+                    <p id="dashboard-streak" class="text-xl font-bold">5 Days</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Focus & Learning Summary Section -->
+    <div class="space-y-4">
+        <div class="flex items-center justify-between">
+            <h2 class="text-xl font-bold text-on-background flex items-center gap-2">
+                <span class="material-symbols-outlined text-primary">analytics</span>
+                Focus & Learning Summary
+            </h2>
+            <span class="text-xs text-on-surface-variant bg-surface-container-high px-2.5 py-1 rounded-full font-medium">Show 3 cards.</span>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- Card 1: Focus Score -->
+            <div class="bg-surface-container-lowest p-6 rounded-lg border border-outline-variant/10 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between">
+                <div class="flex justify-between items-start mb-4">
+                    <span class="text-sm font-semibold text-on-surface-variant uppercase tracking-wider">Focus Score</span>
+                    <span class="material-symbols-outlined text-primary bg-primary/10 p-1.5 rounded-full text-lg">visibility</span>
+                </div>
+                <div class="space-y-4">
+                    <div class="flex items-baseline gap-2">
+                        <span id="dashboard-focus-score" class="text-4xl font-extrabold text-on-background">84%</span>
+                        <span id="dashboard-focus-status" class="text-xs font-bold text-primary bg-primary-container/20 px-2 py-0.5 rounded">Optimal</span>
+                    </div>
+                    <div class="border-t border-outline-variant/10 pt-3">
+                        <p class="text-xs text-on-surface-variant font-semibold mb-2">Based on:</p>
+                        <ul class="text-xs space-y-1.5 text-on-surface-variant font-medium">
+                            <li class="flex items-center gap-2">
+                                <span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                                Camera engagement
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                                Time on task
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                                Distractions
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2: Understanding Score -->
+            <div class="bg-surface-container-lowest p-6 rounded-lg border border-outline-variant/10 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between">
+                <div class="flex justify-between items-start mb-4">
+                    <span class="text-sm font-semibold text-on-surface-variant uppercase tracking-wider">Understanding Score</span>
+                    <span class="material-symbols-outlined text-secondary bg-secondary/10 p-1.5 rounded-full text-lg">school</span>
+                </div>
+                <div class="space-y-4">
+                    <div class="flex items-baseline gap-2">
+                        <span id="dashboard-understanding-score" class="text-4xl font-extrabold text-on-background">72%</span>
+                        <span id="dashboard-understanding-status" class="text-xs font-bold text-secondary bg-secondary-container/30 px-2 py-0.5 rounded">Solid</span>
+                    </div>
+                    <div class="border-t border-outline-variant/10 pt-3">
+                        <p class="text-xs text-on-surface-variant font-semibold mb-2">Based on:</p>
+                        <ul class="text-xs space-y-1.5 text-on-surface-variant font-medium">
+                            <li class="flex items-center gap-2">
+                                <span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                                Quiz results
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                                Correct answers
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                                Hint usage
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3: Confusion Level -->
+            <div class="bg-surface-container-lowest p-6 rounded-lg border border-outline-variant/10 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between">
+                <div class="flex justify-between items-start mb-4">
+                    <span class="text-sm font-semibold text-on-surface-variant uppercase tracking-wider">Confusion Level</span>
+                    <span class="material-symbols-outlined text-error bg-error/10 p-1.5 rounded-full text-lg">psychology_alt</span>
+                </div>
+                <div class="space-y-4">
+                    <div class="flex items-baseline gap-2">
+                        <span id="dashboard-confusion-level" class="text-4xl font-extrabold text-on-background">Medium</span>
+                        <span id="dashboard-confusion-status" class="text-xs font-bold text-error bg-error-container/20 px-2 py-0.5 rounded text-error">Stable</span>
+                    </div>
+                    <div class="border-t border-outline-variant/10 pt-3">
+                        <p class="text-xs text-on-surface-variant font-semibold mb-2">Based on:</p>
+                        <ul class="text-xs space-y-1.5 text-on-surface-variant font-medium">
+                            <li class="flex items-center gap-2">
+                                <span class="w-1.5 h-1.5 rounded-full bg-error"></span>
+                                Focus loss
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <span class="w-1.5 h-1.5 rounded-full bg-error"></span>
+                                Explain Again clicks
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <span class="w-1.5 h-1.5 rounded-full bg-error"></span>
+                                Wrong answers
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Middle Section: Learning DNA & Topic Heatmap -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- Learning DNA Card (Unique Section) -->
+        <div class="lg:col-span-5 bg-surface-container-lowest p-6 rounded-lg border border-outline-variant/10 shadow-sm flex flex-col justify-between">
+            <div class="space-y-4">
+                <div class="flex items-center justify-between">
+                    <h3 class="text-lg font-bold text-on-background flex items-center gap-2">
+                        <span class="material-symbols-outlined text-primary">biotech</span>
+                        Learning DNA
+                    </h3>
+                    <span class="text-xs text-primary bg-primary-container/20 px-2.5 py-1 rounded-full font-bold uppercase tracking-wider">Unique Section</span>
+                </div>
+                <div>
+                    <h4 class="text-sm font-semibold text-on-surface-variant mb-3">Your Learning Style</h4>
+                    <div class="space-y-3">
+                        <div>
+                            <div class="flex justify-between text-xs font-semibold mb-1">
+                                <span>Visual Learning</span>
+                                <span id="dna-visual-text">65%</span>
+                            </div>
+                            <div class="w-full bg-outline-variant/20 h-2 rounded-full">
+                                <div id="dna-visual-bar" class="bg-primary h-full rounded-full transition-all duration-500" style="width: 65%;"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-xs font-semibold mb-1">
+                                <span>Examples</span>
+                                <span id="dna-examples-text">25%</span>
+                            </div>
+                            <div class="w-full bg-outline-variant/20 h-2 rounded-full">
+                                <div id="dna-examples-bar" class="bg-secondary h-full rounded-full transition-all duration-500" style="width: 25%;"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-xs font-semibold mb-1">
+                                <span>Text</span>
+                                <span id="dna-text-text">10%</span>
+                            </div>
+                            <div class="w-full bg-outline-variant/20 h-2 rounded-full">
+                                <div id="dna-text-bar" class="bg-outline h-full rounded-full transition-all duration-500" style="width: 10%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-6 bg-surface-container p-4 rounded-lg border border-outline-variant/10 relative">
+                <p class="text-xs font-bold text-primary uppercase tracking-wider mb-1">AI message</p>
+                <p id="learning-dna-ai-message" class="text-sm text-on-surface font-medium italic">
+                    You learn best through diagrams and examples. This is one of your standout features.
+                </p>
+            </div>
+        </div>
+
+        <!-- Topic Heatmap Card -->
+        <div class="lg:col-span-7 bg-surface-container-lowest p-6 rounded-lg border border-outline-variant/10 shadow-sm flex flex-col justify-between">
+            <div class="space-y-4">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h3 class="text-lg font-bold text-on-background flex items-center gap-2">
+                            <span class="material-symbols-outlined text-primary">grid_view</span>
+                            Topic Heatmap
+                        </h3>
+                        <p class="text-xs text-on-surface-variant font-medium mt-0.5">Most important dashboard section.</p>
+                    </div>
+                </div>
+                <div class="overflow-x-auto border border-outline-variant/10 rounded-lg">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-surface-container text-xs text-on-surface-variant font-bold border-b border-outline-variant/10">
+                                <th class="p-3">Topics</th>
+                                <th class="p-3 text-right">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="heatmap-table-body" class="divide-y divide-outline-variant/10 text-sm">
+                            <tr class="hover:bg-surface-container/50 transition-colors">
+                                <td class="p-3 font-semibold text-on-surface">Newton's Laws</td>
+                                <td class="p-3 text-right">
+                                    <span id="heatmap-status-newtons-laws" class="text-xs font-bold text-primary bg-primary-container/20 px-2.5 py-1 rounded-full border border-primary/10">Easy</span>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-surface-container/50 transition-colors">
+                                <td class="p-3 font-semibold text-on-surface">Momentum</td>
+                                <td class="p-3 text-right">
+                                    <span id="heatmap-status-momentum" class="text-xs font-bold text-error bg-error-container/20 px-2.5 py-1 rounded-full border border-error/10">Difficult</span>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-surface-container/50 transition-colors">
+                                <td class="p-3 font-semibold text-on-surface">Work & Energy</td>
+                                <td class="p-3 text-right">
+                                    <span id="heatmap-status-work-energy" class="text-xs font-bold text-secondary bg-secondary-container/30 px-2.5 py-1 rounded-full border border-secondary/10">Moderate</span>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-surface-container/50 transition-colors">
+                                <td class="p-3 font-semibold text-on-surface">Gravitation</td>
+                                <td class="p-3 text-right">
+                                    <span id="heatmap-status-gravitation" class="text-xs font-bold text-error bg-error-container/20 px-2.5 py-1 rounded-full border border-error/10">Difficult</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="mt-4 text-xs text-on-surface-variant font-medium flex items-center gap-1.5 opacity-95">
+                <span class="material-symbols-outlined text-sm text-primary">info</span>
+                <span>AI calculates this from: Quiz scores, Confusion spikes, Focus events</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Section: AI Recommendations, Recent Activity & Progress -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- AI Recommendations Card -->
+        <div class="bg-surface-container-lowest p-6 rounded-lg border border-outline-variant/10 shadow-sm flex flex-col justify-between">
+            <div class="space-y-4">
+                <div class="flex flex-wrap items-center justify-between gap-2">
+                    <h3 class="text-lg font-bold text-on-background flex items-center gap-2">
+                        <span class="material-symbols-outlined text-primary">psychology</span>
+                        AI Recommendations
+                    </h3>
+                    <span class="text-xs text-secondary bg-secondary-container/30 px-2 py-0.5 rounded font-bold uppercase tracking-wider shrink-0">Dynamic</span>
+                </div>
+                <div class="space-y-3">
+                    <h4 class="text-sm font-bold text-on-surface-variant">Recommended Next</h4>
+                    <ol class="space-y-2.5 text-sm">
+                        <li class="flex items-start gap-2.5 p-2 bg-surface-container/30 rounded border border-outline-variant/5">
+                            <span class="font-bold text-primary">1.</span>
+                            <span id="recommend-item-1" class="font-medium text-on-surface">Revise Momentum</span>
+                        </li>
+                        <li class="flex items-start gap-2.5 p-2 bg-surface-container/30 rounded border border-outline-variant/5">
+                            <span class="font-bold text-primary">2.</span>
+                            <span id="recommend-item-2" class="font-medium text-on-surface">Practice 5 Questions</span>
+                        </li>
+                        <li class="flex items-start gap-2.5 p-2 bg-surface-container/30 rounded border border-outline-variant/5">
+                            <span class="font-bold text-primary">3.</span>
+                            <span id="recommend-item-3" class="font-medium text-on-surface">Watch Physics Diagram Lesson</span>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="mt-4 text-xs text-on-surface-variant font-medium flex items-center gap-1.5 opacity-90 border-t border-outline-variant/10 pt-3">
+                <span class="material-symbols-outlined text-sm text-primary">magic_button</span>
+                <span>Generated automatically.</span>
+            </div>
+        </div>
+
+        <!-- Recent Activity Card -->
+        <div class="bg-surface-container-lowest p-6 rounded-lg border border-outline-variant/10 shadow-sm flex flex-col justify-between">
+            <div class="space-y-4">
+                <div class="flex items-center justify-between">
+                    <h3 class="text-lg font-bold text-on-background flex items-center gap-2">
+                        <span class="material-symbols-outlined text-primary">history</span>
+                        Recent Activity
+                    </h3>
+                </div>
+                <div class="space-y-3">
+                    <h4 class="text-sm font-bold text-on-surface-variant">Today</h4>
+                    <ul id="recent-activity-list" class="space-y-2.5 text-sm">
+                        <li class="flex items-center gap-2.5 p-1.5 text-on-surface font-semibold">
+                            <span class="material-symbols-outlined text-primary text-lg">check_circle</span>
+                            <span>Physics Session Completed</span>
+                        </li>
+                        <li class="flex items-center gap-2.5 p-1.5 text-on-surface font-semibold">
+                            <span class="material-symbols-outlined text-primary text-lg">check_circle</span>
+                            <span>Quiz Attempted</span>
+                        </li>
+                        <li class="flex items-center gap-2.5 p-1.5 text-on-surface font-semibold">
+                            <span class="material-symbols-outlined text-primary text-lg">check_circle</span>
+                            <span>Focus Score Improved</span>
+                        </li>
+                        <li class="flex items-center gap-2.5 p-1.5 text-on-surface font-semibold">
+                            <span class="material-symbols-outlined text-primary text-lg">check_circle</span>
+                            <span>Learning DNA Updated</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Progress Section Card -->
+        <div class="bg-surface-container-lowest p-6 rounded-lg border border-outline-variant/10 shadow-sm flex flex-col justify-between">
+            <div class="space-y-4">
+                <div class="flex items-center justify-between">
+                    <h3 class="text-lg font-bold text-on-background flex items-center gap-2">
+                        <span class="material-symbols-outlined text-primary">donut_large</span>
+                        Progress Section
+                    </h3>
+                </div>
+                <div class="space-y-4">
+                    <div>
+                        <div class="flex justify-between text-xs font-semibold mb-1">
+                            <span class="text-on-surface">Physics</span>
+                            <span id="progress-physics-text">75% Complete</span>
+                        </div>
+                        <div class="w-full bg-outline-variant/20 h-2 rounded-full">
+                            <div id="progress-physics-bar" class="bg-primary h-full rounded-full transition-all duration-500" style="width: 75%;"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-xs font-semibold mb-1">
+                            <span class="text-on-surface">Chemistry</span>
+                            <span id="progress-chemistry-text">40% Complete</span>
+                        </div>
+                        <div class="w-full bg-outline-variant/20 h-2 rounded-full">
+                            <div id="progress-chemistry-bar" class="bg-secondary h-full rounded-full transition-all duration-500" style="width: 40%;"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-xs font-semibold mb-1">
+                            <span class="text-on-surface">Mathematics</span>
+                            <span id="progress-math-text">60% Complete</span>
+                        </div>
+                        <div class="w-full bg-outline-variant/20 h-2 rounded-full">
+                            <div id="progress-math-bar" class="bg-outline h-full rounded-full transition-all duration-500" style="width: 60%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-4 text-xs text-on-surface-variant font-medium flex items-center gap-1.5 opacity-90 border-t border-outline-variant/10 pt-3">
+                <span class="material-symbols-outlined text-sm text-primary">linear_scale</span>
+                <span>Simple progress bars.</span>
+            </div>
+        </div>
+    </div>
+</main>
+</div>
+<!-- BottomNavBar (Shell for Mobile) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex md:hidden justify-around items-center px-4 pb-safe pt-2 bg-surface dark:bg-surface-dim shadow-[0_-4px_20px_rgba(22,84,19,0.1)] rounded-t-lg">
+<a class="flex flex-col items-center justify-center bg-primary-container dark:bg-primary text-on-primary-container dark:text-on-primary rounded-full px-4 py-1 active:scale-90 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span class="font-label-sm text-label-sm">Dashboard</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant active:scale-90 transition-transform duration-200" href="../ai_tutor_neurotutor_ai/code.html">
+<span class="material-symbols-outlined">school</span>
+<span class="font-label-sm text-label-sm">Learn</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant active:scale-90 transition-transform duration-200" href="../analytics_learning_dna_neurotutor_ai/code.html">
+<span class="material-symbols-outlined">bar_chart</span>
+<span class="font-label-sm text-label-sm">Stats</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant active:scale-90 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-sm text-label-sm">Profile</span>
+</a>
+</nav>
+
+<script>
+        // Simple micro-interaction for the progress circle and dynamic data loading
+        window.addEventListener('DOMContentLoaded', () => {
+            // Retrieve history from localStorage
+            let history = [];
+            try {
+                history = JSON.parse(localStorage.getItem('neurotutor_session_history')) || [];
+            } catch (e) {
+                console.error("Failed to parse neurotutor_session_history", e);
+            }
+
+            if (history.length > 0) {
+                const latest = history[history.length - 1];
+
+                // 1. Update Resume Topic in Sidebar
+                const resumeTopicEl = document.getElementById('sidebar-resume-topic');
+                if (resumeTopicEl) {
+                    resumeTopicEl.innerText = latest.topic;
+                }
+
+                // 2. Update Welcome Card's goal and streak
+                const goalTextEl = document.getElementById('today-goal-text');
+                if (goalTextEl) {
+                    goalTextEl.innerText = `Complete ${latest.topic}`;
+                }
+
+                const streakEl = document.getElementById('dashboard-streak');
+                if (streakEl) {
+                    // If they did a session today, increase streak to 6 Days
+                    const hasSessionToday = history.some(session => {
+                        return new Date(session.timestamp).toDateString() === new Date().toDateString();
+                    });
+                    if (hasSessionToday) {
+                        streakEl.innerText = "6 Days";
+                    }
+                }
+
+                // 3. Update Focus Score Card
+                const focusScoreEl = document.getElementById('dashboard-focus-score');
+                const focusStatusEl = document.getElementById('dashboard-focus-status');
+                if (focusScoreEl && latest.avgFocus) {
+                    focusScoreEl.innerText = `${latest.avgFocus}%`;
+                    if (focusStatusEl) {
+                        if (latest.avgFocus >= 80) {
+                            focusStatusEl.innerText = "Optimal";
+                            focusStatusEl.className = "text-xs font-bold text-primary bg-primary-container/20 px-2 py-0.5 rounded";
+                        } else if (latest.avgFocus >= 65) {
+                            focusStatusEl.innerText = "Good";
+                            focusStatusEl.className = "text-xs font-bold text-secondary bg-secondary-container/30 px-2 py-0.5 rounded";
+                        } else {
+                            focusStatusEl.innerText = "Attention Loss";
+                            focusStatusEl.className = "text-xs font-bold text-error bg-error-container/20 px-2 py-0.5 rounded text-error";
+                        }
+                    }
+                }
+
+                // 4. Update Understanding Score Card
+                const understandingScoreEl = document.getElementById('dashboard-understanding-score');
+                const understandingStatusEl = document.getElementById('dashboard-understanding-status');
+                if (understandingScoreEl) {
+                    const totalQ = (latest.correctAnswers || 0) + (latest.wrongAnswers || 0);
+                    let score = 72; // default
+                    if (totalQ > 0) {
+                        score = Math.round(((latest.correctAnswers || 0) / totalQ) * 100);
+                    }
+                    understandingScoreEl.innerText = `${score}%`;
+                    if (understandingStatusEl) {
+                        if (score >= 80) {
+                            understandingStatusEl.innerText = "Mastered";
+                            understandingStatusEl.className = "text-xs font-bold text-primary bg-primary-container/20 px-2 py-0.5 rounded";
+                        } else if (score >= 60) {
+                            understandingStatusEl.innerText = "Solid";
+                            understandingStatusEl.className = "text-xs font-bold text-secondary bg-secondary-container/30 px-2 py-0.5 rounded";
+                        } else {
+                            understandingStatusEl.innerText = "Review Needed";
+                            understandingStatusEl.className = "text-xs font-bold text-error bg-error-container/20 px-2 py-0.5 rounded text-error";
+                        }
+                    }
+                }
+
+                // 5. Update Confusion Level Card
+                const confusionLevelEl = document.getElementById('dashboard-confusion-level');
+                const confusionStatusEl = document.getElementById('dashboard-confusion-status');
+                if (confusionLevelEl) {
+                    let level = "Medium";
+                    let status = "Stable";
+                    let statusClass = "text-xs font-bold text-secondary bg-secondary-container/30 px-2 py-0.5 rounded";
+                    
+                    if ((latest.wrongAnswers || 0) >= 3) {
+                        level = "High";
+                        status = "Rescue Mode";
+                        statusClass = "text-xs font-bold text-error bg-error-container/20 px-2 py-0.5 rounded text-error";
+                    } else if ((latest.wrongAnswers || 0) === 0 && (latest.avgFocus || 84) > 80) {
+                        level = "Low";
+                        status = "Clear";
+                        statusClass = "text-xs font-bold text-primary bg-primary-container/20 px-2 py-0.5 rounded";
+                    }
+                    
+                    confusionLevelEl.innerText = level;
+                    if (confusionStatusEl) {
+                        confusionStatusEl.innerText = status;
+                        confusionStatusEl.className = statusClass;
+                    }
+                }
+
+                // 6. Update Learning DNA Styles
+                const visualText = document.getElementById('dna-visual-text');
+                const visualBar = document.getElementById('dna-visual-bar');
+                const examplesText = document.getElementById('dna-examples-text');
+                const examplesBar = document.getElementById('dna-examples-bar');
+                const textText = document.getElementById('dna-text-text');
+                const textBar = document.getElementById('dna-text-bar');
+
+                if (latest.strongConcept && latest.strongConcept.toLowerCase().includes("diagram")) {
+                    if (visualText) visualText.innerText = "70%";
+                    if (visualBar) visualBar.style.width = "70%";
+                    if (examplesText) examplesText.innerText = "20%";
+                    if (examplesBar) examplesBar.style.width = "20%";
+                    if (textText) textText.innerText = "10%";
+                    if (textBar) textBar.style.width = "10%";
+                } else if (latest.strongConcept && latest.strongConcept.toLowerCase().includes("example")) {
+                    if (visualText) visualText.innerText = "60%";
+                    if (visualBar) visualBar.style.width = "60%";
+                    if (examplesText) examplesText.innerText = "30%";
+                    if (examplesBar) examplesBar.style.width = "30%";
+                    if (textText) textText.innerText = "10%";
+                    if (textBar) textBar.style.width = "10%";
+                }
+
+                // 7. Update Topic Heatmap Statuses
+                history.forEach(session => {
+                    let topicKey = "";
+                    const tName = (session.topic || "").toLowerCase();
+                    if (tName.includes("newton")) topicKey = "newtons-laws";
+                    else if (tName.includes("momentum")) topicKey = "momentum";
+                    else if (tName.includes("work") || tName.includes("energy")) topicKey = "work-energy";
+                    else if (tName.includes("gravitation") || tName.includes("gravity")) topicKey = "gravitation";
+
+                    if (topicKey) {
+                        const statusEl = document.getElementById(`heatmap-status-${topicKey}`);
+                        if (statusEl) {
+                            const totalQ = (session.correctAnswers || 0) + (session.wrongAnswers || 0);
+                            const score = totalQ > 0 ? (session.correctAnswers || 0) / totalQ : 0.7;
+                            let statusText = "Moderate";
+                            let statusClass = "text-xs font-bold text-secondary bg-secondary-container/30 px-2.5 py-1 rounded-full border border-secondary/10";
+                            
+                            if (score >= 0.8) {
+                                statusText = "Easy";
+                                statusClass = "text-xs font-bold text-primary bg-primary-container/20 px-2.5 py-1 rounded-full border border-primary/10";
+                            } else if (score < 0.5) {
+                                statusText = "Difficult";
+                                statusClass = "text-xs font-bold text-error bg-error-container/20 px-2.5 py-1 rounded-full border border-error/10";
+                            }
+                            statusEl.innerText = statusText;
+                            statusEl.className = statusClass;
+                        }
+                    }
+                });
+
+                // 8. Update AI Recommendations
+                const rec1 = document.getElementById('recommend-item-1');
+                const rec2 = document.getElementById('recommend-item-2');
+                const rec3 = document.getElementById('recommend-item-3');
+                if (latest.weakConcept) {
+                    if (rec1) rec1.innerText = `Revise ${latest.weakConcept}`;
+                }
+                if (latest.topic) {
+                    if (rec2) rec2.innerText = `Practice 5 Questions on ${latest.topic}`;
+                    if (rec3) rec3.innerText = `Watch ${latest.topic} Diagram Lesson`;
+                }
+
+                // 9. Update Subject Progress Bars
+                const physicsSessions = history.filter(s => (s.subject || "").toLowerCase() === "physics").length;
+                const chemSessions = history.filter(s => (s.subject || "").toLowerCase() === "chemistry").length;
+                const mathSessions = history.filter(s => (s.subject || "").toLowerCase() === "mathematics" || (s.subject || "").toLowerCase() === "math").length;
+
+                if (physicsSessions > 0) {
+                    const pVal = Math.min(100, 75 + physicsSessions * 5);
+                    const pText = document.getElementById('progress-physics-text');
+                    const pBar = document.getElementById('progress-physics-bar');
+                    if (pText) pText.innerText = `${pVal}% Complete`;
+                    if (pBar) pBar.style.width = `${pVal}%`;
+                }
+                if (chemSessions > 0) {
+                    const cVal = Math.min(100, 40 + chemSessions * 10);
+                    const cText = document.getElementById('progress-chemistry-text');
+                    const cBar = document.getElementById('progress-chemistry-bar');
+                    if (cText) cText.innerText = `${cVal}% Complete`;
+                    if (cBar) cBar.style.width = `${cVal}%`;
+                }
+                if (mathSessions > 0) {
+                    const mVal = Math.min(100, 60 + mathSessions * 10);
+                    const mText = document.getElementById('progress-math-text');
+                    const mBar = document.getElementById('progress-math-bar');
+                    if (mText) mText.innerText = `${mVal}% Complete`;
+                    if (mBar) mBar.style.width = `${mVal}%`;
+                }
+            }
+
+            // Hover lift effect for card-shadow
+            document.querySelectorAll('.card-shadow').forEach(card => {
+                card.style.transition = 'transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)';
+                card.addEventListener('mouseenter', () => {
+                    card.style.transform = 'translateY(-4px)';
+                });
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'translateY(0px)';
+                });
+            });
+        });
+    </script>
+</body></html>

@@ -1,0 +1,3190 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>NeuroTutor AI - Study Space</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,600;7..72,700&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+    <!-- Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-error": "#ffffff",
+                    "surface-container-low": "#faf4dc",
+                    "primary-container": "#306d29",
+                    "on-background": "#1e1c0e",
+                    "on-tertiary": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "on-primary-container": "#a9ed99",
+                    "error": "#ba1a1a",
+                    "on-primary": "#ffffff",
+                    "on-tertiary-container": "#a6ee97",
+                    "primary-fixed-dim": "#94d786",
+                    "surface-container-highest": "#e8e3cb",
+                    "surface-variant": "#e8e3cb",
+                    "primary": "#165413",
+                    "on-primary-fixed": "#002201",
+                    "surface-bright": "#fff9e6",
+                    "on-surface-variant": "#41493d",
+                    "surface-container": "#f4eed6",
+                    "surface": "#fff9e6",
+                    "surface-dim": "#e0dac3",
+                    "on-tertiary-fixed-variant": "#0c530e",
+                    "inverse-on-surface": "#f7f1d9",
+                    "on-secondary-fixed-variant": "#4b4824",
+                    "on-secondary": "#ffffff",
+                    "secondary": "#63603a",
+                    "surface-container-lowest": "#ffffff",
+                    "on-error-container": "#93000a",
+                    "inverse-primary": "#94d786",
+                    "secondary-fixed": "#eae4b4",
+                    "on-secondary-fixed": "#1f1c01",
+                    "on-tertiary-fixed": "#002201",
+                    "inverse-surface": "#333121",
+                    "primary-fixed": "#b0f49f",
+                    "tertiary-container": "#2c6e27",
+                    "on-primary-fixed-variant": "#135211",
+                    "on-secondary-container": "#67643d",
+                    "tertiary-fixed": "#acf59d",
+                    "background": "#fff9e6",
+                    "surface-tint": "#2e6b27",
+                    "on-surface": "#1e1c0e",
+                    "tertiary": "#105510",
+                    "tertiary-fixed-dim": "#91d883",
+                    "outline-variant": "#c1c9ba",
+                    "secondary-container": "#e7e1b1",
+                    "surface-container-high": "#eee8d1",
+                    "secondary-fixed-dim": "#cec89a",
+                    "outline": "#717a6c"
+            },
+            "borderRadius": {
+                    "DEFAULT": "1rem",
+                    "lg": "2rem",
+                    "xl": "3rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin-desktop": "32px",
+                    "section-gap": "80px",
+                    "unit": "8px",
+                    "stack-lg": "32px",
+                    "margin-mobile": "20px",
+                    "container-max": "1920px",
+                    "gutter": "24px",
+                    "stack-md": "16px",
+                    "stack-sm": "8px"
+            },
+            "fontFamily": {
+                    "headline-md": ["Literata", "serif"],
+                    "headline-lg": ["Literata", "serif"],
+                    "label-lg": ["Plus Jakarta Sans", "sans-serif"],
+                    "body-lg": ["Plus Jakarta Sans", "sans-serif"],
+                    "body-md": ["Plus Jakarta Sans", "sans-serif"],
+                    "display-lg": ["Literata", "serif"],
+                    "label-sm": ["Plus Jakarta Sans", "sans-serif"],
+                    "headline-lg-mobile": ["Literata", "serif"]
+            }
+          },
+        },
+      }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .ai-glow {
+            box-shadow: 0 0 25px rgba(48, 109, 41, 0.2);
+        }
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+        .glass-panel {
+            background: rgba(255, 249, 230, 0.85);
+            backdrop-filter: blur(10px);
+        }
+        @keyframes pulse-soft {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        .animate-pulse-soft { animation: pulse-soft 3s infinite ease-in-out; }
+        .neuromorphic-shadow {
+            box-shadow: 6px 6px 12px rgba(22, 84, 19, 0.08), -6px -6px 12px rgba(255, 255, 255, 0.5);
+        }
+        .neuromorphic-inset {
+            box-shadow: inset 3px 3px 6px rgba(22, 84, 19, 0.08), inset -3px -3px 6px rgba(255, 255, 255, 0.5);
+        }
+
+        /* Responsive Layout Constraints */
+        body {
+            background-color: #e8e3cb; /* Recessed surround background */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .app-container {
+            background-color: #fff9e6;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+            border: 1px solid rgba(113, 122, 108, 0.3);
+            box-shadow: 0 20px 50px rgba(22, 84, 19, 0.2);
+            transition: all 0.3s ease;
+            max-width: 100vw;
+            max-height: 100vh;
+        }
+
+        @media (min-width: 1024px) {
+            .app-container {
+                width: 1920px;
+                height: 1080px;
+                border-radius: 1.5rem;
+            }
+        }
+
+        @media (max-width: 1023px) {
+            .app-container {
+                width: 360px;
+                height: 800px;
+                border-radius: 1rem;
+            }
+        }
+    </style>
+    <!-- MediaPipe Client Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/face_mesh.js" crossorigin="anonymous"></script>
+</head>
+<body class="bg-surface-container-highest">
+
+    <!-- Main Container wrapping entire application (sized: 1920x1080 for desktop, 360x800 for mobile) -->
+    <div class="app-container">
+
+        <!-- Top Navigation Bar -->
+        <header class="w-full z-40 flex justify-between items-center px-6 py-3 bg-surface border-b border-outline-variant/30 shadow-[0_4px_20px_rgba(22,84,19,0.06)] shrink-0">
+            <div class="flex items-center gap-stack-md">
+                <h1 class="font-headline-md text-headline-md font-bold text-primary flex items-center gap-2">
+                    <span class="material-symbols-outlined text-3xl">psychology</span>
+                    NeuroTutor AI
+                </h1>
+                <div class="h-6 w-[1px] bg-outline-variant/30 hidden md:block"></div>
+                <nav class="hidden md:flex items-center gap-6">
+                    <a class="text-primary border-b-2 border-primary font-bold pb-1 font-label-lg text-label-lg" href="#">Learning Space</a>
+                    <a class="text-on-surface-variant hover:text-primary transition-colors duration-200 font-label-lg text-label-lg" href="../index.html">Home</a>
+                    <a class="text-on-surface-variant hover:text-primary transition-colors duration-200 font-label-lg text-label-lg" href="../dashboard_neurotutor_ai/code.html">Dashboard</a>
+                </nav>
+            </div>
+            
+            <div class="flex items-center gap-stack-md">
+                <div class="flex items-center bg-surface-container-high px-4 py-1.5 rounded-full border border-outline-variant/20 shadow-sm">
+                    <label class="text-xs font-semibold text-on-surface-variant mr-2">Topic:</label>
+                    <span id="header-active-topic" class="text-xs font-bold text-primary">Newton's Laws of Motion</span>
+                </div>
+                
+                <button class="p-2 text-on-surface-variant hover:text-primary transition-colors" title="Notifications">
+                    <span class="material-symbols-outlined">notifications</span>
+                </button>
+                <div class="h-8 w-8 rounded-full overflow-hidden border border-primary-container">
+                    <img alt="Profile" class="w-full h-full object-cover" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHJlY3Qgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0IiBmaWxsPSIjRjNGNEY2IiByeD0iNCIvPjxjaXJjbGUgY3g9IjEyIiBjeT0iOCIgcj0iNCIgZmlsbD0iIzVGNjM2OCIvPjxwYXRoIGQ9Ik0xMiAxNGMtNCAwLTcgMi41LTcgNS41VjIxaDE0di0xLjVjMC0zLTMtNS41LTctNS41eiIgZmlsbD0iIzVGNjM2OCIvPjwvc3ZnPg=="/>
+                </div>
+            </div>
+        </header>
+
+        <div class="flex flex-1 overflow-hidden">
+            
+            <!-- Left Sidebar: Monitoring, Biometrics, Insights, and AMFOCUSED Controls -->
+            <aside class="w-72 bg-surface-container border-r border-outline-variant/30 flex flex-col p-4 overflow-y-auto scrollbar-hide shrink-0 hidden lg:flex">
+                <!-- Session Status Header -->
+                <div class="flex items-center justify-between mb-3 shrink-0">
+                    <span class="text-xs font-bold tracking-wider text-on-surface-variant uppercase">Biometric Telemetry</span>
+                    <span id="session-timer" class="text-xs font-mono bg-surface-container-high px-2 py-0.5 rounded font-bold text-secondary">00:00</span>
+                </div>
+
+                <!-- Student Camera Feed Box -->
+                <div class="relative w-full aspect-video bg-inverse-surface rounded-xl overflow-hidden mb-2 shadow-md border-2 border-outline-variant/30 shrink-0">
+                    <video id="webcam-feed" class="w-full h-full object-cover hidden scale-x-[-1]" autoplay playsinline muted></video>
+                    <!-- OpenCV detection overlay canvas (hidden — raw feed only) -->
+                    <canvas id="opencv-canvas" class="hidden"></canvas>
+                    
+                    <div id="webcam-placeholder" class="w-full h-full flex flex-col items-center justify-center bg-gradient-to-tr from-secondary-container/40 to-surface-container-highest/60 relative">
+                        <span class="material-symbols-outlined text-5xl text-outline-variant animate-pulse-soft">person</span>
+                        <span class="text-[10px] text-outline mt-1 font-semibold">Webcam Feed</span>
+                        <img id="state-mock-img" class="absolute inset-0 w-full h-full object-cover opacity-85" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDpKenF-2qUQCz19xKLfHiy5X5nncKgRqPEEgdIdN_kizuc2NGqflw2Mk6veHPFL56H58558FXUO-Tm2PY6IHhy47fgbNTIyAhY_ScBoHRLslFQYHRMMCdj57zWJNYjVGRoiJztIYt_l58GxNU2Oe14g3zoX9pjbhuEGCo2y1rFCYB-fFQZwuCUTTtHczQXPwHqNPS6CoVYMIU7x6SHSsTyQaGT2mkAalxmAFbxOl3hYruBYa73IrKjA6kHHcsegZVaVMEcs7UG7Va" alt="Focused student simulation"/>
+                    </div>
+
+                    <div class="absolute top-2 left-2 flex items-center gap-1.5 bg-black/50 backdrop-blur-md px-2 py-1 rounded-full z-10">
+                        <span id="camera-status-dot" class="w-2.5 h-2.5 bg-primary rounded-full animate-pulse"></span>
+                        <span id="camera-status-label" class="text-[9px] text-white font-bold uppercase tracking-wider">Session Inactive</span>
+                    </div>
+                </div>
+
+
+                <!-- Engagement Status Indicator -->
+                <div class="mb-4 shrink-0">
+                    <div class="bg-surface rounded-xl p-3 border border-outline-variant/20 shadow-sm flex items-center justify-between">
+                        <div>
+                            <span class="text-[10px] uppercase font-bold text-on-surface-variant tracking-wider">Current State</span>
+                            <div id="engagement-text" class="text-sm font-bold text-primary">Focused / Learning Well</div>
+                        </div>
+                        <span id="engagement-badge" class="w-4 h-4 rounded-full bg-primary flex items-center justify-center border-2 border-surface animate-ping"></span>
+                    </div>
+                </div>
+
+                <!-- Camera Focus Simulator Selector (Dev Only) -->
+                <div class="mb-4 shrink-0">
+                    <div class="bg-surface rounded-xl p-3 border border-outline-variant/20 shadow-sm">
+                        <label class="block text-[10px] uppercase font-bold text-on-surface-variant tracking-wider mb-2">Camera Simulator</label>
+                        <select id="webcam-focus-selector" onchange="onFocusSelectorChange(this.value)" class="w-full rounded-lg bg-surface-container border border-outline-variant/40 p-1.5 text-xs font-semibold text-on-surface focus:border-primary focus:ring-1 focus:ring-primary">
+                            <option value="Focused">Focused</option>
+                            <option value="Using Phone">Using Phone</option>
+                            <option value="Looking Sideways">Looking Sideways</option>
+                            <option value="Not Watching Screen">Not Watching Screen</option>
+                            <option value="Sleeping Posture">Sleeping Posture</option>
+                            <option value="Eyes Closed">Eyes Closed</option>
+                            <option value="Looking Away Too Long">Looking Away Too Long (Focus Lost)</option>
+                            <option value="Not Present">Not Present (User Absent)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Focus and Confusion Score Metric -->
+                <div class="grid grid-cols-2 gap-3 mb-4 shrink-0">
+                    <div class="bg-surface p-3 rounded-xl border border-outline-variant/10 shadow-sm relative overflow-hidden flex flex-col justify-between">
+                        <span class="text-on-surface-variant text-[10px] uppercase font-bold tracking-wider">Focus score</span>
+                        <div id="focus-score-text" class="text-3xl font-headline-md font-bold text-primary mt-1">90%</div>
+                        <div class="w-full bg-surface-container-high h-1.5 rounded-full mt-2 overflow-hidden">
+                            <div id="focus-score-bar" class="bg-primary h-full transition-all duration-500" style="width: 90%"></div>
+                        </div>
+                    </div>
+                    <div class="bg-surface p-3 rounded-xl border border-outline-variant/10 shadow-sm relative overflow-hidden flex flex-col justify-between">
+                        <span class="text-on-surface-variant text-[10px] uppercase font-bold tracking-wider">Confusion Score</span>
+                        <div id="confusion-score-text" class="text-3xl font-headline-md font-bold text-secondary mt-1">10%</div>
+                        <div class="w-full bg-surface-container-high h-1.5 rounded-full mt-2 overflow-hidden">
+                            <div id="confusion-score-bar" class="bg-secondary h-full transition-all duration-500" style="width: 10%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Behavioral Insights Log -->
+                <div class="flex-grow flex flex-col min-h-[120px]">
+                    <h3 class="font-label-lg text-on-surface-variant text-xs mb-2 px-1 uppercase tracking-wider">Session Insight Log</h3>
+                    <div id="behavioral-log" class="space-y-2 max-h-40 overflow-y-auto pr-1 scrollbar-hide text-xs flex-grow">
+                        <div class="flex items-start gap-2 p-2 bg-primary-container/10 border-l-2 border-primary rounded-r-lg">
+                            <span class="material-symbols-outlined text-[14px] text-primary mt-0.5">check_circle</span>
+                            <div>
+                                <p class="font-bold text-primary">Session Initialized</p>
+                                <p class="text-[10px] text-on-surface-variant">System calibrating focus telemetry.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- End Session Button -->
+                <button onclick="triggerEndSession()" class="mt-4 w-full py-2.5 bg-error text-white font-bold rounded-xl hover:bg-red-800 transition-colors flex items-center justify-center gap-2 shadow-[0_4px_10px_rgba(186,26,26,0.2)] shrink-0">
+                    <span class="material-symbols-outlined text-sm">exit_to_app</span>
+                    End Study Session
+                </button>
+            </aside>
+
+            <!-- Main Content Area: AI Chat Tutor Space (Stretches across remaining space) -->
+            <main class="flex-grow flex flex-col bg-surface-bright relative overflow-hidden min-h-0">
+                <!-- Alert Banner for Confusion Spike -->
+                <div id="confusion-spike-banner" class="hidden absolute top-0 left-0 right-0 z-30 bg-error-container text-on-error-container px-6 py-2.5 border-b border-error/25 shadow-md flex items-center justify-between transition-all duration-300">
+                    <div class="flex items-center gap-3">
+                        <span class="material-symbols-outlined text-error text-xl animate-bounce">warning</span>
+                        <div>
+                            <span class="font-bold text-sm">Confusion Spike Generated (+20)</span>
+                            <p class="text-xs opacity-90">Tutor neural engine adapting style automatically to simplify learning weight.</p>
+                        </div>
+                    </div>
+                    <button onclick="dismissSpikeBanner()" class="text-xs font-bold underline hover:opacity-75">Dismiss</button>
+                </div>
+
+                <!-- Alert Banner for Attention Spike -->
+                <div id="attention-spike-banner" class="hidden absolute top-0 left-0 right-0 z-30 bg-red-800 text-white px-6 py-2.5 border-b border-red-950 shadow-md flex items-center justify-between transition-all duration-300">
+                    <div class="flex items-center gap-3">
+                        <span class="material-symbols-outlined text-white text-xl animate-bounce">warning</span>
+                        <div>
+                            <span class="font-bold text-sm">Attention Spike Generated</span>
+                            <p class="text-xs opacity-90">High distraction level detected. Focus score below 40%!</p>
+                        </div>
+                    </div>
+                    <button onclick="dismissAttentionSpikeBanner()" class="text-xs font-bold underline hover:opacity-75 text-white">Dismiss</button>
+                </div>
+
+                <!-- Alert Banner for Rescue Mode -->
+                <div id="rescue-mode-banner" class="hidden absolute top-0 left-0 right-0 z-30 bg-orange-100 text-orange-950 px-6 py-3 border-b border-orange-300 shadow-md flex items-center justify-between transition-all duration-300">
+                    <div class="flex items-center gap-3">
+                        <span class="material-symbols-outlined text-orange-600 text-2xl animate-spin">help</span>
+                        <div>
+                            <span class="font-bold text-sm">Rescue Mode Activated!</span>
+                            <p id="rescue-banner-text" class="text-xs opacity-90">Halting lesson to teach prerequisite concepts.</p>
+                        </div>
+                    </div>
+                    <span class="text-xs font-semibold px-2 py-1 bg-orange-200 border border-orange-300 rounded-full animate-pulse">Prerequisite Active</span>
+                </div>
+
+                <!-- Breadcrumbs / Topic Header -->
+                <div class="px-6 py-4 flex items-center justify-between border-b border-outline-variant/20 bg-surface shadow-sm shrink-0">
+                    <div class="flex items-center gap-2 text-on-surface-variant text-sm">
+                        <span class="font-semibold text-xs uppercase tracking-wider text-outline">Study Core</span>
+                        <span class="material-symbols-outlined text-xs text-outline">chevron_right</span>
+                        <span id="breadcrumb-subject" class="font-bold text-primary">Physics</span>
+                        <span class="material-symbols-outlined text-xs text-outline">chevron_right</span>
+                        <span id="breadcrumb-topic" class="font-bold text-secondary">Newton's Laws of Motion</span>
+                    </div>
+                    
+                    <div class="flex items-center gap-2">
+                        <span class="text-xs font-semibold text-on-surface-variant">Progress:</span>
+                        <div class="w-32 bg-surface-container-high h-2.5 rounded-full overflow-hidden border border-outline-variant/10">
+                            <div id="session-progress-bar" class="bg-primary h-full transition-all duration-500" style="width: 20%"></div>
+                        </div>
+                        <span id="session-progress-text" class="text-xs font-bold text-primary">20%</span>
+                    </div>
+                </div>
+
+                <!-- Central Question Card (Visible upon starting new lesson, in the center of dashboard) -->
+                <div id="central-query-card" class="flex flex-col items-center justify-center p-8 flex-grow overflow-y-auto min-h-0">
+                    <div class="bg-surface rounded-2xl border-2 border-primary/20 p-8 shadow-lg max-w-xl w-full space-y-6 text-center neuromorphic-shadow">
+                        <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center text-primary mx-auto">
+                            <span class="material-symbols-outlined text-3xl">menu_book</span>
+                        </div>
+                        <div>
+                            <h2 class="font-headline-md text-primary font-bold text-xl" id="central-card-topic">Topic: Newton's Laws</h2>
+                            <p class="text-xs text-on-surface-variant font-bold mt-1 uppercase tracking-wider">Subject: <span id="central-card-subject">Physics</span> | Difficulty: <span id="central-card-difficulty">Intermediate</span></p>
+                        </div>
+                        <p class="text-sm text-on-surface-variant leading-relaxed">
+                            Ask your first question about this topic in the box below to start the lesson. The AI agent will immediately analyze your query and compile a custom response.
+                        </p>
+                        <div class="relative flex items-center bg-surface-container-high px-4 py-2.5 rounded-full border border-outline-variant/30 focus-within:border-primary shadow-inner">
+                            <input id="central-chat-input" class="flex-grow bg-transparent border-none focus:ring-0 text-sm py-2" placeholder="Ask a question about this topic..." onkeydown="handleCentralInputKeydown(event)"/>
+                            <button onclick="submitCentralQuery()" class="bg-primary text-on-primary w-10 h-10 rounded-full flex items-center justify-center hover:scale-105 active:scale-95 transition-transform shadow-md shrink-0">
+                                <span class="material-symbols-outlined">arrow_upward</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chat Interface Log (Initially hidden, revealed on first question) -->
+                <div id="chat-history-container" class="hidden flex-grow overflow-y-auto px-6 py-6 space-y-4 scrollbar-hide min-h-0">
+                    <div id="chat-history" class="space-y-4"></div>
+                </div>
+
+                <!-- AI Analyzing / Typing Overlay -->
+                <div id="ai-typing-indicator" class="hidden px-6 py-2 flex items-center gap-3">
+                    <div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-on-primary shrink-0 animate-pulse-soft">
+                        <span class="material-symbols-outlined text-base">psychology</span>
+                    </div>
+                    <div class="bg-surface-container-low px-4 py-2 rounded-2xl italic text-on-surface-variant flex items-center gap-3 border border-outline-variant/10 text-xs">
+                        <div class="flex gap-1">
+                            <span class="w-1.5 h-1.5 bg-primary/50 rounded-full animate-bounce"></span>
+                            <span class="w-1.5 h-1.5 bg-primary/50 rounded-full animate-bounce [animation-delay:0.2s]"></span>
+                            <span class="w-1.5 h-1.5 bg-primary/50 rounded-full animate-bounce [animation-delay:0.4s]"></span>
+                        </div>
+                        <span id="ai-typing-text">Tutor is compiling explanation nodes...</span>
+                    </div>
+                </div>
+
+                <!-- Quick Action Command Toolbar -->
+                <div id="chat-toolbar" class="hidden px-6 pt-3 flex gap-2 overflow-x-auto scrollbar-hide border-t border-outline-variant/15 bg-surface-container-low shrink-0">
+                    <button onclick="requestShortcut('explain_again')" class="flex items-center gap-1 px-3.5 py-1.5 bg-surface hover:bg-surface-variant text-primary text-xs font-bold rounded-full border border-outline-variant/30 transition-all shrink-0 shadow-sm active:scale-95">
+                        <span class="material-symbols-outlined text-sm">replay</span> Explain Again
+                    </button>
+                    <button onclick="requestShortcut('simplify')" class="flex items-center gap-1 px-3.5 py-1.5 bg-surface hover:bg-surface-variant text-primary text-xs font-bold rounded-full border border-outline-variant/30 transition-all shrink-0 shadow-sm active:scale-95">
+                        <span class="material-symbols-outlined text-sm">child_care</span> Make It Simpler
+                    </button>
+                    <button onclick="requestShortcut('example')" class="flex items-center gap-1 px-3.5 py-1.5 bg-surface hover:bg-surface-variant text-primary text-xs font-bold rounded-full border border-outline-variant/30 transition-all shrink-0 shadow-sm active:scale-95">
+                        <span class="material-symbols-outlined text-sm">lightbulb</span> Give Example
+                    </button>
+                    <button onclick="requestShortcut('diagram')" class="flex items-center gap-1 px-3.5 py-1.5 bg-surface hover:bg-surface-variant text-primary text-xs font-bold rounded-full border border-outline-variant/30 transition-all shrink-0 shadow-sm active:scale-95">
+                        <span class="material-symbols-outlined text-sm">schema</span> Show Diagram
+                    </button>
+                    <button onclick="requestShortcut('quiz')" class="flex items-center gap-1 px-3.5 py-1.5 bg-surface hover:bg-surface-variant text-primary text-xs font-bold rounded-full border border-outline-variant/30 transition-all shrink-0 shadow-sm active:scale-95">
+                        <span class="material-symbols-outlined text-sm">quiz</span> Take Quiz
+                    </button>
+                </div>
+
+                <!-- Input Bar Area -->
+                <div id="chat-input-bar" class="hidden px-6 py-4 bg-surface border-t border-outline-variant/25 flex flex-col gap-2 shrink-0">
+                    <div class="relative flex items-center gap-3 bg-surface-container-high px-4 py-2 rounded-full border-2 border-transparent focus-within:border-primary transition-all shadow-inner">
+                        <input id="chat-input" class="flex-grow bg-transparent border-none focus:ring-0 text-on-surface placeholder:text-on-surface-variant/40 font-body-md py-2 text-sm" placeholder="Ask NeuroTutor your question..." type="text" onkeydown="handleInputKeydown(event)"/>
+                        <button onclick="handleSendMessage()" class="bg-primary text-on-primary w-10 h-10 rounded-full flex items-center justify-center hover:scale-105 active:scale-95 transition-transform shadow-md shrink-0">
+                            <span class="material-symbols-outlined">arrow_upward</span>
+                        </button>
+                    </div>
+                    <div class="flex justify-between items-center text-[10px] text-on-surface-variant/70 px-4">
+                        <button onclick="toggleFeatureMock('Voice Input')" class="hover:text-primary transition-colors flex items-center gap-1 font-bold">
+                            <span class="material-symbols-outlined text-sm">mic</span> Voice Input
+                        </button>
+                        <span>Press Enter to send. Smart filters (AMFOCUSED) are active.</span>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <!-- Bottom Navigation Bar (Mobile only) -->
+        <nav class="lg:hidden flex justify-around items-center px-4 py-2 bg-surface border-t border-outline-variant/30 shrink-0 shadow-[0_-4px_10px_rgba(22,84,19,0.05)]">
+            <button class="flex flex-col items-center text-primary">
+                <span class="material-symbols-outlined text-lg">school</span>
+                <span class="text-[9px] font-bold">Learn</span>
+            </button>
+            <button onclick="window.location.href='../index.html'" class="flex flex-col items-center text-on-surface-variant hover:text-primary">
+                <span class="material-symbols-outlined text-lg">dashboard</span>
+                <span class="text-[9px]">Dashboard</span>
+            </button>
+        </nav>
+
+        <!-- Modal: Resume or Add New Lesson (Startup Box) -->
+        <div id="lesson-entry-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-md p-4 transition-all">
+            <div class="bg-surface rounded-2xl shadow-2xl max-w-md w-full p-6 border-2 border-primary/20 space-y-6">
+                <!-- Screen 1: Choice -->
+                <div id="lesson-screen-choice" class="space-y-5">
+                    <div class="text-center">
+                        <span class="w-14 h-14 bg-primary-container/20 rounded-full flex items-center justify-center text-primary mx-auto mb-3 border border-primary/30">
+                            <span class="material-symbols-outlined text-3xl">local_library</span>
+                        </span>
+                        <h2 class="font-headline-lg text-lg text-primary font-bold">Welcome to NeuroTutor AI</h2>
+                        <p class="text-xs text-on-surface-variant mt-1">Ready to resume your progress or start fresh?</p>
+                    </div>
+                    <div class="space-y-3 pt-2">
+                        <button onclick="handleResumeSession()" class="w-full py-3 px-4 bg-primary text-on-primary font-bold rounded-xl hover:opacity-90 transition-all text-sm shadow flex items-center justify-between">
+                            <span>Resume Previous Session (Physics)</span>
+                            <span class="material-symbols-outlined text-base">forward</span>
+                        </button>
+                        <button onclick="showNewLessonScreen()" class="w-full py-3 px-4 bg-secondary-container text-primary font-bold rounded-xl hover:opacity-90 transition-all text-sm border border-primary/20 flex items-center justify-between">
+                            <span>Start a New Lesson</span>
+                            <span class="material-symbols-outlined text-base">add_box</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Screen 2: Configure New Lesson -->
+                <div id="lesson-screen-new" class="hidden space-y-4">
+                    <div class="text-center border-b border-outline-variant/20 pb-3">
+                        <h2 class="font-headline-lg text-lg text-primary font-bold">Configure New Lesson</h2>
+                        <p class="text-xs text-on-surface-variant mt-1">Set subject, difficulty, and your custom topic</p>
+                    </div>
+                    
+                    <div class="space-y-3">
+                        <!-- Subject Dropdown -->
+                        <div>
+                            <label class="block text-xs font-bold text-on-surface-variant mb-1 uppercase tracking-wider">Select Subject</label>
+                            <select id="lesson-subject-select" class="w-full rounded-xl bg-surface-container border border-outline-variant/40 p-2.5 text-sm font-semibold text-on-surface focus:border-primary focus:ring-1 focus:ring-primary">
+                                <option value="EVS">EVS (Environmental Studies)</option>
+                                <option value="Math">Math (Mathematics)</option>
+                                <option value="English">English (Grammar / Syntax)</option>
+                            </select>
+                        </div>
+
+                        <!-- Difficulty Dropdown -->
+                        <div>
+                            <label class="block text-xs font-bold text-on-surface-variant mb-1 uppercase tracking-wider">Select Difficulty</label>
+                            <select id="lesson-difficulty-select" class="w-full rounded-xl bg-surface-container border border-outline-variant/40 p-2.5 text-sm font-semibold text-on-surface focus:border-primary focus:ring-1 focus:ring-primary">
+                                <option value="Beginner">Beginner</option>
+                                <option value="Intermediate">Intermediate</option>
+                                <option value="Hard">Hard</option>
+                            </select>
+                        </div>
+
+                        <!-- Topic Input Box -->
+                        <div>
+                            <label class="block text-xs font-bold text-on-surface-variant mb-1 uppercase tracking-wider">Enter Topic</label>
+                            <input id="lesson-topic-input" type="text" placeholder="e.g. Forests, Fractions, Tenses..." class="w-full rounded-xl bg-surface-container border border-outline-variant/40 p-2.5 text-sm font-semibold text-on-surface focus:border-primary focus:ring-1 focus:ring-primary"/>
+                        </div>
+                    </div>
+
+                    <!-- Actions -->
+                    <div class="flex gap-3 pt-3">
+                        <button onclick="showChoiceScreen()" class="flex-1 py-2.5 bg-surface-container hover:bg-surface-variant text-on-surface-variant font-bold rounded-xl text-xs border border-outline-variant/20">
+                            Back
+                        </button>
+                        <button onclick="handleStartNewLesson()" class="flex-1 py-2.5 bg-primary text-on-primary font-bold rounded-xl text-xs hover:opacity-95 shadow">
+                            Start Lesson
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal: End of Session Summary -->
+        <div id="summary-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-md p-4 transition-all">
+            <div class="bg-surface rounded-2xl shadow-2xl max-w-lg w-full p-6 border-2 border-primary/20 max-h-[90vh] overflow-y-auto scrollbar-hide">
+                <div class="text-center mb-6">
+                    <span class="w-16 h-16 bg-primary-container/20 rounded-full flex items-center justify-center text-primary mx-auto mb-3 border border-primary/30">
+                        <span class="material-symbols-outlined text-4xl" style="font-variation-settings: 'FILL' 1;">emoji_events</span>
+                    </span>
+                    <h2 class="font-headline-lg text-headline-lg text-primary font-bold">Study Session Complete!</h2>
+                    <p class="text-sm text-on-surface-variant mt-1">Excellent focus work, Jiya!</p>
+                </div>
+
+                <!-- Dashboard Bento Grid -->
+                <div class="grid grid-cols-2 gap-3 mb-6">
+                    <div class="bg-surface-container rounded-xl p-3 text-center border border-outline-variant/20 shadow-sm">
+                        <span class="text-[10px] text-on-surface-variant uppercase font-bold tracking-wider block">Time Studied</span>
+                        <span id="summary-time" class="text-xl font-bold text-secondary block mt-1">12:34</span>
+                    </div>
+                    <div class="bg-surface-container rounded-xl p-3 text-center border border-outline-variant/20 shadow-sm">
+                        <span class="text-[10px] text-on-surface-variant uppercase font-bold tracking-wider block">Average Focus</span>
+                        <span id="summary-focus" class="text-xl font-bold text-primary block mt-1">87%</span>
+                    </div>
+                    <div class="bg-surface-container rounded-xl p-3 text-center border border-outline-variant/20 shadow-sm">
+                        <span class="text-[10px] text-on-surface-variant uppercase font-bold tracking-wider block">Correct Answers</span>
+                        <span id="summary-correct" class="text-xl font-bold text-green-700 block mt-1">5</span>
+                    </div>
+                    <div class="bg-surface-container rounded-xl p-3 text-center border border-outline-variant/20 shadow-sm">
+                        <span class="text-[10px] text-on-surface-variant uppercase font-bold tracking-wider block">Wrong Answers</span>
+                        <span id="summary-wrong" class="text-xl font-bold text-error block mt-1">2</span>
+                    </div>
+                </div>
+
+                <!-- Strong/Weak topics -->
+                <div class="bg-surface-container-low rounded-xl p-4 border border-outline-variant/20 mb-6 space-y-3">
+                    <div class="flex items-center justify-between border-b border-outline-variant/20 pb-2">
+                        <div class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-green-600">verified</span>
+                            <span class="font-semibold text-xs text-on-surface">Strong Concept Mastered</span>
+                        </div>
+                        <span id="summary-strong" class="font-bold text-xs text-green-700">Newton's First Law (Inertia)</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-error">warning</span>
+                            <span class="font-semibold text-xs text-on-surface">Weak Area (Needs Review)</span>
+                        </div>
+                        <span id="summary-weak" class="font-bold text-xs text-error">Vector Math & Momentum</span>
+                    </div>
+                </div>
+
+
+                <!-- Action buttons -->
+                <div class="flex gap-3">
+                    <button onclick="location.reload()" class="flex-1 py-3 bg-secondary-container text-primary font-bold rounded-xl hover:opacity-90 transition-opacity text-xs border border-primary/20">
+                        Restart Session
+                    </button>
+                    <button onclick="window.location.href='../index.html'" class="flex-1 py-3 bg-primary text-on-primary font-bold rounded-xl hover:opacity-90 transition-opacity text-xs shadow-md">
+                        Return Home
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Script Block for tutor application state and logic -->
+    <script>
+        // Global State variables
+        let topic = "newtons_laws"; // or "custom"
+        let customSubject = "";
+        let customDifficulty = "";
+        let customTopic = "";
+        let currentMode = "normal";
+        let focusScore = 90;
+        let confusionScore = 10;
+        let correctAnswers = 0;
+        let wrongAnswers = 0;
+        let focusScoreSum = 100;
+        let focusScoreCount = 1;
+        let secondsStudied = 0;
+        let consecutiveWrongCount = 0;
+        let confusionSpikesCount = 0;
+        let isRescueMode = false;
+        let hasJustReceivedSimpleExplanation = false;
+        let lostFocusAfterSimpleExplanation = false;
+        
+        // DNA Values
+        let dnaVisual = 70;
+        let dnaExamples = 20;
+        let dnaText = 10;
+        
+        // Biometrics Tracker
+        let cameraState = "Focused"; // "Focused", "Looking Away"
+        let inactivityTimer = 0;
+        let explainRequestsStreak = 0;
+        let previousState = "Focused";
+        let lookingAwaySeconds = 0;
+        let continuousFocusedSeconds = 0;
+        let currentHeadDirection = "Looking at Screen";
+        let headAwaySeconds = 0;
+        
+        // Event and state counters for Confusion updates
+        let lowFocusConfusionTriggered = false;
+        let tabSwitchCount = 0;
+        let studentInactivitySeconds = 0;
+        let currentQuizQuestionIndex = -1;
+        let consecutiveCorrectCount = 0;
+        let rescueStep = 0;
+        let currentHintIndex = 0;
+        let rescueHintIndex = 0;
+        let faceMovementHistory = [];
+        let lastHeadMovementTriggerTime = 0;
+        
+        // Timer references
+        let mainTimerInterval = null;
+
+
+
+        // OpenCV.js Variables
+        let cvReady = false;
+        let classifier = null;
+        let webcamStream = null;
+
+        // Study Session State
+        let isFocusSessionActive = false; // represents whether study session is active
+
+        // Dynamically compiled lesson material DB (EVS, Math, English)
+        const customSubjectDatabase = {
+            EVS: {
+                beginner: "A forest is a beautiful, green area filled with tall trees, wild plants, and animals. Forests act as the earth's lungs, cleaning our air by breathing in carbon dioxide and breathing out clean oxygen for us to breathe. Many animals like tigers, bears, monkeys, and butterflies call the forest their home.",
+                intermediate: "Forest biomes are massive, complex ecosystems characterized by dense canopy layers, understory growth, and rich forest floor decomposition. They perform vital ecological services including regulating regional weather patterns through transpiration, conserving soil structure, and locking carbon compounds inside biomass.",
+                hard: "Forest ecosystems are delicate equilibrium matrices containing diverse trophic layers, species niche partitions, and complex resource competition grids. Deforestation disrupts the soil nitrogen-fixation cycles, triggers biodiversity loss, and diminishes carbon sinks, escalating global thermodynamic stress."
+            },
+            Math: {
+                beginner: "Think of fractions as slicing a delicious birthday cake! If you cut a cake into 4 equal slices and take 1 slice, you have exactly 1/4 (one-fourth) of the cake. The top number is how many slices you have (numerator) and the bottom is the total slices (denominator).",
+                intermediate: "Fractions represent numerical rational portions of a whole, expressed as a numerator over a denominator. Adding fractions requires a common denominator: for example, 1/3 + 1/4 = 4/12 + 3/12 = 7/12. We can multiply fractions directly by multiplying numerators and denominators.",
+                hard: "Fractions constitute elements of the quotient field of an integral domain. In mathematical analysis, we handle complex algebraic fractions by decomposing rational functions into partial fractions, allowing us to perform integration and advanced polynomial divisions."
+            },
+            English: {
+                beginner: "Verbs are action words! They tell us what people, animals, or things are doing. For example, in the sentences: 'The cat runs,' 'Jiya reads,' and 'The bird sings,' the verbs are 'runs,' 'reads,' and 'sings' because they show the action.",
+                intermediate: "Verbs are the core elements of sentence structure that express action, occurrence, or state of being. They alter syntax depending on tense (past, present, future), grammatical mood, and agreement with the subject pronoun (singular vs plural).",
+                hard: "Verbs form the syntactic head of verb phrases (VP), governing complements and adjuncts. We analyze verb structures through Tense, Aspect, Mood, and Voice (TAMV parameters), differentiating active/passive transformations and finite vs non-finite verb clauses."
+            }
+        };
+
+        // Predefined Chat Tutor DB Responses for physics / default
+        const tutorDatabase = {
+            newtons_laws: {
+                normal: {
+                    title: "Newton's Laws of Motion",
+                    text: `Let's review **Newton's Laws of Motion**.
+These three laws form the cornerstone of classical physics:
+
+1. **Newton's First Law (Law of Inertia)**: An object remains at rest, or continues to move at a constant velocity in a straight line, unless acted upon by a net external force.
+2. **Newton's Second Law ($F = ma$)**: The vector sum of the forces $F$ on an object is equal to the mass $m$ multiplied by the acceleration $a$.
+3. **Newton's Third Law (Action-Reaction)**: For every action, there is an equal and opposite reaction.
+
+Let's dive into **Inertia**. Why does a sliding hockey puck eventually stop if no net force is supposed to act on it?`,
+                },
+                simple: {
+                    title: "Newton's First Law (Simple Style)",
+                    text: `Let's simplify Newton's First Law!
+Think of Newton's First Law as the **"couch potato law"** of physics.
+It basically says:
+- If a ball is sitting still on the grass, it will *never* move until something pushes it.
+- If you kick the ball in outer space (with no air or friction), it will keep flying *forever* in a straight line at the exact same speed, unless it hits an asteroid or gravity pulls it.`,
+                },
+                example: {
+                    title: "Real-Life Newton's Examples",
+                    text: `Here are three real-world examples of Newton's Laws in action:
+
+- ⚽ **The Football (1st & 2nd Laws)**: A football sits on the penalty spot (Inertia). When you kick it, you apply a force. The harder you kick (more force), the faster it accelerates ($F = ma$).
+- 🚗 **Car Seatbelt (Inertia)**: If you ride in a car and the driver hits the brakes suddenly, your body jerks forward. Because of inertia, your body wants to keep moving forward at the car's original speed!
+- 🚲 **Pedaling a Bicycle (3rd Law)**: When you ride a bike, your tires push backward against the pavement. In response, the road pushes the tires forward with an equal force, propelling you forward!`,
+                },
+                visual: {
+                    title: "Visual Mind Map: Newton's Motion",
+                    text: `Here is the visual schematic detailing the forces and motion components:`,
+                    svg: `<svg viewBox="0 0 500 280" class="w-full h-auto bg-surface-container rounded-xl p-3 border border-outline-variant/30">
+                        <style>
+                            @keyframes pulse-flow {
+                                0% { stroke-dashoffset: 0; }
+                                100% { stroke-dashoffset: -20; }
+                            }
+                            @keyframes node-bounce {
+                                0%, 100% { transform: translateY(0); }
+                                50% { transform: translateY(-3px); }
+                            }
+                            .flow-active { stroke-dasharray: 6, 4; animation: pulse-flow 1.5s infinite linear; }
+                            .pulse-node { animation: node-bounce 3s infinite ease-in-out; }
+                        </style>
+                        <rect width="100%" height="100%" fill="#fff9e6" rx="12"></rect>
+                        <rect x="190" y="20" width="120" height="40" rx="10" fill="#165413" stroke="#fff" stroke-width="2" class="pulse-node"></rect>
+                        <text x="250" y="45" font-family="Plus Jakarta Sans" font-size="11" font-weight="bold" fill="#fff" text-anchor="middle">Newton's Laws</text>
+                        
+                        <rect x="20" y="110" width="120" height="40" rx="10" fill="#306d29" stroke="#fff" stroke-width="1"></rect>
+                        <text x="80" y="130" font-family="Plus Jakarta Sans" font-size="10" font-weight="bold" fill="#fff" text-anchor="middle">1st Law: Inertia</text>
+                        
+                        <rect x="190" y="110" width="120" height="40" rx="10" fill="#306d29" stroke="#fff" stroke-width="1"></rect>
+                        <text x="250" y="130" font-family="Plus Jakarta Sans" font-size="10" font-weight="bold" fill="#fff" text-anchor="middle">2nd Law: F = ma</text>
+                        
+                        <rect x="360" y="110" width="120" height="40" rx="10" fill="#306d29" stroke="#fff" stroke-width="1"></rect>
+                        <text x="420" y="130" font-family="Plus Jakarta Sans" font-size="10" font-weight="bold" fill="#fff" text-anchor="middle">3rd Law: Action-Reaction</text>
+                        
+                        <line x1="250" y1="60" x2="80" y2="110" stroke="#717a6c" stroke-width="2" class="flow-active"></line>
+                        <line x1="250" y1="60" x2="250" y2="110" stroke="#717a6c" stroke-width="2" class="flow-active" style="animation-delay: 0.5s;"></line>
+                        <line x1="250" y1="60" x2="420" y2="110" stroke="#717a6c" stroke-width="2" class="flow-active" style="animation-delay: 1s;"></line>
+                    </svg>`
+                }
+            }
+        };
+
+        // Quiz DB
+        const quizDatabase = {
+            newtons_laws: [
+                {
+                    q: "What is another name for Newton's First Law of Motion?",
+                    a: ["Law of Force Vectors", "Law of Inertia", "Law of Balanced Mass"],
+                    correct: 1,
+                    hints: ["It starts with an 'I'", "It means resistance to changing speed or direction.", "It is the Law of Inertia."]
+                },
+                {
+                    q: "If the net force on an object is zero, what can we say about its motion?",
+                    a: ["It must be at rest", "It must be accelerating", "It is either at rest or moving with constant velocity"],
+                    correct: 2,
+                    hints: ["Inertia says motion doesn't change without force.", "Constant speed and direction have zero acceleration.", "Both rest and constant velocity are possible."]
+                }
+            ],
+            EVS: [
+                {
+                    q: "Which layer of the forest forms a continuous roof of leaves and branches?",
+                    a: ["Forest Floor", "Understory", "Canopy"],
+                    correct: 2,
+                    hints: ["It is the highest layer.", "It acts like a green umbrella.", "The canopy layer."]
+                },
+                {
+                    q: "Why are forests referred to as the 'lungs of the Earth'?",
+                    a: ["They produce oxygen via photosynthesis", "They store underground water", "They house diverse animal species"],
+                    correct: 0,
+                    hints: ["Think about what lungs do: exchange gases.", "They absorb carbon dioxide and release oxygen.", "They produce oxygen."]
+                }
+            ],
+            Math: [
+                {
+                    q: "What is the sum of 1/3 and 1/4?",
+                    a: ["2/7", "7/12", "5/12"],
+                    correct: 1,
+                    hints: ["Find a common denominator.", "The common denominator is 12.", "1/3 is 4/12 and 1/4 is 3/12."]
+                },
+                {
+                    q: "If you divide a whole cake into 8 equal slices and eat 3, what fraction is left?",
+                    a: ["3/8", "5/8", "1/2"],
+                    correct: 1,
+                    hints: ["Subtract the eaten slices from the whole (8/8).", "8 - 3 = 5.", "5/8 is left."]
+                }
+            ],
+            English: [
+                {
+                    q: "Which word is the verb in the sentence: 'Jiya runs to school every morning'?",
+                    a: ["Jiya", "runs", "school"],
+                    correct: 1,
+                    hints: ["Verbs show action.", "What is Jiya doing?", "runs is the action."]
+                },
+                {
+                    q: "What is the past tense of the verb 'sing'?",
+                    a: ["singed", "sings", "sang"],
+                    correct: 2,
+                    hints: ["It is an irregular verb.", "Think of: sing, ..., sung.", "The past tense is sang."]
+                }
+            ]
+        };
+
+        // Prerequisite lessons (Rescue Mode)
+        const rescueDatabase = {
+            newtons_laws: {
+                title: "Basic Forces & Net Force",
+                concept: "Balanced vs Unbalanced Forces",
+                text: `Let's take a quick step back to review the core foundation of forces:
+- **Balanced Forces**: Net Force = 0. Object motion does not change.
+- **Unbalanced Forces**: Net Force > 0. Causes object acceleration.`,
+                quiz: {
+                    q: "What is the Net Force if two equal 15N forces push in opposite directions?",
+                    a: ["30 N", "0 N", "15 N"],
+                    correct: 1,
+                    hints: ["Subtract opposite forces: $15 - 15$.", "They cancel each other out completely.", "The net force is 0 N."]
+                }
+            }
+        };
+
+        // Modal screen togglers
+        function showNewLessonScreen() {
+            document.getElementById('lesson-screen-choice').classList.add('hidden');
+            document.getElementById('lesson-screen-new').classList.remove('hidden');
+        }
+
+        function showChoiceScreen() {
+            document.getElementById('lesson-screen-new').classList.add('hidden');
+            document.getElementById('lesson-screen-choice').classList.remove('hidden');
+        }
+
+        // Action when user clicks "Resume Previous Session"
+        function handleResumeSession() {
+            document.getElementById('lesson-entry-modal').classList.add('hidden');
+            topic = "newtons_laws";
+            document.getElementById('header-active-topic').innerText = "Newton's Laws of Motion";
+            document.getElementById('breadcrumb-subject').innerText = "Physics";
+            document.getElementById('breadcrumb-topic').innerText = "Newton's Laws of Motion";
+            
+            // Hide central query card, reveal chat history
+            document.getElementById('central-query-card').classList.add('hidden');
+            document.getElementById('chat-history-container').classList.remove('hidden');
+            document.getElementById('chat-toolbar').classList.remove('hidden');
+            document.getElementById('chat-input-bar').classList.remove('hidden');
+            
+            addBotMessage(`Welcome back Jiya! Resuming your session on **Newton's Laws**. Ask your question below to proceed.`, "normal");
+            
+            // Start Study Session automatically
+            startStudySession();
+            startStudiedTimer();
+            loadOpenCv(); // Load OpenCV.js asynchronously
+        }
+
+        // Action when user clicks "Start Lesson" (New Lesson)
+        function handleStartNewLesson() {
+            const subject = document.getElementById('lesson-subject-select').value;
+            const difficulty = document.getElementById('lesson-difficulty-select').value;
+            const topicInput = document.getElementById('lesson-topic-input').value.trim();
+            
+            if(!topicInput) {
+                alert("Please enter a custom topic name to begin!");
+                return;
+            }
+
+            topic = "custom";
+            customSubject = subject;
+            customDifficulty = difficulty;
+            customTopic = topicInput;
+
+            // Update UI elements
+            document.getElementById('header-active-topic').innerText = `${customTopic} (${customDifficulty})`;
+            document.getElementById('breadcrumb-subject').innerText = customSubject;
+            document.getElementById('breadcrumb-topic').innerText = customTopic;
+
+            // Set content of central card
+            document.getElementById('central-card-topic').innerText = `Topic: ${customTopic}`;
+            document.getElementById('central-card-subject').innerText = customSubject;
+            document.getElementById('central-card-difficulty').innerText = customDifficulty;
+
+            // Hide modal
+            document.getElementById('lesson-entry-modal').classList.add('hidden');
+            
+            logInsight("New Lesson Configured", `Subject: ${customSubject} | Topic: ${customTopic}`);
+            
+            // Start Study Session automatically
+            startStudySession();
+            startStudiedTimer();
+            loadOpenCv(); // Load OpenCV.js asynchronously
+        }
+
+        // Start studied duration timer
+        function startStudiedTimer() {
+            if (mainTimerInterval) clearInterval(mainTimerInterval);
+            mainTimerInterval = setInterval(() => {
+                secondsStudied++;
+                const mins = Math.floor(secondsStudied / 60).toString().padStart(2, '0');
+                const secs = (secondsStudied % 60).toString().padStart(2, '0');
+                document.getElementById('session-timer').innerText = `${mins}:${secs}`;
+                
+                // Track student inactivity seconds (60 seconds threshold)
+                studentInactivitySeconds++;
+                if (studentInactivitySeconds >= 60) {
+                    triggerConfusionEvent("Long Inactivity");
+                    studentInactivitySeconds = 0;
+                }
+
+                // Track Looking Away and Not Present duration when face is missing
+                if (cameraState === "Looking Away" || cameraState === "Not Present") {
+                    lookingAwaySeconds++;
+                    if (lookingAwaySeconds === 1) {
+                        triggerFocusEvent("Focus Lost");
+                    } else if (lookingAwaySeconds === 5) {
+                        simulateFocusState("Not Present");
+                    }
+                } else {
+                    lookingAwaySeconds = 0;
+                }
+
+                // Track Head Away from Screen when face is detected but looking elsewhere
+                if (cameraState === "Focused" && currentHeadDirection !== "Looking at Screen" && currentHeadDirection !== "Not Present") {
+                    headAwaySeconds++;
+                    if (headAwaySeconds >= 5) {
+                        // Trigger Attention Spike
+                        logInsight("Attention Spike", "Student looked away from screen for > 5s.", true);
+                        const spikeBanner = document.getElementById('attention-spike-banner');
+                        if (spikeBanner) {
+                            spikeBanner.classList.remove('hidden');
+                        }
+                        // Deduct Focus Score
+                        triggerFocusEvent("Focus Lost");
+                        
+                        // Reset headAwaySeconds so it doesn't trigger every single second thereafter
+                        headAwaySeconds = 0;
+                    }
+                } else {
+                    headAwaySeconds = 0;
+                }
+
+                // Track continuous Focused duration (Every 5 minutes = 300 seconds)
+                if (cameraState === "Focused" && currentHeadDirection === "Looking at Screen") {
+                    continuousFocusedSeconds++;
+                    if (continuousFocusedSeconds >= 300) {
+                        triggerFocusEvent("Focused 5 Minutes");
+                        continuousFocusedSeconds = 0;
+                    }
+                } else {
+                    continuousFocusedSeconds = 0;
+                }
+
+                // Accumulate focus scores for final session average calculation
+                focusScoreSum += focusScore;
+                focusScoreCount++;
+            }, 1000);
+        }
+
+        // Load OpenCV.js asynchronously
+        function loadOpenCv() {
+            const noteEl = document.getElementById('opencv-focus-note');
+            if (noteEl) noteEl.innerText = "Loading OpenCV Runtime WebAssembly...";
+            const script = document.createElement('script');
+            script.src = "https://docs.opencv.org/4.5.0/opencv.js";
+            script.async = true;
+            script.onload = () => {
+                let checkTimer = setInterval(() => {
+                    if (window.cv && window.cv.Mat) {
+                        clearInterval(checkTimer);
+                        initOpenCv();
+                        initMediaPipe();
+                    }
+                }, 100);
+            };
+            document.body.appendChild(script);
+        }
+
+        function initOpenCv() {
+            const noteEl = document.getElementById('opencv-focus-note');
+            if (noteEl) noteEl.innerText = "WebAssembly Ready. Loading Cascade Model...";
+            
+            const cascadeUrl = "https://cdn.jsdelivr.net/gh/opencv/opencv@4.x/data/haarcascades/haarcascade_frontalface_default.xml";
+            fetch(cascadeUrl)
+                .then(res => res.arrayBuffer())
+                .then(buffer => {
+                    const bytes = new Uint8Array(buffer);
+                    cv.FS_createDataFile('/', 'haarcascade_frontalface_default.xml', bytes, true, false, false);
+                    classifier = new cv.CascadeClassifier();
+                    classifier.load('haarcascade_frontalface_default.xml');
+                    
+                    if (noteEl) noteEl.innerText = "Haar Cascade loaded. Tracking active.";
+                    logInsight("OpenCV Initialized", "Face classifier active inside virtual filesystem.");
+                    
+                    if (webcamStream) {
+                        startFaceDetectionLoop();
+                    }
+                })
+                .catch(err => {
+                    if (noteEl) noteEl.innerText = "Cascade fetch blocked. Using simulation telemetry.";
+                    console.error("OpenCV initialization failed: ", err);
+                });
+        }
+
+        // MediaPipe Integration
+        let faceMesh = null;
+        let mediaPipeActive = false;
+        let lastStateTriggerTime = {};
+
+        function initMediaPipe() {
+            if (typeof FaceMesh === "undefined") {
+                console.warn("MediaPipe FaceMesh not loaded from CDN.");
+                return;
+            }
+            try {
+                faceMesh = new FaceMesh({
+                    locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/${file}`
+                });
+                faceMesh.setOptions({
+                    maxNumFaces: 1,
+                    refineLandmarks: true,
+                    minDetectionConfidence: 0.5,
+                    minTrackingConfidence: 0.5
+                });
+                faceMesh.onResults(onMediaPipeResults);
+                mediaPipeActive = true;
+                logInsight("MediaPipe Initialized", "MediaPipe FaceMesh landmarks active.");
+            } catch (err) {
+                console.error("MediaPipe initialization failed", err);
+            }
+        }
+
+        // Neutral baseline (auto-calibrated and continuously adapted)
+        let neutralBaseline = null;        // { noseY, noseX, faceWidth, brightness }
+        let baselineSamples = [];
+        let awayStreak = 0;                 // frames consecutively away from neutral
+        let phoneStreak = 0;                // frames consecutively head down (phone use proxy)
+        let sideStreak = 0;                 // frames consecutively looking sideways
+        let facePresenceStreak = 0;         // frames with strong face presence
+        let lastBrightnessSample = 1;
+        let recalibrateCooldown = 0;        // ms timestamp until next recalibration allowed
+
+        function sampleBrightness() {
+            try {
+                const v = document.getElementById('webcam-feed');
+                if (!v || !v.videoWidth) return lastBrightnessSample;
+                const c = document.createElement('canvas');
+                c.width = 32; c.height = 24;
+                const ctx = c.getContext('2d');
+                ctx.drawImage(v, 0, 0, 32, 24);
+                const d = ctx.getImageData(0, 0, 32, 24).data;
+                let sum = 0;
+                for (let i = 0; i < d.length; i += 4) sum += (d[i] + d[i+1] + d[i+2]) / 3;
+                lastBrightnessSample = sum / (d.length / 4) / 255;
+                return lastBrightnessSample;
+            } catch (e) { return lastBrightnessSample; }
+        }
+
+        function onMediaPipeResults(results) {
+            if (!isFocusSessionActive) return;
+            if (!results.multiFaceLandmarks || results.multiFaceLandmarks.length === 0) {
+                facePresenceStreak = 0;
+                // No face detected — let watchdog handle Not Present
+                return;
+            }
+            lastFaceSeenTime = Date.now();
+            facePresenceStreak++;
+
+            const landmarks = results.multiFaceLandmarks[0];
+
+            // Eye Aspect Ratio (eyes closed detection)
+            const leftUpper = landmarks[159], leftLower = landmarks[145];
+            const leftInner = landmarks[33], leftOuter = landmarks[133];
+            const leftEAR = Math.hypot(leftUpper.x - leftLower.x, leftUpper.y - leftLower.y) /
+                            (Math.hypot(leftInner.x - leftOuter.x, leftInner.y - leftOuter.y) || 1);
+            const rightUpper = landmarks[386], rightLower = landmarks[374];
+            const rightInner = landmarks[362], rightOuter = landmarks[263];
+            const rightEAR = Math.hypot(rightUpper.x - rightLower.x, rightUpper.y - rightLower.y) /
+                             (Math.hypot(rightInner.x - rightOuter.x, rightInner.y - rightOuter.y) || 1);
+            const averageEAR = (leftEAR + rightEAR) / 2;
+            const eyesClosed = averageEAR < 0.16;
+
+            // Head pose via key landmarks
+            const forehead = landmarks[10];
+            const chin = landmarks[152];
+            const nose = landmarks[4];
+            const leftCheek = landmarks[234];
+            const rightCheek = landmarks[454];
+
+            const faceHeight = Math.abs(chin.y - forehead.y) || 1;
+            const faceWidth = Math.abs(rightCheek.x - leftCheek.x) || 1;
+            const noseRelY = (nose.y - forehead.y) / faceHeight;
+            const noseRelX = (nose.x - leftCheek.x) / faceWidth;
+
+            // ---- Initial auto-calibration ----
+            if (!neutralBaseline) {
+                baselineSamples.push({ y: noseRelY, x: noseRelX, w: faceWidth });
+                if (baselineSamples.length >= 15) {
+                    const avg = (arr, k) => arr.reduce((s, v) => s + v[k], 0) / arr.length;
+                    neutralBaseline = {
+                        noseY: avg(baselineSamples, 'y'),
+                        noseX: avg(baselineSamples, 'x'),
+                        faceWidth: avg(baselineSamples, 'w'),
+                        brightness: sampleBrightness()
+                    };
+                    logInsight("Calibration", "Neutral posture captured. Tracking active.");
+                }
+                // While calibrating, treat as focused
+                currentHeadDirection = "Looking at Screen";
+                handleDetectedState("Focused");
+                return;
+            }
+
+            // Deviations from neutral
+            const dy = noseRelY - neutralBaseline.noseY;
+            const dx = noseRelX - neutralBaseline.noseX;
+            const widthRatio = faceWidth / (neutralBaseline.faceWidth || 1);
+
+            // Sensitivity thresholds (relative to neutral)
+            const SIDE_TH = 0.18;
+            const DOWN_TH = 0.22;
+            const UP_TH   = 0.22;
+
+            const lookingLeft  = dx < -SIDE_TH;
+            const lookingRight = dx >  SIDE_TH;
+            const headDown     = dy >  DOWN_TH;
+            const headUp       = dy < -UP_TH;
+            // Distance gates: only consider face "far" when much smaller AND sustained
+            const faceShrunk   = widthRatio < 0.5;
+            const faceLarger   = widthRatio > 1.8;
+
+            // Brow furrow → confusion proxy
+            const browL = landmarks[55], browR = landmarks[285];
+            const browDist = Math.hypot(browL.x - browR.x, browL.y - browR.y) / faceWidth;
+            const browFurrow = browDist < 0.17;
+
+            if (lookingLeft)        currentHeadDirection = "Looking Left";
+            else if (lookingRight)  currentHeadDirection = "Looking Right";
+            else if (headDown)      currentHeadDirection = "Looking Down";
+            else if (headUp)        currentHeadDirection = "Looking Up";
+            else                    currentHeadDirection = "Looking at Screen";
+
+            // Streak counters (frames at ~10fps)
+            if (headDown) phoneStreak++; else phoneStreak = 0;
+            if (lookingLeft || lookingRight) sideStreak++; else sideStreak = 0;
+            if (currentHeadDirection !== "Looking at Screen" || faceShrunk) awayStreak++; else awayStreak = 0;
+
+            headAwaySeconds = awayStreak / 10;
+
+            // ---- Continuous adaptive recalibration ----
+            // If face has been stably present, centered, and a smooth direction for 3s,
+            // or lighting/distance has drifted significantly, slowly nudge baseline.
+            const now = Date.now();
+            const brightness = (facePresenceStreak % 15 === 0) ? sampleBrightness() : lastBrightnessSample;
+            const brightnessDelta = Math.abs(brightness - neutralBaseline.brightness);
+            const significantDrift =
+                brightnessDelta > 0.12 ||           // lighting changed
+                faceLarger ||                       // user moved much closer
+                (widthRatio < 0.75 && facePresenceStreak > 40); // sustained farther but still visible
+
+            if (currentHeadDirection === "Looking at Screen" && !eyesClosed && facePresenceStreak >= 20) {
+                // Gentle EMA toward current pose while focused (keeps baseline true to user)
+                const a = 0.05;
+                neutralBaseline.noseY = neutralBaseline.noseY * (1 - a) + noseRelY * a;
+                neutralBaseline.noseX = neutralBaseline.noseX * (1 - a) + noseRelX * a;
+                neutralBaseline.faceWidth = neutralBaseline.faceWidth * (1 - a) + faceWidth * a;
+                neutralBaseline.brightness = neutralBaseline.brightness * (1 - a) + brightness * a;
+            }
+
+            // Hard recalibration when conditions changed significantly (with cooldown)
+            if (significantDrift && now > recalibrateCooldown && facePresenceStreak >= 15
+                && currentHeadDirection === "Looking at Screen") {
+                neutralBaseline.faceWidth = faceWidth;
+                neutralBaseline.brightness = brightness;
+                neutralBaseline.noseY = noseRelY;
+                neutralBaseline.noseX = noseRelX;
+                recalibrateCooldown = now + 8000; // at most once per 8s
+                awayStreak = 0; phoneStreak = 0; sideStreak = 0;
+                logInsight("Recalibrated", "Lighting or camera distance changed — baseline updated.");
+            }
+
+            // ---- Stronger face-present / distance gating ----
+            // Only declare "Not Watching Screen" if face has been present recently
+            // AND clearly shrunk for a sustained window. Otherwise suppress.
+            const faceVisible = facePresenceStreak >= 5; // ~0.5s of detection
+            const sustainedFar = faceShrunk && awayStreak >= 30; // ~3s
+
+            let detectedState = "Focused";
+            if (phoneStreak >= 30)                       detectedState = "Using Phone";
+            else if (sideStreak >= 25)                    detectedState = "Looking Sideways";
+            else if (faceVisible && sustainedFar)        detectedState = "Not Watching Screen";
+            else if (eyesClosed && headDown && phoneStreak >= 20) detectedState = "Sleeping Posture";
+            else if (eyesClosed && facePresenceStreak >= 25) detectedState = "Eyes Closed";
+            else if (headUp && awayStreak >= 30)         detectedState = "Looking Away Too Long";
+            else if (browFurrow && facePresenceStreak >= 30) detectedState = "Confused";
+
+            const selector = document.getElementById('webcam-focus-selector');
+            if (selector && selector.value !== detectedState && detectedState !== "Confused") {
+                selector.value = detectedState;
+            }
+
+            handleDetectedState(detectedState);
+        }
+
+
+        function handleDetectedState(state) {
+            if (state === "Focused") {
+                if (cameraState !== "Focused") {
+                    simulateFocusState("Focused");
+                }
+                return;
+            }
+
+            const now = Date.now();
+            // Throttle triggers to prevent deduction spam (e.g. once every 8 seconds)
+            if (!lastStateTriggerTime[state] || (now - lastStateTriggerTime[state] > 8000)) {
+                lastStateTriggerTime[state] = now;
+
+                if (state === "Using Phone") {
+                    simulateFocusState("Distracted");
+                    triggerFocusEvent("Using Phone");
+                } else if (state === "Looking Sideways") {
+                    simulateFocusState("Looking Away");
+                    triggerFocusEvent("Looking Sideways");
+                } else if (state === "Not Watching Screen") {
+                    simulateFocusState("Looking Away");
+                    triggerFocusEvent("Not Watching Screen");
+                } else if (state === "Looking Away Too Long") {
+                    simulateFocusState("Looking Away");
+                    triggerFocusEvent("Looking Away Too Long");
+                } else if (state === "Head Down") {
+                    simulateFocusState("Distracted");
+                    triggerFocusEvent("Head Down");
+                } else if (state === "Eyes Closed") {
+                    simulateFocusState("Distracted");
+                    triggerFocusEvent("Eyes Closed");
+                } else if (state === "Sleeping Posture") {
+                    simulateFocusState("Distracted");
+                    triggerFocusEvent("Sleeping Posture");
+                } else if (state === "Not Present") {
+                    simulateFocusState("Not Present");
+                    triggerFocusEvent("Not Present");
+                } else if (state === "Confused") {
+                    triggerConfusionEvent("Facial Confusion");
+                }
+            }
+        }
+
+        function onFocusSelectorChange(value) {
+            // Manually trigger the selected state
+            if (value === "Focused") {
+                simulateFocusState("Focused");
+            } else if (value === "Looking Away Too Long" || value === "Looking Sideways" || value === "Not Watching Screen") {
+                simulateFocusState("Looking Away");
+                triggerFocusEvent(value);
+            } else if (value === "Head Down" || value === "Eyes Closed" || value === "Sleeping Posture" || value === "Using Phone") {
+                simulateFocusState("Distracted");
+                triggerFocusEvent(value);
+            } else if (value === "Not Present") {
+                simulateFocusState("Not Present");
+            }
+        }
+
+        // Developer commands handler
+        function handleEventCommand(eventName) {
+            const ev = eventName.trim().toLowerCase();
+            if (ev === "normal" || ev === "step1" || ev === "step 1") {
+                runWalkthroughStep(1);
+            } else if (ev === "focuslost" || ev === "step2" || ev === "step 2") {
+                runWalkthroughStep(2);
+            } else if (ev === "explainagain" || ev === "step2b" || ev === "step 2b") {
+                runWalkthroughStep(3);
+            } else if (ev === "wronganswer" || ev === "step3" || ev === "step 3" || ev === "step4" || ev === "step 4") {
+                runWalkthroughStep(4);
+            } else if (ev === "engaged" || ev === "step5" || ev === "step 5") {
+                runWalkthroughStep(5);
+            } else if (ev === "severe" || ev === "step6" || ev === "step 6") {
+                runWalkthroughStep(6);
+            } else if (ev === "rescue" || ev === "step7" || ev === "step 7") {
+                runWalkthroughStep(7);
+            } else {
+                logInsight("Command Warning", `Unknown event command: ${eventName}`, true);
+            }
+        }
+
+        // Walkthrough step simulator
+        function runWalkthroughStep(stepNum) {
+            if (stepNum === 1) {
+                // Step 1: Start With Normal Teaching
+                topic = "newtons_laws";
+                customSubject = "Physics";
+                
+                const subjBread = document.getElementById('breadcrumb-subject');
+                const topicBread = document.getElementById('breadcrumb-topic');
+                if (subjBread) subjBread.innerText = "Physics";
+                if (topicBread) topicBread.innerText = "Newton's Laws of Motion";
+                
+                // Hide choice card and show chat if needed
+                const queryCard = document.getElementById('central-query-card');
+                if (queryCard) queryCard.classList.add('hidden');
+                
+                const chatContainer = document.getElementById('chat-history-container');
+                const chatToolbar = document.getElementById('chat-toolbar');
+                const chatInputBar = document.getElementById('chat-input-bar');
+                if (chatContainer) chatContainer.classList.remove('hidden');
+                if (chatToolbar) chatToolbar.classList.remove('hidden');
+                if (chatInputBar) chatInputBar.classList.remove('hidden');
+                
+                // Set scores
+                updateScores(90, 10);
+                focusScoreSum = 90;
+                focusScoreCount = 1;
+                
+                // Reset states
+                isRescueMode = false;
+                rescueStep = 0;
+                
+                const rescueBanner = document.getElementById('rescue-mode-banner');
+                const spikeBanner = document.getElementById('confusion-spike-banner');
+                const attentionBanner = document.getElementById('attention-spike-banner');
+                if (rescueBanner) rescueBanner.classList.add('hidden');
+                if (spikeBanner) spikeBanner.classList.add('hidden');
+                if (attentionBanner) attentionBanner.classList.add('hidden');
+                
+                // Clear chat
+                const chatLog = document.getElementById('chat-history');
+                if (chatLog) chatLog.innerHTML = "";
+                
+                // User message
+                appendUserBubble("Explain Newton's First Law");
+                
+                // Bot message
+                const typing = document.getElementById('ai-typing-indicator');
+                if (typing) {
+                    typing.classList.remove('hidden');
+                    document.getElementById('ai-typing-text').innerText = "Analyzing Newton parameters...";
+                }
+                
+                setTimeout(() => {
+                    if (typing) typing.classList.add('hidden');
+                    currentMode = "normal";
+                    const text = "Newton's First Law states that an object remains at rest or moves with constant velocity unless acted upon by an external force.";
+                    addBotMessage(text, "normal");
+                    logInsight("Standard Teaching", "Tutor initialized in Standard Mode (Normal).", false);
+                }, 800);
+            }
+            else if (stepNum === 2) {
+                // Step 2: Student Starts Struggling (Focus Lost)
+                simulateFocusState("Looking Away");
+                updateScores(80, 20);
+                
+                logInsight("Camera Detects", "Looking away for 8 seconds", true);
+                logInsight("Focus Lost Event", "Student looked away from screen (-10 pts)", true);
+                logInsight("Biometric Shift", "Focus: 90 → 80, Confusion: 10 → 20", true);
+            }
+            else if (stepNum === 3) {
+                // Step 2b: Clicks "Explain Again"
+                appendUserBubble("Explain Again");
+                
+                const typing = document.getElementById('ai-typing-indicator');
+                if (typing) {
+                    typing.classList.remove('hidden');
+                    document.getElementById('ai-typing-text').innerText = "Re-evaluating Inertia principles...";
+                }
+                
+                setTimeout(() => {
+                    if (typing) typing.classList.add('hidden');
+                    updateScores(80, 35);
+                    currentMode = "normal";
+                    const text = "Newton's First Law states that an object remains at rest or moves with constant velocity unless acted upon by an external force. Essentially, objects will keep doing what they are already doing unless a net force forces them to change.";
+                    addBotMessage(text, "normal");
+                    logInsight("Explain Again Event", "Confusion Score: 20 → 35 (Standard Mode)", false);
+                }, 800);
+            }
+            else if (stepNum === 4) {
+                // Step 3: Confusion Threshold Reached (Wrong Quiz Answer -> Example Mode)
+                appendUserBubble("Wrong Quiz Answer");
+                
+                const typing = document.getElementById('ai-typing-indicator');
+                if (typing) {
+                    typing.classList.remove('hidden');
+                    document.getElementById('ai-typing-text').innerText = "Adapting pedagogical weights...";
+                }
+                
+                setTimeout(() => {
+                    if (typing) typing.classList.add('hidden');
+                    updateScores(80, 55);
+                    
+                    // Show Confusion Spike banner
+                    const spikeBanner = document.getElementById('confusion-spike-banner');
+                    if (spikeBanner) spikeBanner.classList.remove('hidden');
+                    logInsight("Confusion Spike Generated", "Confusion Score: 35 → 55 (>50)", true);
+                    
+                    currentMode = "example";
+                    const text = `💡 *[Example Mode Activated (Confusion: 55%)]*\n*Focusing on physical examples to clarify the topic:*\n\nImagine a football lying on the ground. It stays still until someone kicks it. That's Newton's First Law.`;
+                    addBotMessage(text, "example");
+                    
+                    logInsight("Teaching Mode Shift", "Standard Mode ↓ Example Mode", false);
+                }, 800);
+            }
+            else if (stepNum === 5) {
+                // Step 5: Check Improvement (Engaged & Correct Quiz Answer)
+                simulateFocusState("Focused");
+                appendUserBubble("Correct Quiz Answer");
+                
+                const typing = document.getElementById('ai-typing-indicator');
+                if (typing) {
+                    typing.classList.remove('hidden');
+                    document.getElementById('ai-typing-text').innerText = "Processing correct response...";
+                }
+                
+                setTimeout(() => {
+                    if (typing) typing.classList.add('hidden');
+                    updateScores(90, 40);
+                    
+                    logInsight("Camera Detects", "Face toward screen, No distractions (Focused)", false);
+                    logInsight("Correct Answer Event", "Focus Score: 80 → 90, Confusion Score: 55 → 40", false);
+                    
+                    currentMode = "example";
+                    const text = `Excellent! Your understanding is improving. Let's stay in Example Mode to make sure it's solid:\n\nThink of another example: a book on a table won't slide off by itself unless you push it. That's Inertia!`;
+                    addBotMessage(text, "example");
+                }, 800);
+            }
+            else if (stepNum === 6) {
+                // Step 6: Severe Confusion (Trigger Visual Mode)
+                simulateFocusState("Looking Away");
+                appendUserBubble("Wrong Answer, Wrong Answer, Focus Lost, Explain Again");
+                
+                const typing = document.getElementById('ai-typing-indicator');
+                if (typing) {
+                    typing.classList.remove('hidden');
+                    document.getElementById('ai-typing-text').innerText = "Activating sensory modality paths...";
+                }
+                
+                setTimeout(() => {
+                    if (typing) typing.classList.add('hidden');
+                    updateScores(70, 85);
+                    
+                    logInsight("Severe Confusion", "Wrong Answer, Wrong Answer, Focus Lost, Explain Again", true);
+                    
+                    currentMode = "visual";
+                    const prefix = `🎨 *[Visual Mode Activated (Confusion: 85%)]*\n*AI now shows diagrams, animations, and flowcharts instead of long text:*\n\n`;
+                    const text = prefix + tutorDatabase.newtons_laws.visual.text + "\n\n(See the interactive force schematic map below)";
+                    const svgHtml = tutorDatabase.newtons_laws.visual.svg;
+                    addBotMessage(text, "visual", svgHtml);
+                    
+                    logInsight("Teaching Mode Shift", "Example Mode ↓ Visual Mode", false);
+                }, 800);
+            }
+            else if (stepNum === 7) {
+                // Step 7: Rescue Mode (Trigger Rescue Mode diagnostics)
+                simulateFocusState("Looking Away");
+                appendUserBubble("Still struggling with Newton's Law");
+                
+                const typing = document.getElementById('ai-typing-indicator');
+                if (typing) {
+                    typing.classList.remove('hidden');
+                    document.getElementById('ai-typing-text').innerText = "Locking syllabus. Launching prerequisites...";
+                }
+                
+                setTimeout(() => {
+                    if (typing) typing.classList.add('hidden');
+                    updateScores(60, 95);
+                    
+                    isRescueMode = true;
+                    rescueStep = 1;
+                    const rescueBanner = document.getElementById('rescue-mode-banner');
+                    if (rescueBanner) rescueBanner.classList.remove('hidden');
+                    logInsight("Rescue Mode Activated", "Confusion score reached 95% (>=90%)", true);
+                    
+                    const forceText = `⚠️ **Rescue Mode Activated (Confusion: 95%)**\nAI stops explaining Newton's Law. Instead, let's check your foundation.\nBefore learning Newton's Laws, do you understand force and motion?\n\nLet's check your understanding of **Force** first.`;
+                    const forceQuiz = {
+                        q: "Prerequisite Check (Force): If an object has a mass of 2 kg and accelerates at 3 m/s², what is the net force acting on it?",
+                        a: ["6 N", "1.5 N", "5 N"],
+                        correct: 0
+                    };
+                    addRescueQuiz(forceText, forceQuiz);
+                }, 800);
+            }
+        }
+
+
+        // OpenCV webcam loop
+        function startFaceDetectionLoop() {
+            if (!window.cv || !classifier) return;
+            
+            const video = document.getElementById('webcam-feed');
+            const canvasOut = document.getElementById('opencv-canvas');
+            const ctxOut = canvasOut.getContext('2d');
+            
+            const width = 320;
+            const height = 240;
+            
+            video.width = width;
+            video.height = height;
+            canvasOut.width = width;
+            canvasOut.height = height;
+            canvasOut.classList.remove('hidden');
+            
+            let src = new cv.Mat(height, width, cv.CV_8UC4);
+            let gray = new cv.Mat(height, width, cv.CV_8UC1);
+            let cap = new cv.VideoCapture(video);
+            let faces = new cv.RectVector();
+            
+            const FPS = 10;
+            
+            function processFrame() {
+                if (!webcamStream) {
+                    src.delete();
+                    gray.delete();
+                    faces.delete();
+                    canvasOut.classList.add('hidden');
+                    return;
+                }
+                
+                try {
+                    cap.read(src);
+                    cv.cvtColor(src, gray, cv.COLOR_RGBA2GRAY);
+                    
+                    // Detect faces using OpenCV
+                    classifier.detectMultiScale(gray, faces, 1.1, 3, 0);
+                    
+                    const numFaces = faces.size();
+                    
+                    // Draw bounding boxes on canvas
+                    ctxOut.drawImage(video, 0, 0, width, height);
+                    for (let i = 0; i < numFaces; ++i) {
+                        let face = faces.get(i);
+                        ctxOut.strokeStyle = '#486d29';
+                        ctxOut.lineWidth = 3;
+                        ctxOut.strokeRect(face.x, face.y, face.width, face.height);
+                    }
+                    
+                    let headDirection = "Looking at Screen";
+                    if (numFaces > 0) {
+                        let face = faces.get(0);
+                        let centerX = face.x + face.width / 2;
+                        let centerY = face.y + face.height / 2;
+                        trackFaceMovement(centerX, centerY);
+                        
+                        if (centerX < 100) {
+                            headDirection = "Looking Left";
+                        } else if (centerX > 220) {
+                            headDirection = "Looking Right";
+                        } else if (centerY > 160) {
+                            headDirection = "Looking Down";
+                        } else {
+                            headDirection = "Looking at Screen";
+                        }
+                    } else {
+                        headDirection = "Not Present";
+                    }
+                    currentHeadDirection = headDirection;
+                    
+                    updateOpenCvTelemetry(numFaces, headDirection);
+                    
+                    // Send to MediaPipe if initialized
+                    if (mediaPipeActive) {
+                        faceMesh.send({ image: video }).catch(err => console.error("MediaPipe send error", err));
+                    }
+                } catch (err) {
+                    console.error("OpenCV processing error", err);
+                }
+                
+                setTimeout(processFrame, 1000 / FPS);
+            }
+            
+            setTimeout(processFrame, 1000 / FPS);
+        }
+
+        function updateOpenCvTelemetry(numFaces, headDirection) {
+            const feedback = document.getElementById('opencv-focus-note');
+            
+            if (!isFocusSessionActive) {
+                feedback.innerText = "Focus session paused.";
+                return;
+            }
+
+            if (numFaces > 0) {
+                const isAway = headDirection !== "Looking at Screen";
+                const colorClass = isAway ? "text-secondary font-bold flex items-center gap-1 animate-pulse" : "text-primary font-bold flex items-center gap-1";
+                const icon = isAway ? "error" : "face";
+                feedback.innerHTML = `
+                    <span class="${colorClass}">
+                        <span class="material-symbols-outlined text-sm">${icon}</span> Face Detected: ${headDirection}
+                    </span>
+                `;
+                if (cameraState !== "Focused") {
+                    simulateFocusState('Focused');
+                }
+            } else {
+                feedback.innerHTML = `
+                    <span class="text-error font-bold flex items-center gap-1 animate-pulse">
+                        <span class="material-symbols-outlined text-sm">visibility_off</span> Face Missing: Distracted
+                    </span>
+                `;
+                if (cameraState === "Focused") {
+                    simulateFocusState('Looking Away');
+                }
+            }
+        }
+
+        function trackFaceMovement(x, y) {
+            const now = Date.now();
+            faceMovementHistory.push({ x, y, time: now });
+            
+            // Keep only the last 15 frames (1.5 seconds at 10 FPS)
+            if (faceMovementHistory.length > 15) {
+                faceMovementHistory.shift();
+            }
+            
+            if (faceMovementHistory.length < 5) return;
+            
+            // Calculate total movement distance
+            let totalMovement = 0;
+            for (let i = 1; i < faceMovementHistory.length; i++) {
+                let dx = faceMovementHistory[i].x - faceMovementHistory[i-1].x;
+                let dy = faceMovementHistory[i].y - faceMovementHistory[i-1].y;
+                totalMovement += Math.sqrt(dx*dx + dy*dy);
+            }
+            
+            // If total movement is high (e.g. > 110 pixels in 1.5 seconds)
+            // indicating frequent head movements or restlessness
+            if (totalMovement > 110 && (now - lastHeadMovementTriggerTime > 10000)) {
+                lastHeadMovementTriggerTime = now;
+                triggerFocusEvent("Head Movement");
+                logInsight("OpenCV Detection", `Frequent head movement detected (motion value: ${Math.round(totalMovement)}px).`, true);
+            }
+        }
+
+        // Trigger camera permission
+        let mpCameraInstance = null;
+        let lastFaceSeenTime = 0;
+        function startActualWebcam() {
+            const video = document.getElementById('webcam-feed');
+            const placeholder = document.getElementById('webcam-placeholder');
+            const statusLabel = document.getElementById('camera-status-label');
+            const statusDot = document.getElementById('camera-status-dot');
+
+            if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+                navigator.mediaDevices.getUserMedia({ video: { width: 640, height: 480, facingMode: 'user' } })
+                    .then(stream => {
+                        webcamStream = stream;
+                        video.srcObject = stream;
+                        video.classList.remove('hidden');
+                        placeholder.classList.add('hidden');
+
+                        statusLabel.innerText = "Camera Active";
+                        statusDot.className = "w-2.5 h-2.5 bg-primary rounded-full animate-pulse";
+
+                        logInsight("Camera Started", "Live camera stream acquired.");
+
+                        // Initialize MediaPipe FaceMesh immediately (independent of OpenCV)
+                        ensureMediaPipeReady().then(() => {
+                            if (!mediaPipeActive || !faceMesh) return;
+                            lastFaceSeenTime = Date.now();
+                            if (typeof Camera !== 'undefined') {
+                                mpCameraInstance = new Camera(video, {
+                                    onFrame: async () => {
+                                        try { await faceMesh.send({ image: video }); }
+                                        catch (e) { /* ignore intermittent send errors */ }
+                                    },
+                                    width: 640,
+                                    height: 480
+                                });
+                                mpCameraInstance.start();
+                                logInsight("Face Tracking", "MediaPipe FaceMesh driving live frames.");
+                            } else {
+                                // Fallback rAF loop
+                                const tick = async () => {
+                                    if (!webcamStream) return;
+                                    try { await faceMesh.send({ image: video }); } catch (e) {}
+                                    setTimeout(tick, 120);
+                                };
+                                tick();
+                            }
+                            // Watchdog: only declare Not Present after a longer face-gone window (5s)
+                            // to avoid false alerts during brief detection drops (blur, blink, occlusion).
+                            setInterval(() => {
+                                if (!isFocusSessionActive || !webcamStream) return;
+                                const gap = (Date.now() - lastFaceSeenTime) / 1000;
+                                if (gap > 5) {
+                                    currentHeadDirection = "Not Present";
+                                    if (cameraState !== "Looking Away" && cameraState !== "Not Present") {
+                                        simulateFocusState('Looking Away');
+                                    }
+                                } else if (gap < 1.5 && cameraState === "Not Present") {
+                                    // Face returned — clear the Not Present state
+                                    simulateFocusState('Focused');
+                                }
+                            }, 1000);
+                        });
+
+                        if (cvReady) {
+                            startFaceDetectionLoop();
+                        }
+                    })
+                    .catch(err => {
+                        console.error("Camera access failed", err);
+                        statusLabel.innerText = "Camera Blocked";
+                        statusDot.className = "w-2.5 h-2.5 bg-error rounded-full";
+                        logInsight("Camera Refused", "Allow camera permission to enable face tracking.", true);
+                    });
+            }
+        }
+
+        // Ensure MediaPipe is loaded and initialized
+        function ensureMediaPipeReady() {
+            return new Promise((resolve) => {
+                if (mediaPipeActive && faceMesh) return resolve();
+                let attempts = 0;
+                const tryInit = () => {
+                    if (typeof FaceMesh !== 'undefined') {
+                        initMediaPipe();
+                        return resolve();
+                    }
+                    if (++attempts > 80) return resolve(); // ~8s timeout
+                    setTimeout(tryInit, 100);
+                };
+                tryInit();
+            });
+        }
+
+        function stopActualWebcam() {
+            if (webcamStream) {
+                webcamStream.getTracks().forEach(track => track.stop());
+                webcamStream = null;
+            }
+            const video = document.getElementById('webcam-feed');
+            const placeholder = document.getElementById('webcam-placeholder');
+            const statusLabel = document.getElementById('camera-status-label');
+            const statusDot = document.getElementById('camera-status-dot');
+
+            video.classList.add('hidden');
+            placeholder.classList.remove('hidden');
+            statusLabel.innerText = "Camera Paused";
+            statusDot.className = "w-2.5 h-2.5 bg-zinc-400 rounded-full";
+        }
+
+        // Study Session Controls
+        function startStudySession() {
+            isFocusSessionActive = true;
+            startActualWebcam();
+            logInsight("Study Session Started", "Webcam face tracking and telemetry active.");
+            // Reset focus score to 100 and confusion score to 0 when a session begins
+            updateScores(100, 0); // 100 focus, 0 confusion (initial values)
+            focusScoreSum = 100;
+            focusScoreCount = 1;
+            lookingAwaySeconds = 0;
+            continuousFocusedSeconds = 0;
+            currentHeadDirection = "Looking at Screen";
+            headAwaySeconds = 0;
+            previousState = "Focused";
+            // Reset neutral baseline for fresh calibration
+            neutralBaseline = null;
+            baselineSamples = [];
+            awayStreak = 0;
+            phoneStreak = 0;
+            sideStreak = 0;
+            facePresenceStreak = 0;
+            recalibrateCooldown = 0;
+        }
+
+        function stopStudySession() {
+            isFocusSessionActive = false;
+            stopActualWebcam();
+        }
+
+        function playVictoryBeeps() {
+            const victoryCtx = new (window.AudioContext || window.webkitAudioContext)();
+            let time = victoryCtx.currentTime;
+            [523.25, 659.25, 783.99, 1046.50].forEach((freq, idx) => {
+                let osc = victoryCtx.createOscillator();
+                let gain = victoryCtx.createGain();
+                osc.type = "sine";
+                osc.frequency.setValueAtTime(freq, time + (idx * 0.15));
+                gain.gain.setValueAtTime(0.15, time + (idx * 0.15));
+                gain.gain.exponentialRampToValueAtTime(0.01, time + (idx * 0.15) + 0.2);
+                osc.connect(gain);
+                gain.connect(victoryCtx.destination);
+                osc.start(time + (idx * 0.15));
+                osc.stop(time + (idx * 0.15) + 0.25);
+            });
+        }
+
+        // Draw dynamic neuromorphic Brain Waves on canvas
+
+
+        // Focus Simulators
+        function simulateFocusState(state) {
+            cameraState = state;
+            const mockImg = document.getElementById('state-mock-img');
+            const indicator = document.getElementById('engagement-badge');
+            const text = document.getElementById('engagement-text');
+            
+            indicator.className = "w-4 h-4 rounded-full border-2 border-surface animate-ping ";
+            
+            if (state === "Focused") {
+                if(mockImg) mockImg.src = "https://lh3.googleusercontent.com/aida-public/AB6AXuDpKenF-2qUQCz19xKLfHiy5X5nncKgRqPEEgdIdN_kizuc2NGqflw2Mk6veHPFL56H58558FXUO-Tm2PY6IHhy47fgbNTIyAhY_ScBoHRLslFQYHRMMCdj57zWJNYjVGRoiJztIYt_l58GxNU2Oe14g3zoX9pjbhuEGCo2y1rFCYB-fFQZwuCUTTtHczQXPwHqNPS6CoVYMIU7x6SHSsTyQaGT2mkAalxmAFbxOl3hYruBYa73IrKjA6kHHcsegZVaVMEcs7UG7Va";
+                indicator.classList.add('bg-primary');
+                text.innerText = "Focused / Learning Well";
+                text.className = "text-sm font-bold text-primary";
+                
+                if (previousState !== "Focused") {
+                    logInsight("Status Update", "Student is now Focused.");
+                    if (previousState === "Looking Away" || previousState === "Distracted" || previousState === "Not Present") {
+                        triggerFocusEvent("Focus Regained");
+                    }
+                    previousState = "Focused";
+                }
+            } else if (state === "Looking Away") {
+                if(mockImg) mockImg.src = "https://lh3.googleusercontent.com/aida-public/AB6AXuArDeGQAX3HLh2W9Xomr5xY_wl22PhweoSZaaXGGCQYZRSkTNwj0pbVA4X-1iHZUQg2HDdHy6svaSx_cFLAQuynxdvxSL2qh9ksXU2TNEFv9XQQglxdXZRuCPu4IsoJGzv3UKfH71Y4YrsGO84gd1ZCt_VdCdaDgbDJ2im-E_HNs_laZhPAi6RsPZAhmLuCHQpShdvM6ukavQUSrRKQgUnUZCG4GFivuMRgwz7RUHHbFhVsdjOqYwgo8JcmjQsufQflXCu5nO4w878";
+                indicator.classList.add('bg-secondary');
+                text.innerText = "Looking Away";
+                text.className = "text-sm font-bold text-secondary";
+                
+                if (previousState !== "Looking Away") {
+                    logInsight("Status Update", "Student is Looking Away.");
+                    previousState = "Looking Away";
+                }
+            } else if (state === "Distracted") {
+                if(mockImg) mockImg.src = "https://lh3.googleusercontent.com/aida-public/AB6AXuArDeGQAX3HLh2W9Xomr5xY_wl22PhweoSZaaXGGCQYZRSkTNwj0pbVA4X-1iHZUQg2HDdHy6svaSx_cFLAQuynxdvxSL2qh9ksXU2TNEFv9XQQglxdXZRuCPu4IsoJGzv3UKfH71Y4YrsGO84gd1ZCt_VdCdaDgbDJ2im-E_HNs_laZhPAi6RsPZAhmLuCHQpShdvM6ukavQUSrRKQgUnUZCG4GFivuMRgwz7RUHHbFhVsdjOqYwgo8JcmjQsufQflXCu5nO4w878";
+                indicator.classList.add('bg-error');
+                text.innerText = "Distracted";
+                text.className = "text-sm font-bold text-error";
+                
+                if (previousState !== "Distracted") {
+                    logInsight("Status Update", "Student is Distracted.");
+                    previousState = "Distracted";
+                    triggerFocusEvent("Head Movement");
+                }
+            } else if (state === "Not Present") {
+                indicator.classList.add('bg-outline');
+                text.innerText = "Not Present";
+                text.className = "text-sm font-bold text-outline";
+                
+                if (previousState !== "Not Present") {
+                    logInsight("Status Update", "Student is Not Present.");
+                    previousState = "Not Present";
+                    triggerFocusEvent("User Not Visible");
+                }
+            }
+        }
+         function getConfusionCategory(score) {
+            if (score >= 80) return "Very confused";
+            if (score >= 50) return "Confused";
+            if (score >= 20) return "Slight confusion";
+            return "Understanding well";
+        }
+
+        function updateScores(focusVal, confusionVal) {
+            focusScore = focusVal;
+            confusionScore = Math.max(0, Math.min(100, confusionVal));
+            
+            const focusText = document.getElementById('focus-score-text');
+            const focusBar = document.getElementById('focus-score-bar');
+            if (focusText) focusText.innerText = `${focusScore}%`;
+            if (focusBar) focusBar.style.width = `${focusScore}%`;
+            
+            const confText = document.getElementById('confusion-score-text');
+            const confBar = document.getElementById('confusion-score-bar');
+            if (confText) {
+                const category = getConfusionCategory(confusionScore);
+                confText.innerHTML = `${confusionScore}% <span class="text-xs font-bold text-on-surface-variant block mt-0.5">(${category})</span>`;
+            }
+            if (confBar) confBar.style.width = `${confusionScore}%`;
+        }
+
+        // Event-driven Focus System
+        function triggerFocusEvent(eventType, details = "") {
+            let penalty = 0;
+            let bonus = 0;
+            let eventName = "";
+            let description = "";
+
+            const isDistraction = [
+                "Focus Lost", "User Not Visible", "Not Present", "Looking Away Too Long",
+                "Head Down", "Eyes Closed", "Sleeping Posture", "Using Phone",
+                "Looking Sideways", "Not Watching Screen", "Tab Switch"
+            ].includes(eventType);
+            
+            if (isDistraction && hasJustReceivedSimpleExplanation) {
+                lostFocusAfterSimpleExplanation = true;
+            }
+
+            switch (eventType) {
+                case "Focus Lost": // Looking Away > 3 seconds
+                    penalty = 10;
+                    eventName = "Focus Lost Event";
+                    description = "User looked away from screen > 3s";
+                    setTimeout(() => {
+                        triggerConfusionEvent("Camera Focus Lost");
+                    }, 50);
+                    break;
+                case "User Not Visible": // Leaving Camera View
+                    penalty = 15;
+                    eventName = "User Not Visible Event";
+                    description = "User not visible in camera";
+                    setTimeout(() => {
+                        triggerConfusionEvent("User Absent");
+                    }, 50);
+                    break;
+                case "Not Present": // User not present in simulator
+                    penalty = 15;
+                    eventName = "User Not Visible Event";
+                    description = "User not visible in camera";
+                    setTimeout(() => {
+                        triggerConfusionEvent("User Absent");
+                    }, 50);
+                    break;
+                case "Focus Regained": // Focus regained
+                    bonus = 5;
+                    eventName = "Focus Regained Event";
+                    description = "Student regained focus on screen";
+                    setTimeout(() => {
+                        triggerConfusionEvent("Focus Regained");
+                        showFocusRegainedCheck();
+                    }, 50);
+                    break;
+                case "Head Movement": // Frequent Head Movement
+                    penalty = 3;
+                    eventName = "Frequent Head Movement Event";
+                    description = "Frequent head movement detected";
+                    break;
+                case "Tab Switch": // Tab Switching
+                    penalty = 10;
+                    eventName = "Tab Switch Event";
+                    description = "Switched away from study tab";
+                    tabSwitchCount++;
+                    if (tabSwitchCount >= 2) {
+                        triggerConfusionEvent("Multiple Tab Switches");
+                        tabSwitchCount = 0;
+                    }
+                    break;
+                case "Blocked Site": // Attempting Blocked Website
+                    penalty = 20;
+                    eventName = "Blocked Site Event";
+                    description = `Attempted blocked site: ${details}`;
+                    break;
+                case "Head Down":
+                    penalty = 5;
+                    eventName = "Head Down Event";
+                    description = "Student tilted head down / slouched";
+                    break;
+                case "Eyes Closed":
+                    penalty = 5;
+                    eventName = "Eyes Closed Event";
+                    description = "Student closed eyes / blinked too long";
+                    break;
+                case "Sleeping Posture":
+                    penalty = 15;
+                    eventName = "Sleeping Posture Event";
+                    description = "Student detected in sleeping posture";
+                    break;
+                case "Looking Away Too Long":
+                    penalty = 10;
+                    eventName = "Looking Away Too Long Event";
+                    description = "Student looked away from screen > 5 seconds";
+                    break;
+                case "Using Phone":
+                    penalty = 12;
+                    eventName = "Phone Use Detected";
+                    description = "Head tilted down toward lap — likely using phone";
+                    break;
+                case "Looking Sideways":
+                    penalty = 8;
+                    eventName = "Looking Sideways Event";
+                    description = "Student turned head to the side (distraction)";
+                    break;
+                case "Not Watching Screen":
+                    penalty = 10;
+                    eventName = "Not Watching Screen Event";
+                    description = "Student not facing the screen";
+                    break;
+                case "Focused 5 Minutes": // Staying Focused for 5 mins
+                    bonus = 5;
+                    eventName = "Focused 5 Minutes Event";
+                    description = "Stayed focused for 5 minutes";
+                    break;
+                case "Completing Quiz": // Completing Quiz
+                    bonus = 10;
+                    eventName = "Completed Quiz Event";
+                    description = "Completed knowledge check quiz";
+                    break;
+                case "Completing Topic": // Completing Topic
+                    bonus = 10;
+                    eventName = "Completed Topic Event";
+                    description = "Completed subject check / topic";
+                    break;
+            }
+
+            if (penalty > 0) {
+                const newScore = Math.max(0, focusScore - penalty);
+                logInsight(eventName, `${description} (-${penalty} pts)`, true);
+                updateScores(newScore, confusionScore);
+                checkFocusConnectionToTutor();
+            } else if (bonus > 0) {
+                const newScore = Math.min(100, focusScore + bonus);
+                logInsight(eventName, `${description} (+${bonus} pts)`, false);
+                updateScores(newScore, confusionScore);
+                checkFocusConnectionToTutor();
+            }
+        }
+
+        function checkFocusConnectionToTutor() {
+            if (focusScore < 40) {
+                // Below 40: High Distraction -> Generate: Attention Spike
+                logInsight("Attention Spike", "High distraction level. Focus score below 40%!", true);
+                const spikeBanner = document.getElementById('attention-spike-banner');
+                if (spikeBanner) {
+                    spikeBanner.classList.remove('hidden');
+                }
+                
+                // Trigger Low Focus Confusion Event (+10 pts)
+                if (!lowFocusConfusionTriggered) {
+                    lowFocusConfusionTriggered = true;
+                    triggerConfusionEvent("Low Focus");
+                }
+            } else {
+                const spikeBanner = document.getElementById('attention-spike-banner');
+                if (spikeBanner) {
+                    spikeBanner.classList.add('hidden');
+                }
+                lowFocusConfusionTriggered = false; // Reset flag when focus recovers
+            }
+        }
+
+        function dismissAttentionSpikeBanner() {
+            document.getElementById('attention-spike-banner').classList.add('hidden');
+        }
+
+        // Event-driven Confusion System
+        function triggerConfusionEvent(eventType, details = "") {
+            let increment = 0;
+            let decrement = 0;
+            let eventName = "";
+            let description = "";
+
+            switch (eventType) {
+                case "Wrong Answer": // Quiz wrong answer
+                    increment = 20;
+                    eventName = "Wrong Answer Event";
+                    description = "Incorrect answer submitted on quiz";
+                    break;
+                case "Repeated Wrong Answer": // Repeated wrong answer
+                    increment = 30;
+                    eventName = "Repeated Wrong Answer Event";
+                    description = "Repeated incorrect answer on same concept";
+                    break;
+                case "Explain Again": // Click Explain Again
+                    increment = 15;
+                    eventName = "Explain Again Event";
+                    description = "Clicked 'Explain Again' button";
+                    break;
+                case "Hint Request": // Request hint
+                    increment = 10;
+                    eventName = "Hint Request Event";
+                    description = "Requested a hint for the quiz";
+                    break;
+                case "Low Focus": // Focus falls below 40
+                    increment = 10;
+                    eventName = "Low Focus Confusion Event";
+                    description = "Focus score fell below 40%";
+                    break;
+                case "Camera Focus Lost": // Focus disturbed via camera
+                    increment = 10;
+                    eventName = "Focus Lost Event";
+                    description = "Camera detected focus lost";
+                    break;
+                case "User Absent": // User absent via camera
+                    increment = 15;
+                    eventName = "User Absent Event";
+                    description = "User detected as absent / not present";
+                    break;
+                case "Focus Regained": // Focus regained via camera
+                    decrement = 5;
+                    eventName = "Focus Regained Event";
+                    description = "User regained focus on screen";
+                    break;
+                case "Long Inactivity": // No response for 60 seconds
+                    increment = 10;
+                    eventName = "Long Inactivity Event";
+                    description = "No student response for 60 seconds";
+                    break;
+                case "Multiple Tab Switches": // Switching tabs repeatedly
+                    increment = 10;
+                    eventName = "Multiple Tab Switches Event";
+                    description = "Switched tabs repeatedly";
+                    break;
+                case "Correct Answer": // Correct answer
+                    decrement = 15;
+                    eventName = "Correct Answer Event";
+                    description = "Correct answer submitted on quiz";
+                    break;
+                case "Multiple Correct Answers": // 3 correct answers in a row
+                    decrement = 20;
+                    eventName = "Multiple Correct Answers Event";
+                    description = "Answered 3 questions correctly in a row";
+                    break;
+                case "Quiz Passed": // Quiz passed 80%+
+                    decrement = 30;
+                    eventName = "Quiz Passed Event";
+                    description = "Passed the module quiz with 80%+ score";
+                    break;
+                case "Topic Completed": // Topic completed
+                    decrement = 20;
+                    eventName = "Topic Completed Event";
+                    description = "Completed topic check-in";
+                    break;
+            }
+
+            if (increment > 0) {
+                const newScore = Math.min(100, confusionScore + increment);
+                logInsight(eventName, `${description} (+${increment} pts)`, true);
+                updateScores(focusScore, newScore);
+                checkConfusionConnectionToTutor();
+            } else if (decrement > 0) {
+                const newScore = Math.max(0, confusionScore - decrement);
+                logInsight(eventName, `${description} (-${decrement} pts)`, false);
+                updateScores(focusScore, newScore);
+                checkConfusionConnectionToTutor();
+            }
+        }
+
+        function checkConfusionConnectionToTutor() {
+            // Check Confusion Spike (> 50)
+            const banner = document.getElementById('confusion-spike-banner');
+            if (confusionScore > 50) {
+                if (banner && banner.classList.contains('hidden')) {
+                    banner.classList.remove('hidden');
+                    logInsight("Confusion Spike Generated", `Confusion score is ${confusionScore}% (>50%)!`, true);
+                }
+            } else {
+                if (banner && !banner.classList.contains('hidden')) {
+                    banner.classList.add('hidden');
+                }
+            }
+
+            // Adapt tutor based on Confusion Score levels
+            if (confusionScore >= 90) {
+                // Score 90+: Activate Rescue Mode
+                if (!isRescueMode) {
+                    activateRescueMode();
+                }
+            } else if (isRescueMode) {
+                // Stay in Rescue Mode
+            } else if (confusionScore >= 71) {
+                // Score 71-90: Visual Mode
+                adaptTutorMode("visual");
+            } else if (confusionScore >= 51) {
+                // Score 51-70: Example Mode
+                adaptTutorMode("example");
+            } else if (confusionScore >= 31) {
+                // Score 31-50: Simplified Mode
+                // Hysteresis: remains in Example or Visual Mode until confusion drops further (<= 35)
+                if (currentMode === "example" || currentMode === "visual") {
+                    // Do not downgrade immediately
+                } else {
+                    adaptTutorMode("simple");
+                }
+            } else {
+                // Score 0-30: Standard Mode (also downgrade trigger <= 35)
+                adaptTutorMode("normal");
+            }
+        }
+
+        function resetInactivity() {
+            studentInactivitySeconds = 0;
+        }
+
+        function getAdaptedResponse(query) {
+            let mode = "normal";
+            let text = "";
+            let svgHtml = "";
+            let prefix = "";
+
+            if (confusionScore <= 35) {
+                // Score 0-35: Standard Mode
+                mode = "normal";
+                if (topic === "newtons_laws") {
+                    text = "Newton's First Law states that an object remains at rest or moves with constant velocity unless acted upon by an external force.";
+                } else {
+                    const subjectKey = customSubject;
+                    const diffKey = customDifficulty.toLowerCase();
+                    const baselineText = customSubjectDatabase[subjectKey][diffKey];
+                    text = `Regarding your question on **${customTopic}**:\n\n${baselineText}\n\nHow would you like to explore this topic further? Click **Give Example** or **Show Diagram** to adapt!`;
+                }
+            } else if (confusionScore <= 50) {
+                // Score 36-50: Simplified Mode
+                mode = "simple";
+                prefix = `🧠 *[Simple Language Mode Activated (Confusion: ${confusionScore}%)]*\n*Simplifying the concept to make it easier to digest:*\n\n`;
+                if (topic === "newtons_laws") {
+                    text = prefix + tutorDatabase.newtons_laws.simple.text;
+                } else {
+                    const subjectKey = customSubject;
+                    const simpleText = customSubjectDatabase[subjectKey].beginner;
+                    text = prefix + `Let's simplify **${customTopic}**:\n\n${simpleText}`;
+                }
+            } else if (confusionScore <= 70) {
+                // Score 51-70: Example Mode
+                mode = "example";
+                prefix = `💡 *[Example Mode Activated (Confusion: ${confusionScore}%)]*\n*Focusing on physical examples to clarify the topic:*\n\n`;
+                if (topic === "newtons_laws") {
+                    text = prefix + "Imagine a football lying on the ground. It stays still until someone kicks it. That's Newton's First Law.";
+                } else {
+                    const subjectKey = customSubject;
+                    const examplesText = customSubjectDatabase[subjectKey].intermediate;
+                    text = prefix + `Here is a real-life analogy for **${customTopic}**:\n\n${examplesText}\n\nCan you think of another example?`;
+                }
+            } else if (confusionScore <= 90) {
+                // Score 71-90: Visual Mode
+                mode = "visual";
+                prefix = `🎨 *[Visual Mode Activated (Confusion: ${confusionScore}%)]*\n*AI now shows diagrams, animations, and flowcharts instead of long text:*\n\n`;
+                if (topic === "newtons_laws") {
+                    text = prefix + tutorDatabase.newtons_laws.visual.text + "\n\n(See the interactive force schematic map below)";
+                    svgHtml = tutorDatabase.newtons_laws.visual.svg;
+                } else {
+                    text = prefix + `Here is a concept flowchart mapping **${customTopic}**:`;
+                    svgHtml = `
+                                <svg viewBox="0 0 400 180" class="w-full h-auto bg-surface-container rounded-xl p-3 border border-outline-variant/30">
+                                    <rect width="100%" height="100%" fill="#fff9e6" rx="12"></rect>
+                                    <rect x="130" y="20" width="140" height="35" rx="8" fill="#165413" stroke="#fff"></rect>
+                                    <text x="200" y="42" font-family="Plus Jakarta Sans" font-size="10" font-weight="bold" fill="#fff" text-anchor="middle">${customTopic}</text>
+                                    <rect x="30" y="100" width="140" height="35" rx="8" fill="#306d29" stroke="#fff"></rect>
+                                    <text x="100" y="122" font-family="Plus Jakarta Sans" font-size="9" fill="#fff" text-anchor="middle">Foundational Node</text>
+                                    <rect x="230" y="100" width="140" height="35" rx="8" fill="#306d29" stroke="#fff"></rect>
+                                    <text x="300" y="122" font-family="Plus Jakarta Sans" font-size="9" fill="#fff" text-anchor="middle">Applied Modality</text>
+                                    <line x1="200" y1="55" x2="100" y2="100" stroke="#717a6c" stroke-width="2"></line>
+                                    <line x1="200" y1="55" x2="300" y2="100" stroke="#717a6c" stroke-width="2"></line>
+                                </svg>
+                            `;
+                }
+            } else {
+                mode = "rescue";
+                text = "Activating Rescue Mode foundation check...";
+            }
+
+            return { text, mode, svgHtml };
+        }
+
+        function logInsight(title, desc, isError = false) {
+            const container = document.getElementById('behavioral-log');
+            if (!container) return;
+            const card = document.createElement('div');
+            card.className = `flex items-start gap-2 p-2 rounded-r-lg border-l-2 transition-all ${
+                isError ? 'bg-error-container/20 border-error' : 'bg-surface-variant/40 border-primary'
+            }`;
+            const icon = isError ? 'warning' : 'info';
+            const iconColor = isError ? 'text-error' : 'text-primary';
+            const titleColor = isError ? 'text-error' : 'text-primary';
+            
+            card.innerHTML = `
+                <span class="material-symbols-outlined text-[14px] ${iconColor} mt-0.5">${icon}</span>
+                <div>
+                  <p class="font-bold ${titleColor}">${title}</p>
+                  <p class="text-[10px] text-on-surface-variant">${desc}</p>
+                </div>
+            `;
+            container.appendChild(card);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        // Confusion checks
+        function checkConfusionSpike() {
+            if (confusionScore >= 55) {
+                confusionSpikesCount++;
+                document.getElementById('confusion-spike-banner').classList.remove('hidden');
+                
+                logInsight("Confusion Spike Generated", "Tutor engine switching to adaptive example weighting.", true);
+                
+                setTimeout(() => {
+                    adaptTutorMode("example");
+                    addBotMessage("⚠️ **System Alert**: Confusion spike logged. Modifying explanation parameters to use simpler conceptual examples.", "example");
+                }, 1000);
+                
+                if (confusionSpikesCount >= 2 || consecutiveWrongCount >= 2) {
+                    setTimeout(() => {
+                        activateRescueMode();
+                    }, 2500);
+                }
+            }
+        }
+
+        function dismissSpikeBanner() {
+            document.getElementById('confusion-spike-banner').classList.add('hidden');
+        }
+
+        function adaptTutorMode(mode) {
+            currentMode = mode;
+        }
+
+        // Activates Rescue Mode
+        function activateRescueMode() {
+            if(isRescueMode) return;
+            isRescueMode = true;
+            rescueStep = 1; // start check force
+            
+            document.getElementById('rescue-mode-banner').classList.remove('hidden');
+            const activePrereq = topic === "newtons_laws" ? "Prerequisite: Force & Velocity Trace" : `Prerequisite: Basic ${customSubject}`;
+            document.getElementById('breadcrumb-topic').innerHTML = `<span class="text-error">${activePrereq}</span>`;
+            
+            logInsight("Rescue Mode Activated", "Current syllabus locked. Triggering foundation checks.", true);
+            
+            runRescueDiagnostic();
+        }
+
+        function deactivateRescueMode() {
+            isRescueMode = false;
+            rescueStep = 0;
+            document.getElementById('rescue-mode-banner').classList.add('hidden');
+            consecutiveWrongCount = 0;
+            confusionSpikesCount = 0;
+            
+            // Reduced confusion on prerequisites passed
+            updateScores(focusScore, 20); 
+            
+            const originalTitle = topic === "newtons_laws" ? "Newton's Laws of Motion" : customTopic;
+            document.getElementById('breadcrumb-topic').innerText = originalTitle;
+            
+            logInsight("Rescue Mode Ended", "Foundation checks passed. Re-opening original topic.");
+            addBotMessage(`🎉 **Prerequisite Mastered!** Excellent logic. Let's return to our original topic: **${originalTitle}**!`, "normal");
+        }
+
+        function runRescueDiagnostic() {
+            const chatLog = document.getElementById('chat-history');
+            const typing = document.getElementById('ai-typing-indicator');
+            typing.classList.remove('hidden');
+            document.getElementById('ai-typing-text').innerText = "Running diagnostic trace...";
+
+            setTimeout(() => {
+                typing.classList.add('hidden');
+                
+                if (rescueStep === 1) {
+                    // Stage 1: AI checks Force
+                    const forceText = `⚠️ **Rescue Mode Activated (Confusion: ${confusionScore}%)**
+AI stops explaining Newton's Law. Instead, let's check your foundation.
+Before learning Newton's Laws, do you understand force and motion?
+
+Let's check your understanding of **Force** first.`;
+                    const forceQuiz = {
+                        q: "Prerequisite Check (Force): If an object has a mass of 2 kg and accelerates at 3 m/s², what is the net force acting on it?",
+                        a: ["6 N", "1.5 N", "5 N"],
+                        correct: 0
+                    };
+                    addRescueQuiz(forceText, forceQuiz);
+                } else if (rescueStep === 2) {
+                    // Stage 2: AI checks Velocity
+                    const velocityText = `Excellent! Your Force concept is strong. Now, let's check your understanding of **Velocity**.`;
+                    const velocityQuiz = {
+                        q: "Prerequisite Check (Velocity): A car travels 100 meters in 5 seconds. What is its velocity?",
+                        a: ["500 m/s", "20 m/s", "105 m/s"],
+                        correct: 1
+                    };
+                    addRescueQuiz(velocityText, velocityQuiz);
+                } else if (rescueStep === 3) {
+                    // Stage 3: Teaches Velocity first
+                    const teachText = `🔍 **Diagnostic Result**: We found that **Velocity** is a weak prerequisite concept. Let's teach Velocity first!
+                    
+**Velocity** is the rate of change of position of an object. Think of it as speed, but with a specific direction (e.g., 20 m/s North). 
+Formula: 
+$$\\text{Velocity} = \\frac{\\text{Distance}}{\\text{Time}}$$
+
+Let's do a quick check to verify:`;
+                    const teachQuiz = {
+                        q: "Verification: If you walk 15 meters in 3 seconds, what is your velocity?",
+                        a: ["5 m/s", "45 m/s", "12 m/s"],
+                        correct: 0
+                    };
+                    addRescueQuiz(teachText, teachQuiz);
+                } else if (rescueStep === 4) {
+                    // Stage 4: Teaches Force first
+                    const teachText = `🔍 **Diagnostic Result**: System discovers **Force = Weak Concept**. Let's teach **Force** first!
+                    
+A **Force** is a simple push or pull on an object. 
+- **Balanced Forces**: Net Force = 0. Object's motion does not change.
+- **Unbalanced Forces**: Net Force > 0. Causes the object to speed up or slow down ($F = ma$).
+                    
+Let's do a quick check to verify:`;
+                    const teachQuiz = {
+                        q: "Verification: If two equal forces of 10 N push a box in opposite directions, what is the Net Force?",
+                        a: ["20 N", "0 N", "10 N"],
+                        correct: 1
+                    };
+                    addRescueQuiz(teachText, teachQuiz);
+                }
+            }, 1200);
+        }
+
+        // Central Query submission logic
+        function handleCentralInputKeydown(e) {
+            if (e.key === 'Enter') {
+                submitCentralQuery();
+            }
+        }
+
+        function submitCentralQuery() {
+            resetInactivity();
+            const input = document.getElementById('central-chat-input');
+            const query = input.value.trim();
+            if(!query) return;
+
+            // Check blocked keywords
+            const blockedKeywords = ["instagram", "minecraft", "gaming", "shorts", "tiktok", "facebook"];
+            const lowerQuery = query.toLowerCase();
+            let hasBlockedKeyword = blockedKeywords.some(keyword => lowerQuery.includes(keyword));
+            
+            if (hasBlockedKeyword) {
+                triggerFocusEvent("Blocked Site", query);
+                // Reveal chat window to show the block message
+                document.getElementById('central-query-card').classList.add('hidden');
+                document.getElementById('chat-history-container').classList.remove('hidden');
+                document.getElementById('chat-toolbar').classList.remove('hidden');
+                document.getElementById('chat-input-bar').classList.remove('hidden');
+                addBotMessage(`⚠️ **AMFOCUSED Shield Blocked Attempt**: Access to **${query}** is restricted during active focus study sessions. Keep focused!`, "normal");
+                input.value = "";
+                return;
+            }
+
+            // Check event simulation commands
+            if (query.startsWith('/event ')) {
+                const eventName = query.substring(7).trim().toLowerCase();
+                // Reveal chat window
+                document.getElementById('central-query-card').classList.add('hidden');
+                document.getElementById('chat-history-container').classList.remove('hidden');
+                document.getElementById('chat-toolbar').classList.remove('hidden');
+                document.getElementById('chat-input-bar').classList.remove('hidden');
+                
+                appendUserBubble(query);
+                input.value = "";
+                
+                handleEventCommand(eventName);
+                return;
+            }
+
+            document.getElementById('central-query-card').classList.add('hidden');
+            document.getElementById('chat-history-container').classList.remove('hidden');
+            document.getElementById('chat-toolbar').classList.remove('hidden');
+            document.getElementById('chat-input-bar').classList.remove('hidden');
+
+            appendUserBubble(query);
+            input.value = "";
+
+            const typing = document.getElementById('ai-typing-indicator');
+            typing.classList.remove('hidden');
+            document.getElementById('ai-typing-text').innerText = "Analyzing subject matrices...";
+
+            setTimeout(() => {
+                typing.classList.add('hidden');
+                const adapted = getAdaptedResponse(query);
+                addBotMessage(adapted.text, adapted.mode, adapted.svgHtml);
+            }, 1500);
+        }
+
+        // Chat printing routines
+        function appendUserBubble(text) {
+            const chatLog = document.getElementById('chat-history');
+            const msg = document.createElement('div');
+            msg.className = "flex items-start gap-4 max-w-3xl ml-auto flex-row-reverse";
+            msg.innerHTML = `
+                <div class="w-10 h-10 bg-primary-fixed-dim rounded-full flex items-center justify-center text-on-primary-fixed shrink-0">
+                    <span class="material-symbols-outlined">person</span>
+                </div>
+                <div class="bg-primary-container text-on-primary-container p-4 rounded-2xl rounded-tr-none shadow-sm font-semibold">
+                    <p class="text-sm">${text}</p>
+                </div>
+            `;
+            chatLog.appendChild(msg);
+            document.getElementById('chat-history-container').scrollTop = document.getElementById('chat-history-container').scrollHeight;
+        }
+
+        function addBotMessage(text, mode = "normal", svgHtml = "") {
+            if (mode === "simple") {
+                hasJustReceivedSimpleExplanation = true;
+                lostFocusAfterSimpleExplanation = false;
+            } else if (mode !== "simple" && mode !== "normal") {
+                hasJustReceivedSimpleExplanation = false;
+                lostFocusAfterSimpleExplanation = false;
+            }
+
+            const chatLog = document.getElementById('chat-history');
+            const msg = document.createElement('div');
+            msg.className = "flex items-start gap-4 max-w-3xl";
+            
+            msg.innerHTML = `
+                <div class="w-10 h-10 bg-primary rounded-full flex items-center justify-center text-on-primary shrink-0 ai-glow">
+                    <span class="material-symbols-outlined">auto_awesome</span>
+                </div>
+                <div class="bg-surface-container-lowest p-5 rounded-2xl rounded-tl-none shadow-sm border border-outline-variant/15 flex-grow">
+                    <p class="text-body-lg text-on-surface leading-relaxed font-headline-md">${formatMarkdown(text)}</p>
+                    ${svgHtml ? `<div class="mt-4">${svgHtml}</div>` : ''}
+                </div>
+            `;
+            chatLog.appendChild(msg);
+            document.getElementById('chat-history-container').scrollTop = document.getElementById('chat-history-container').scrollHeight;
+        }
+
+        function addRescueQuiz(introText, quizObj) {
+            const chatLog = document.getElementById('chat-history');
+            const msg = document.createElement('div');
+            msg.className = "flex items-start gap-4 max-w-3xl border-2 border-orange-300 rounded-2xl p-1 bg-orange-50/35 w-full";
+            
+            let optionsHtml = "";
+            quizObj.a.forEach((opt, idx) => {
+                optionsHtml += `
+                    <button onclick="submitRescueAnswer(this, ${idx}, ${quizObj.correct})" class="w-full py-2.5 px-4 bg-surface hover:bg-surface-container-high border border-outline-variant/30 rounded-xl text-left text-xs font-semibold transition-all">
+                        ${opt}
+                    </button>
+                `;
+            });
+
+            msg.innerHTML = `
+                <div class="w-10 h-10 bg-orange-600 rounded-full flex items-center justify-center text-white shrink-0 mt-3 ml-3 shadow-md">
+                    <span class="material-symbols-outlined">help</span>
+                </div>
+                <div class="p-4 flex-grow">
+                    <div class="text-xs font-bold text-orange-800 uppercase tracking-widest mb-1">Rescue Foundation Check</div>
+                    <p class="text-sm font-semibold text-on-surface mb-3">${formatMarkdown(introText)}</p>
+                    <div class="bg-orange-100/40 p-4 rounded-xl border border-orange-200/50 mb-3">
+                        <p class="text-xs font-bold text-on-surface mb-3">${quizObj.q}</p>
+                        <div class="space-y-2 mb-2">
+                            ${optionsHtml}
+                        </div>
+                        <div class="flex justify-end">
+                            <button onclick="requestRescueHint(this)" class="text-xs font-bold text-orange-800 hover:underline flex items-center gap-1">
+                                <span class="material-symbols-outlined text-[14px]">lightbulb</span> Need Hint
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            chatLog.appendChild(msg);
+            document.getElementById('chat-history-container').scrollTop = document.getElementById('chat-history-container').scrollHeight;
+        }
+
+        function submitRescueAnswer(btn, selectedIndex, correctIndex) {
+            resetInactivity();
+            const parent = btn.parentElement;
+            const buttons = parent.querySelectorAll('button');
+            buttons.forEach(b => b.disabled = true);
+            
+            if (selectedIndex === correctIndex) {
+                btn.className = "w-full py-2.5 px-4 bg-green-100 text-green-950 border-2 border-green-500 rounded-xl text-left text-xs font-bold flex justify-between items-center";
+                btn.innerHTML += `<span class="material-symbols-outlined text-green-700 text-sm">check_circle</span>`;
+                correctAnswers++;
+                consecutiveWrongCount = 0;
+                
+                triggerConfusionEvent("Correct Answer");
+                triggerFocusEvent("Completing Quiz");
+                logInsight("Rescue Quiz", `Prerequisite step ${rescueStep} correct.`);
+                
+                setTimeout(() => {
+                    if (topic === "newtons_laws") {
+                        if (rescueStep === 1) {
+                            rescueStep = 2;
+                            runRescueDiagnostic();
+                        } else if (rescueStep === 2) {
+                            deactivateRescueMode();
+                        } else if (rescueStep === 3) {
+                            deactivateRescueMode();
+                        } else if (rescueStep === 4) {
+                            rescueStep = 2;
+                            runRescueDiagnostic();
+                        } else {
+                            deactivateRescueMode();
+                        }
+                    } else {
+                        deactivateRescueMode();
+                    }
+                }, 1500);
+            } else {
+                btn.className = "w-full py-2.5 px-4 bg-red-100 text-red-950 border-2 border-red-500 rounded-xl text-left text-xs font-bold flex justify-between items-center";
+                btn.innerHTML += `<span class="material-symbols-outlined text-red-700 text-sm">cancel</span>`;
+                wrongAnswers++;
+                consecutiveWrongCount++;
+                
+                if (consecutiveWrongCount > 1) {
+                    triggerConfusionEvent("Repeated Wrong Answer");
+                } else {
+                    triggerConfusionEvent("Wrong Answer");
+                }
+                
+                logInsight("Rescue Quiz", `Prerequisite step ${rescueStep} incorrect.`);
+                
+                setTimeout(() => {
+                    if (topic === "newtons_laws") {
+                        if (rescueStep === 1) {
+                            rescueStep = 4;
+                            runRescueDiagnostic();
+                        } else if (rescueStep === 2) {
+                            rescueStep = 3;
+                            runRescueDiagnostic();
+                        } else {
+                            buttons.forEach(b => {
+                                b.disabled = false;
+                                if (b !== btn) {
+                                    b.className = "w-full py-2.5 px-4 bg-surface hover:bg-surface-container-high border border-outline-variant/30 rounded-xl text-left text-xs font-semibold transition-all";
+                                }
+                            });
+                        }
+                    } else {
+                        buttons.forEach(b => {
+                            b.disabled = false;
+                            if (b !== btn) {
+                                b.className = "w-full py-2.5 px-4 bg-surface hover:bg-surface-container-high border border-outline-variant/30 rounded-xl text-left text-xs font-semibold transition-all";
+                            }
+                        });
+                    }
+                }, 1500);
+            }
+        }
+
+        function requestRescueHint(btn) {
+            resetInactivity();
+            triggerConfusionEvent("Hint Request");
+            
+            let hints = ["Think carefully!"];
+            if (topic === "newtons_laws") {
+                if (rescueStep === 1) {
+                    hints = ["Force = mass * acceleration ($F = ma$).", "Multiply 2 kg by 3 m/s².", "The force is 6 N."];
+                } else if (rescueStep === 2) {
+                    hints = ["Velocity = Distance / Time.", "Divide 100 meters by 5 seconds.", "The velocity is 20 m/s."];
+                } else if (rescueStep === 3) {
+                    hints = ["Velocity = Distance / Time.", "Divide 15 meters by 3 seconds.", "The velocity is 5 m/s."];
+                } else if (rescueStep === 4) {
+                    hints = ["Opposite forces cancel each other out.", "Like a tug of war where nobody moves.", "The net force is Zero."];
+                }
+            }
+            
+            const hintText = hints[rescueHintIndex % hints.length];
+            rescueHintIndex++;
+            addBotMessage(`💡 **Prerequisite Hint**: ${hintText}`, "normal");
+        }
+
+        function getQuizTopicKey() {
+            if (topic === "newtons_laws") {
+                return "newtons_laws";
+            }
+            if (customSubject === "EVS" || customSubject === "Math" || customSubject === "English") {
+                return customSubject;
+            }
+            return "newtons_laws";
+        }
+
+        function addQuizCard(questionIndex) {
+            const chatLog = document.getElementById('chat-history');
+            const msg = document.createElement('div');
+            msg.className = "flex items-start gap-4 max-w-3xl w-full";
+            
+            const topicKey = getQuizTopicKey();
+            const qData = quizDatabase[topicKey][questionIndex];
+            const qId = 'quiz-node-' + Date.now();
+            
+            let optionsHtml = "";
+            qData.a.forEach((opt, idx) => {
+                optionsHtml += `
+                    <button onclick="submitQuizAnswer(this, ${idx}, ${qData.correct}, ${questionIndex})" class="w-full py-2.5 px-4 bg-surface hover:bg-surface-container-high border border-outline-variant/30 rounded-xl text-left text-xs font-semibold transition-all">
+                        ${opt}
+                    </button>
+                `;
+            });
+
+            msg.innerHTML = `
+                <div class="w-10 h-10 bg-primary rounded-full flex items-center justify-center text-on-primary shrink-0 ai-glow">
+                    <span class="material-symbols-outlined">quiz</span>
+                </div>
+                <div class="bg-surface-container-lowest p-5 rounded-2xl rounded-tl-none shadow-sm border border-outline-variant/15 flex-grow">
+                    <div class="text-[10px] text-primary uppercase font-bold tracking-widest mb-1 font-label-sm">Knowledge Check (Q${questionIndex + 1})</div>
+                    <p class="text-sm font-bold text-on-surface mb-3">${qData.q}</p>
+                    <div class="space-y-2 mb-3" id="${qId}">
+                        ${optionsHtml}
+                    </div>
+                    <div class="flex justify-end">
+                        <button onclick="requestQuizHint(${questionIndex}, this)" class="text-xs font-bold text-primary hover:underline flex items-center gap-1">
+                            <span class="material-symbols-outlined text-[14px]">lightbulb</span> Need Hint
+                        </button>
+                    </div>
+                </div>
+            `;
+            chatLog.appendChild(msg);
+            document.getElementById('chat-history-container').scrollTop = document.getElementById('chat-history-container').scrollHeight;
+        }
+
+        function submitQuizAnswer(btn, selectedIndex, correctIndex, qIdx) {
+            resetInactivity();
+            const parent = btn.parentElement;
+            const buttons = parent.querySelectorAll('button');
+            buttons.forEach(b => b.disabled = true);
+            
+            if (selectedIndex === correctIndex) {
+                btn.className = "w-full py-2.5 px-4 bg-green-100 text-green-950 border-2 border-green-500 rounded-xl text-left text-xs font-bold flex justify-between items-center";
+                btn.innerHTML += `<span class="material-symbols-outlined text-green-700 text-sm">check_circle</span>`;
+                correctAnswers++;
+                consecutiveWrongCount = 0;
+                
+                // Track correct answer streaks
+                consecutiveCorrectCount++;
+                if (consecutiveCorrectCount === 3) {
+                    triggerConfusionEvent("Multiple Correct Answers");
+                    consecutiveCorrectCount = 0;
+                } else {
+                    triggerConfusionEvent("Correct Answer");
+                }
+                
+                triggerFocusEvent("Completing Quiz");
+                
+                const currentProgress = Math.min(100, parseInt(document.getElementById('session-progress-text').innerText) + 25);
+                document.getElementById('session-progress-bar').style.width = `${currentProgress}%`;
+                document.getElementById('session-progress-text').innerText = `${currentProgress}%`;
+
+                logInsight("Quiz Correct", `Question ${qIdx + 1} answered correctly.`);
+                
+                // Check if quiz passed (80%+)
+                const totalAttempts = correctAnswers + wrongAnswers;
+                const scorePercent = totalAttempts > 0 ? (correctAnswers / totalAttempts) * 100 : 0;
+                if (scorePercent >= 80) {
+                    triggerConfusionEvent("Quiz Passed");
+                }
+                triggerConfusionEvent("Topic Completed");
+
+                const topicKey = getQuizTopicKey();
+                const topicQuestions = quizDatabase[topicKey];
+                if (qIdx + 1 < topicQuestions.length) {
+                    setTimeout(() => {
+                        addBotMessage(`Correct! Let's move to the next question.`, "normal");
+                        setTimeout(() => {
+                            addQuizCard(qIdx + 1);
+                        }, 800);
+                    }, 1000);
+                } else {
+                    setTimeout(() => {
+                        addBotMessage(`🎉 **Excellent!** You have completed all questions for this module. Click "End Study Session" to receive your diagnostics report card.`, "normal");
+                    }, 1500);
+                }
+            } else {
+                btn.className = "w-full py-2.5 px-4 bg-red-100 text-red-950 border-2 border-red-500 rounded-xl text-left text-xs font-bold flex justify-between items-center";
+                btn.innerHTML += `<span class="material-symbols-outlined text-red-700 text-sm">cancel</span>`;
+                wrongAnswers++;
+                consecutiveWrongCount++;
+                consecutiveCorrectCount = 0;
+                
+                if (consecutiveWrongCount > 1) {
+                    triggerConfusionEvent("Repeated Wrong Answer");
+                } else {
+                    triggerConfusionEvent("Wrong Answer");
+                }
+                
+                setTimeout(() => {
+                    if (!isRescueMode) {
+                        buttons.forEach(b => {
+                            b.disabled = false;
+                            if (b !== btn) {
+                                b.className = "w-full py-2.5 px-4 bg-surface hover:bg-surface-container-high border border-outline-variant/30 rounded-xl text-left text-xs font-semibold transition-all";
+                            }
+                        });
+                    }
+                }, 1500);
+            }
+        }
+
+        function requestQuizHint(qIdx, btn) {
+            resetInactivity();
+            triggerConfusionEvent("Hint Request");
+            
+            const topicKey = getQuizTopicKey();
+            const qData = quizDatabase[topicKey][qIdx];
+            if (qData && qData.hints) {
+                const hintText = qData.hints[currentHintIndex % qData.hints.length];
+                currentHintIndex++;
+                addBotMessage(`💡 **Hint**: ${hintText}`, "normal");
+            } else {
+                addBotMessage(`💡 **Hint**: Think about the core concepts of the topic!`, "normal");
+            }
+        }
+
+        function showFocusDisturbedCheck() {
+            if (!isFocusSessionActive) return;
+            
+            const chatLog = document.getElementById('chat-history');
+            if (!chatLog) return;
+            
+            const msg = document.createElement('div');
+            const currentTopicLabel = topic === "newtons_laws" ? "Newton's Laws" : customTopic;
+            
+            if (lostFocusAfterSimpleExplanation) {
+                msg.className = "flex items-start gap-4 max-w-3xl w-full focus-regained-again-card";
+                msg.innerHTML = `
+                    <div class="w-10 h-10 bg-primary rounded-full flex items-center justify-center text-on-primary shrink-0 ai-glow">
+                        <span class="material-symbols-outlined">auto_awesome</span>
+                    </div>
+                    <div class="bg-surface-container-lowest p-5 rounded-2xl rounded-tl-none shadow-sm border border-outline-variant/15 flex-grow animate-pulse">
+                        <div class="text-[10px] text-error font-bold uppercase tracking-widest mb-1 font-label-sm">Focus Lost Again</div>
+                        <p class="text-sm font-bold text-on-surface mb-3">You lost focus again! Would you like a real-life example for this explanation?</p>
+                        <div class="flex gap-2">
+                            <button onclick="handleFocusRegainedAgainChoice('example', this)" class="flex-grow py-2 px-3 bg-primary text-on-primary hover:opacity-90 rounded-xl text-xs font-bold transition-all">
+                                Give Example
+                            </button>
+                            <button onclick="handleFocusRegainedAgainChoice('quiz', this)" class="flex-grow py-2 px-3 bg-surface hover:bg-surface-container-high border border-outline-variant/30 rounded-xl text-xs font-bold text-primary transition-all">
+                                Try Quiz
+                            </button>
+                        </div>
+                    </div>
+                `;
+                // Reset flags
+                hasJustReceivedSimpleExplanation = false;
+                lostFocusAfterSimpleExplanation = false;
+                logInsight("Focus Regained Again", "Prompting example or quiz option after losing focus on simple explanation.", false);
+            } else {
+                msg.className = "flex items-start gap-4 max-w-3xl w-full focus-disturbed-card";
+                msg.innerHTML = `
+                    <div class="w-10 h-10 bg-error rounded-full flex items-center justify-center text-white shrink-0 ai-glow">
+                        <span class="material-symbols-outlined">warning</span>
+                    </div>
+                    <div class="bg-error-container/10 p-5 rounded-2xl rounded-tl-none shadow-sm border border-error/25 flex-grow">
+                        <div class="text-[10px] text-error uppercase font-bold tracking-widest mb-1">Focus Disturbed</div>
+                        <p class="text-sm font-bold text-on-surface mb-3">We noticed you switched tabs. To help you get back on track with **${currentTopicLabel}**, what would you prefer?</p>
+                        <div class="flex gap-2">
+                            <button onclick="handleFocusDisturbedChoice('simplify', this)" class="flex-1 py-2 px-3 bg-surface hover:bg-surface-container-high border border-outline-variant/30 rounded-xl text-xs font-bold text-primary transition-all">
+                                Simple Explanation
+                            </button>
+                            <button onclick="handleFocusDisturbedChoice('quiz', this)" class="flex-1 py-2 px-3 bg-primary text-on-primary hover:opacity-90 rounded-xl text-xs font-bold transition-all">
+                                Try Quiz
+                            </button>
+                        </div>
+                    </div>
+                `;
+                logInsight("Focus Disturbed", "Prompting simple explanation or quiz options.", true);
+            }
+            chatLog.appendChild(msg);
+            document.getElementById('chat-history-container').scrollTop = document.getElementById('chat-history-container').scrollHeight;
+        }
+
+        function handleFocusDisturbedChoice(choice, btn) {
+            const card = btn.closest('.focus-disturbed-card');
+            if (card) {
+                const buttons = card.querySelectorAll('button');
+                buttons.forEach(b => b.disabled = true);
+            }
+            
+            if (choice === 'simplify') {
+                appendUserBubble("I want a simple explanation, please.");
+                setTimeout(() => {
+                    requestShortcut("simplify");
+                }, 600);
+            } else if (choice === 'quiz') {
+                appendUserBubble("Let me try a quiz!");
+                setTimeout(() => {
+                    addQuizCard(0);
+                }, 600);
+            }
+        }
+
+        function showFocusRegainedCheck() {
+            if (!isFocusSessionActive) return;
+            
+            const chatLog = document.getElementById('chat-history');
+            if (!chatLog) return;
+            
+            const msg = document.createElement('div');
+            const currentTopicLabel = topic === "newtons_laws" ? "Newton's Laws" : customTopic;
+            
+            if (lostFocusAfterSimpleExplanation) {
+                msg.className = "flex items-start gap-4 max-w-3xl w-full focus-regained-again-card";
+                msg.innerHTML = `
+                    <div class="w-10 h-10 bg-primary rounded-full flex items-center justify-center text-on-primary shrink-0 ai-glow">
+                        <span class="material-symbols-outlined">auto_awesome</span>
+                    </div>
+                    <div class="bg-surface-container-lowest p-5 rounded-2xl rounded-tl-none shadow-sm border border-outline-variant/15 flex-grow animate-pulse">
+                        <div class="text-[10px] text-error font-bold uppercase tracking-widest mb-1 font-label-sm">Focus Lost Again</div>
+                        <p class="text-sm font-bold text-on-surface mb-3">You lost focus again! Would you like a real-life example for this explanation?</p>
+                        <div class="flex gap-2">
+                            <button onclick="handleFocusRegainedAgainChoice('example', this)" class="flex-grow py-2 px-3 bg-primary text-on-primary hover:opacity-90 rounded-xl text-xs font-bold transition-all">
+                                Give Example
+                            </button>
+                            <button onclick="handleFocusRegainedAgainChoice('quiz', this)" class="flex-grow py-2 px-3 bg-surface hover:bg-surface-container-high border border-outline-variant/30 rounded-xl text-xs font-bold text-primary transition-all">
+                                Try Quiz
+                            </button>
+                        </div>
+                    </div>
+                `;
+                // Reset flags
+                hasJustReceivedSimpleExplanation = false;
+                lostFocusAfterSimpleExplanation = false;
+                logInsight("Focus Regained Again", "Prompting example or quiz option after losing focus on simple explanation.", false);
+            } else {
+                msg.className = "flex items-start gap-4 max-w-3xl w-full focus-regained-card";
+                msg.innerHTML = `
+                    <div class="w-10 h-10 bg-primary rounded-full flex items-center justify-center text-on-primary shrink-0 ai-glow">
+                        <span class="material-symbols-outlined">auto_awesome</span>
+                    </div>
+                    <div class="bg-surface-container-lowest p-5 rounded-2xl rounded-tl-none shadow-sm border border-outline-variant/15 flex-grow animate-pulse">
+                        <div class="text-[10px] text-primary uppercase font-bold tracking-widest mb-1 font-label-sm">Focus Regained</div>
+                        <p class="text-sm font-bold text-on-surface mb-3">Welcome back! I noticed you are focused again on **${currentTopicLabel}**. Would you like a simple explanation or try a quiz?</p>
+                        <div class="flex gap-2">
+                            <button onclick="handleFocusRegainedChoice('simplify', this)" class="flex-grow py-2 px-3 bg-surface hover:bg-surface-container-high border border-outline-variant/30 rounded-xl text-xs font-bold text-primary transition-all">
+                                Simple Explanation
+                            </button>
+                            <button onclick="handleFocusRegainedChoice('quiz', this)" class="flex-grow py-2 px-3 bg-primary text-on-primary hover:opacity-90 rounded-xl text-xs font-bold transition-all">
+                                Try Quiz
+                            </button>
+                        </div>
+                    </div>
+                `;
+                logInsight("Focus Regained", "Prompting simple explanation or quiz options.", false);
+            }
+            
+            chatLog.appendChild(msg);
+            document.getElementById('chat-history-container').scrollTop = document.getElementById('chat-history-container').scrollHeight;
+        }
+
+        function handleFocusRegainedChoice(choice, btn) {
+            const card = btn.closest('.focus-regained-card');
+            if (card) {
+                const buttons = card.querySelectorAll('button');
+                buttons.forEach(b => b.disabled = true);
+            }
+            
+            if (choice === 'simplify') {
+                appendUserBubble("I would like a simple explanation, please.");
+                setTimeout(() => {
+                    requestShortcut("simplify");
+                }, 600);
+            } else if (choice === 'quiz') {
+                appendUserBubble("Let me try the quiz on this topic!");
+                setTimeout(() => {
+                    addQuizCard(0);
+                }, 600);
+            }
+        }
+
+        function handleFocusRegainedAgainChoice(choice, btn) {
+            const card = btn.closest('.focus-regained-again-card');
+            if (card) {
+                const buttons = card.querySelectorAll('button');
+                buttons.forEach(b => b.disabled = true);
+            }
+            
+            if (choice === 'example') {
+                appendUserBubble("Yes, please give me a real-life example.");
+                setTimeout(() => {
+                    requestShortcut("example");
+                }, 600);
+            } else if (choice === 'quiz') {
+                appendUserBubble("Let me try the quiz!");
+                setTimeout(() => {
+                    addQuizCard(0);
+                }, 600);
+            }
+        }
+
+        // Action Command Toolbar shortcuts
+        function requestShortcut(action) {
+            resetInactivity();
+            let queryText = "";
+            let animText = "";
+            
+            if (action === "explain_again") {
+                queryText = "Can you explain this again in another way?";
+                animText = "Re-compiling explanatory matrices...";
+                explainRequestsStreak++;
+                triggerConfusionEvent("Explain Again");
+            } else if (action === "simplify") {
+                queryText = "Make it simpler, please!";
+                animText = "Synthesizing simplified vocabulary structure...";
+                adaptTutorMode("simple");
+            } else if (action === "example") {
+                queryText = "Give me a real-life example!";
+                animText = "Retrieving experiential physical analogies...";
+                adaptTutorMode("example");
+            } else if (action === "diagram") {
+                queryText = "Show me a visual diagram!";
+                animText = "Rendering vector node flowcharts...";
+                adaptTutorMode("visual");
+            } else if (action === "quiz") {
+                queryText = "Take a quiz / knowledge check, please!";
+                animText = "Generating cognitive assessment parameters...";
+                adaptTutorMode("quiz");
+            }
+
+            appendUserBubble(queryText);
+            
+            const typing = document.getElementById('ai-typing-indicator');
+            document.getElementById('ai-typing-text').innerText = animText;
+            typing.classList.remove('hidden');
+            
+            setTimeout(() => {
+                typing.classList.add('hidden');
+                
+                if (topic === "newtons_laws") {
+                    if (action === "explain_again") {
+                        let payloadText = "";
+                        if (currentMode === "normal") {
+                            payloadText = "Newton's First Law states that an object remains at rest or moves with constant velocity unless acted upon by an external force. Essentially, objects will keep doing what they are already doing unless a net force forces them to change.";
+                        } else if (currentMode === "simple") {
+                            payloadText = "Simply put: unless you push or pull an object, it won't change its speed or direction. A resting cup stays resting, and a sliding ice puck keeps sliding unless friction stops it.";
+                        } else if (currentMode === "example") {
+                            payloadText = "Think of another example: a book on a table won't slide off by itself unless you push it. That's Inertia!";
+                        } else if (currentMode === "visual") {
+                            payloadText = "Please refer to the flowchart diagram above showing how force alters motion.";
+                        } else {
+                            payloadText = tutorDatabase.newtons_laws.simple.text;
+                        }
+                        addBotMessage(payloadText, currentMode);
+                    } else if (action === "simplify") {
+                        const payload = tutorDatabase.newtons_laws.simple;
+                        addBotMessage(payload.text, "simple");
+                    } else if (action === "example") {
+                        const payload = tutorDatabase.newtons_laws.example;
+                        addBotMessage(payload.text, "example");
+                    } else if (action === "diagram") {
+                        const payload = tutorDatabase.newtons_laws.visual;
+                        addBotMessage(payload.text, "visual", payload.svg);
+                    } else if (action === "quiz") {
+                        addQuizCard(0);
+                    }
+                } else {
+                    const subjectKey = customSubject;
+                    if (action === "simplify") {
+                        const payload = customSubjectDatabase[subjectKey].beginner;
+                        addBotMessage(`Let's simplify **${customTopic}**:\n\n${payload}`, "simple");
+                    } else if (action === "example") {
+                        const payload = customSubjectDatabase[subjectKey].intermediate;
+                        addBotMessage(`Here is a real-life analogy for **${customTopic}**:\n\n${payload}`, "example");
+                    } else if (action === "diagram") {
+                        addBotMessage(`Here is a visual concept flowchart mapping **${customTopic}**:`, "visual", `
+                            <svg viewBox="0 0 400 180" class="w-full h-auto bg-surface-container rounded-xl p-3 border border-outline-variant/30">
+                                <rect width="100%" height="100%" fill="#fff9e6" rx="12"></rect>
+                                <rect x="130" y="20" width="140" height="35" rx="8" fill="#165413" stroke="#fff"></rect>
+                                <text x="200" y="42" font-family="Plus Jakarta Sans" font-size="10" font-weight="bold" fill="#fff" text-anchor="middle">${customTopic}</text>
+                                <rect x="30" y="100" width="140" height="35" rx="8" fill="#306d29" stroke="#fff"></rect>
+                                <text x="100" y="122" font-family="Plus Jakarta Sans" font-size="9" fill="#fff" text-anchor="middle">Foundational Node</text>
+                                <rect x="230" y="100" width="140" height="35" rx="8" fill="#306d29" stroke="#fff"></rect>
+                                <text x="300" y="122" font-family="Plus Jakarta Sans" font-size="9" fill="#fff" text-anchor="middle">Applied Modality</text>
+                                <line x1="200" y1="55" x2="100" y2="100" stroke="#717a6c" stroke-width="2"></line>
+                                <line x1="200" y1="55" x2="300" y2="100" stroke="#717a6c" stroke-width="2"></line>
+                            </svg>
+                        `);
+                    } else if (action === "quiz") {
+                        addQuizCard(0);
+                    } else {
+                        const payload = customSubjectDatabase[subjectKey].intermediate;
+                        addBotMessage(`Let me explain **${customTopic}** in another way:\n\n${payload}`, "normal");
+                    }
+                }
+            }, 1200);
+        }
+
+        // Bottom Input box handler
+        function handleSendMessage() {
+            resetInactivity();
+            const input = document.getElementById('chat-input');
+            const query = input.value.trim();
+            if (!query) return;
+
+            // Check blocked keywords
+            const blockedKeywords = ["instagram", "minecraft", "gaming", "shorts", "tiktok", "facebook"];
+            const lowerQuery = query.toLowerCase();
+            let hasBlockedKeyword = blockedKeywords.some(keyword => lowerQuery.includes(keyword));
+            
+            if (hasBlockedKeyword) {
+                appendUserBubble(query);
+                input.value = "";
+                triggerFocusEvent("Blocked Site", query);
+                setTimeout(() => {
+                    addBotMessage(`⚠️ **AMFOCUSED Shield Blocked Attempt**: Access to **${query}** is restricted during active focus study sessions. Keep focused!`, "normal");
+                }, 800);
+                return;
+            }
+
+            // Check event simulation commands
+            if (query.startsWith('/event ')) {
+                const eventName = query.substring(7).trim().toLowerCase();
+                appendUserBubble(query);
+                input.value = "";
+                handleEventCommand(eventName);
+                return;
+            }
+            
+            appendUserBubble(query);
+            input.value = "";
+            
+            const typing = document.getElementById('ai-typing-indicator');
+            typing.classList.remove('hidden');
+            document.getElementById('ai-typing-text').innerText = "Analyzing syntax parameters...";
+            
+            setTimeout(() => {
+                typing.classList.add('hidden');
+                
+                const lower = query.toLowerCase();
+                if (lower.includes("quiz") || lower.includes("test")) {
+                    adaptTutorMode("quiz");
+                    addQuizCard(0);
+                } else if (lower.includes("simplify") || lower.includes("simpler")) {
+                    requestShortcut("simplify");
+                } else if (lower.includes("example")) {
+                    requestShortcut("example");
+                } else if (lower.includes("diagram") || lower.includes("visual")) {
+                    requestShortcut("diagram");
+                } else {
+                    const adapted = getAdaptedResponse(query);
+                    addBotMessage(adapted.text, adapted.mode, adapted.svgHtml);
+                }
+            }, 1200);
+        }
+
+        function handleInputKeydown(e) {
+            if (e.key === 'Enter') {
+                handleSendMessage();
+            }
+        }
+
+        // Developer tools mock events
+        function simulateWrongAnswer() {
+            wrongAnswers++;
+            consecutiveWrongCount++;
+            logInsight("Wrong Answer Entered", "Simulating biometric error telemetry. +20/30 Confusion.", true);
+            if (consecutiveWrongCount > 1) {
+                triggerConfusionEvent("Repeated Wrong Answer");
+            } else {
+                triggerConfusionEvent("Wrong Answer");
+            }
+        }
+
+        function simulateInactivity() {
+            logInsight("Inactivity Detected", "Student idle for 60s. Prompting check-in.", true);
+            triggerConfusionEvent("Long Inactivity");
+            addBotMessage(`⚠️ **System Alert**: Are you still focus-locked on the screen? Let me know if you need to **Simplify** the text.`, "simple");
+        }
+
+        // end session summary modal
+        function triggerEndSession() {
+            stopStudySession();
+            const avgFocus = Math.round(focusScoreSum / focusScoreCount);
+            const mins = Math.floor(secondsStudied / 60).toString().padStart(2, '0');
+            const secs = (secondsStudied % 60).toString().padStart(2, '0');
+            
+            document.getElementById('summary-time').innerText = `${mins}:${secs}`;
+            document.getElementById('summary-focus').innerText = `${avgFocus}%`;
+            document.getElementById('summary-correct').innerText = correctAnswers;
+            document.getElementById('summary-wrong').innerText = wrongAnswers;
+            
+            let strong = "";
+            let weak = "";
+            if (topic === "newtons_laws") {
+                strong = "Newton's First Law (Inertia)";
+                weak = "Second Law Math Formulas";
+            } else {
+                strong = `${customTopic} Concept`;
+                weak = `${customTopic} Advanced Review`;
+            }
+            
+            document.getElementById('summary-strong').innerText = strong;
+            document.getElementById('summary-weak').innerText = weak;
+            
+            // Save to localStorage history
+            try {
+                let history = JSON.parse(localStorage.getItem('neurotutor_session_history')) || [];
+                const sessionData = {
+                    topic: topic === "newtons_laws" ? "Newton's Laws" : customTopic,
+                    subject: topic === "newtons_laws" ? "Physics" : customSubject,
+                    duration: secondsStudied,
+                    avgFocus: avgFocus,
+                    correctAnswers: correctAnswers,
+                    wrongAnswers: wrongAnswers,
+                    strongConcept: strong,
+                    weakConcept: weak,
+                    timestamp: new Date().toISOString()
+                };
+                history.push(sessionData);
+                localStorage.setItem('neurotutor_session_history', JSON.stringify(history));
+            } catch (e) {
+                console.error("Failed to save session to localStorage", e);
+            }
+            
+            document.getElementById('summary-modal').classList.remove('hidden');
+        }
+
+        function toggleFeatureMock(feature) {
+            alert(`Simulation check: "${feature}" is initialized and working.`);
+        }
+
+        function formatMarkdown(text) {
+            return text
+                .replace(/\*\/(.*?)\*\//g, '<strong>$1</strong>')
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                .replace(/\*(.*?)\*/g, '<em>$1</em>')
+                .replace(/\$\$(.*?)\$\$/g, '<code class="bg-secondary-container/20 px-1 py-0.5 rounded text-secondary font-mono font-bold">$1</code>')
+                .replace(/\$(.*?)\$/g, '<code class="bg-secondary-container/20 px-1 py-0.5 rounded text-secondary font-mono font-bold">$1</code>')
+                .replace(/\n/g, '<br/>');
+        }
+
+        // Setup Entry Modal on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('lesson-entry-modal').classList.remove('hidden');
+            
+            // Tab-switching focus score event listener
+            document.addEventListener('visibilitychange', () => {
+                if (isFocusSessionActive) {
+                    if (document.hidden) {
+                        triggerFocusEvent("Tab Switch");
+                    } else {
+                        // Returned to tab
+                        showFocusDisturbedCheck();
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
