@@ -2,6 +2,8 @@
 
 Created with ❤️ by **Team Rookie**
 
+🚀 **Live Demo**: [neurolearnaitutor.vercel.app](https://neurolearnaitutor.vercel.app)
+
 ---
 
 ## Overview
@@ -23,81 +25,80 @@ The platform follows a neuromorphic-inspired event-driven architecture where mea
 Below is the directory tree of the `Neurolearn_aitutor` codebase:
 
 ```text
-[DIR] ./
-  [FILE] .gitignore                          # Standard git configuration ignoring build folders & lockfiles
-  [FILE] .prettierignore                      # Files and folders ignored by Prettier formatter
-  [FILE] .prettierrc                          # Prettier code formatting rules
-  [FILE] README.md                            # Main project documentation (this file)
-  [FILE] components.json                     # Configuration file for Shadcn UI components
-  [FILE] eslint.config.js                    # ESLint rules for code analysis
-  [FILE] package-lock.json                   # NPM dependency lockfile
-  [FILE] package.json                        # Project dependencies, scripts, and metadata
-  [FILE] tsconfig.json                       # TypeScript compiler options
-  [FILE] vite.config.ts                      # Vite build tool and development server configuration
-  [DIR] designs/                             # Mockups, design specifications, and asset previews
-    [DIR] academic_warmth/
-      [FILE] DESIGN.md
-    [DIR] ai_tutor_neurotutor_ai/
-      [FILE] screen.png
-    [DIR] analytics_learning_dna_neurotutor_ai/
-      [FILE] screen.png
-    [DIR] dashboard_neurotutor_ai/
-      [FILE] screen.png
-    [DIR] landing_page_neurotutor_ai/
-      [FILE] screen.png
-  [DIR] public/                              # Static public assets served to the client
-    [DIR] app/                               # Core front-end application pages
-      [FILE] index.html                      # Landing page mock UI
-      [DIR] ai_tutor_neurotutor_ai/
-        [FILE] code.html                     # AI Tutor Study Space & chat simulator
-      [DIR] analytics_learning_dna_neurotutor_ai/
-        [FILE] code.html                     # Learning DNA analytics page
-      [DIR] dashboard_neurotutor_ai/
-        [FILE] code.html                     # Student Dashboard interface
-      [DIR] landing_page_neurotutor_ai/
-        [FILE] code.html                     # Landing Page wrapper
-  [DIR] src/                                 # TanStack React wrapper codebase
-    [FILE] routeTree.gen.ts                  # Generated routing tree for TanStack Router
-    [FILE] styles.css                        # Tailwind CSS imports and Design System theme configurations
-    [DIR] app/
-      [FILE] router.tsx                      # TanStack Router initialization
-      [FILE] server.ts                       # SSR helper for TanStack Start
-      [FILE] start.ts                        # Entrypoint wrapper for React app hydration
-    [DIR] assets/                            # Production assets used by React components
-    [DIR] features/                          # Feature directories for logical modularity
-      [DIR] adaptive-learning/
-      [DIR] analytics/
-      [DIR] assessments/
-      ...
-    [DIR] routes/
-      [FILE] index.tsx                       # Redirects root route to /app/index.html
-      [FILE] README.md
-      [FILE] __root.tsx                      # Master layout, styles injector, and global metadata
-    [DIR] services/                          # Core system drivers and API clients
-      [DIR] ai/
-      [DIR] api/
-      [DIR] camera/
-      [DIR] websocket/
-    [DIR] shared/                            # Shared components, hooks, utilities, and constants
-      [DIR] components/
-        [DIR] Button/
-          [FILE] button.tsx
-        [DIR] Charts/
-          [FILE] chart.tsx
-        [DIR] Sidebar/
-          [FILE] sidebar.tsx
-        [DIR] ui/                            # Reusable base Shadcn UI components
-          [FILE] button.tsx
-          ...
-      [DIR] constants/
-      [DIR] hooks/
-        [FILE] use-mobile.tsx
-      [DIR] utils/                           # Helper functions, config variables, and error logging
-        [FILE] config.server.ts
-        [FILE] error-capture.ts
-        [FILE] error-page.ts
-        [FILE] tutor-error-reporting.ts
-        [FILE] utils.ts
+📂 Neurolearn_aitutor (Project Root)
+ ├── ⚙️ .gitignore                          # Standard Git configuration ignoring build files & lockfiles
+ ├── ⚙️ .prettierignore                      # Files and folders ignored by Prettier formatter
+ ├── ⚙️ .prettierrc                          # Prettier code formatting rules
+ ├── 📝 README.md                            # Main project documentation (this file)
+ ├── ⚙️ components.json                     # Configuration file for Shadcn UI components
+ ├── ⚙️ eslint.config.js                    # ESLint rules for static code analysis
+ ├── 📦 package-lock.json                   # NPM dependency lockfile
+ ├── 📦 package.json                        # Project dependencies, scripts, and metadata
+ ├── ⚙️ tsconfig.json                       # TypeScript compiler options
+ ├── ⚙️ vite.config.ts                      # Vite build tool & development server configuration
+ ├── 📂 designs/                             # Mockups, design specifications, and asset previews
+ │   ├── 📂 academic_warmth/
+ │   │   └── 📝 DESIGN.md                    # Detailed pedagogy study notes
+ │   ├── 📂 ai_tutor_neurotutor_ai/
+ │   │   └── 🖼️ screen.png                  # Study Space UI mockup preview
+ │   ├── 📂 analytics_learning_dna_neurotutor_ai/
+ │   │   └── 🖼️ screen.png                  # Learning DNA dashboard mockup preview
+ │   ├── 📂 dashboard_neurotutor_ai/
+ │   │   └── 🖼️ screen.png                  # Student dashboard mockup preview
+ │   └── 📂 landing_page_neurotutor_ai/
+ │       └── 🖼️ screen.png                  # Landing Page mockup preview
+ ├── 📂 public/                              # Static public assets served to the client
+ │   └── 📂 app/                             # Core front-end application pages
+ │       ├── 🌐 index.html                  # Landing page entry point
+ │       ├── 📂 ai_tutor_neurotutor_ai/
+ │       │   └── 🌐 code.html               # AI Tutor Study Space & chat simulator
+ │       ├── 📂 analytics_learning_dna_neurotutor_ai/
+ │       │   └── 🌐 code.html               # Learning DNA analytics page
+ │       ├── 📂 dashboard_neurotutor_ai/
+ │       │   └── 🌐 code.html               # Student Dashboard interface
+ │       └── 📂 landing_page_neurotutor_ai/
+ │           └── 🌐 code.html               # Landing Page backup layout
+ └── 📂 src/                                 # TanStack React wrapper codebase
+     ├── ⚙️ routeTree.gen.ts                 # Generated routing tree for TanStack Router
+     ├── 🎨 styles.css                       # Tailwind CSS imports & Design System custom variables
+     ├── 📂 app/
+     │   ├── ⚡ router.tsx                     # TanStack Router initialization
+     │   ├── ⚡ server.ts                     # SSR helper for TanStack Start
+     │   └── ⚡ start.ts                      # Entrypoint wrapper for React app hydration
+     ├── 📂 assets/                            # Production assets used by React components
+     ├── 📂 features/                          # Feature directories for logical modularity
+     │   ├── 📂 adaptive-learning/           # Adaptive pedagogy modules
+     │   ├── 📂 analytics/                   # Analytics modules
+     │   ├── 📂 assessments/                 # Quiz & metrics tracking
+     │   └── ...                             
+     ├── 📂 routes/
+     │   ├── ⚡ index.tsx                     # Redirects root route to /app/index.html
+     │   ├── 📝 README.md
+     │   └── ⚡ __root.tsx                    # Master layout, styles injector, and global metadata
+     ├── 📂 services/                          # Core system drivers and API clients
+     │   ├── 📂 ai/                          # AI integration services
+     │   ├── 📂 api/                         # Backend API handlers
+     │   ├── 📂 camera/                      # Camera/face tracking integration
+     │   └── 📂 websocket/                   # Real-time event communication
+     └── 📂 shared/                            # Shared components, hooks, utilities, and constants
+         ├── 📂 components/
+         │   ├── 📂 Button/
+         │   │   └── ⚡ button.tsx
+         │   ├── 📂 Charts/
+         │   │   └── ⚡ chart.tsx
+         │   ├── 📂 Sidebar/
+         │   │   └── ⚡ sidebar.tsx
+         │   └── 📂 ui/                      # Reusable base Shadcn UI components
+         │       └── ⚡ button.tsx, accordion.tsx, card.tsx, etc.
+         ├── 📂 constants/
+         ├── 📂 hooks/
+         │   └── ⚡ use-mobile.tsx           # Responsive mobile layout hook
+         └── 📂 utils/                       # Helper functions, config variables, and error logging
+             ├── ⚡ config.server.ts
+             ├── ⚡ error-capture.ts
+             ├── ⚡ error-page.ts
+             ├── ⚡ tutor-error-reporting.ts
+             └── ⚡ utils.ts
 ```
 
 ---
