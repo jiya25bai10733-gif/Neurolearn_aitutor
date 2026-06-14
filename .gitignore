@@ -1,5 +1,26 @@
+# Dependencies
+node_modules/
+
+# Production builds
+dist/
+dist-ssr/
+.output/
+.vinxi/
+.tanstack/
+.nitro/
+
+# Environment variables
+.env
+.env.local
+.env.production
+*.local
+
+# Vite and coverage
+.vite/
+coverage/
+
 # Logs
-logs
+logs/
 *.log
 npm-debug.log*
 yarn-debug.log*
@@ -7,39 +28,17 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
-.output
-.vinxi
-.tanstack/**
-.nitro
-*.local
-
 # Wrangler / Cloudflare
 .wrangler/
 .dev.vars
 
 # Editor directories and files
-.vscode/*
+.vscode/
 !.vscode/extensions.json
-.idea
+.idea/
 .DS_Store
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
-
-# Project configuration and build files to keep local only
-.prettierignore
-.prettierrc
-README.md
-bun.lock
-bunfig.toml
-components.json
-eslint.config.js
-package-lock.json
-package.json
-tsconfig.json
-vite.config.ts
